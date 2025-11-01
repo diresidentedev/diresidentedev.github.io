@@ -1629,7 +1629,7 @@ Especificação de Volumes e Doses em Radioterapia
           background: rgba(255,255,255,0.05);
           padding: 10px;
       ">
-        <img src="https://drive.google.com/uc?export=view&id=1hhuJXnXrx3Yud_RDAz3PZIdNsBO7lQec" 
+        <img src="img/logo_instituicao.png" 
              alt="Logo da instituição" 
              style="max-width: 100%; max-height: 100%; object-fit: contain;">
       </div>
@@ -1798,15 +1798,11 @@ Conforme <strong>ICRU 50 - Seção 1</strong>, a especificação de volumes e do
 
 </div>
 
-
-
-
-
 <!-- Definição de Volumes -->
 <div class="section">
 <h2 class="section-title">📐 Definição de Volumes</h2>
 
-<!-- ========== INSERIR AQUI OS CARDS HORIZONTAIS ========== -->
+<!-- ========== CARDS HORIZONTAIS ========== -->
 <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
   
   <!-- GTV Card -->
@@ -2028,7 +2024,7 @@ Conforme <strong>ICRU 50 - Seção 1</strong>, a especificação de volumes e do
 </div>
 <!-- ========== FIM DOS CARDS HORIZONTAIS ========== -->
 
-<!-- Visualização Integrada dos Volumes - MOVIDA PARA CIMA -->
+<!-- Visualização Integrada dos Volumes -->
 <div class="integrated-volumes-section-compact"> 
   <h3 style="text-align: center; font-size: 1.5rem; color: var(--primary-light); margin-bottom: 1rem;">
     🎯 Relação Hierárquica dos Volumes
@@ -2218,7 +2214,7 @@ function showVolumeInfo(volume) {
   ">
 
     <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_prostata_axial.JPG" 
+      <img src="img/imagem_prostata_axial.JPG" 
            alt="Plano axial - próstata" 
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 430px; height: auto; 
@@ -2232,7 +2228,7 @@ function showVolumeInfo(volume) {
     </div>
 
     <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_prostata_coronal.JPG" 
+      <img src="img/imagem_prostata_coronal.JPG" 
            alt="Plano coronal - próstata" 
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 430px; height: auto; 
@@ -2246,7 +2242,7 @@ function showVolumeInfo(volume) {
     </div>
 
     <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_prostata_sagital.JPG" 
+      <img src="img/imagem_prostata_sagital.JPG" 
            alt="Plano sagital - próstata" 
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 430px; height: auto; 
@@ -2308,21 +2304,21 @@ PTV = CTV + IM + SM
 </div>
 </div>
 
-<!-- Movimento do CTV em Pulmão -->
+<!-- Movimento do GTV em Pulmão -->
 <div class="section">
-<h2 class="section-title">🫁 Movimento do CTV em Câncer de Pulmão</h2>
+<h2 class="section-title">🫁 Movimento do GTV em Câncer de Pulmão</h2>
 
 <div class="card">
 <h3>Análise dos Movimentos Respiratórios</h3>
 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Em pacientes com câncer de pulmão, o movimento do CTV devido à respiração é uma consideração crítica para o planejamento do PTV.
+Em pacientes com câncer de pulmão, o movimento do GTV devido à respiração é uma consideração crítica para o planejamento do PTV.
 </p>
 
 <!-- Imagem do Pulmão -->
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./imagem_movimentos_pulmao.png" 
-         alt="Movimento do CTV em pacientes com câncer de pulmão"
+    <img src="img/imagem_movimentos_pulmao.png" 
+         alt="Movimento do GTV em pacientes com câncer de pulmão"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
     
@@ -2336,7 +2332,7 @@ Em pacientes com câncer de pulmão, o movimento do CTV devido à respiração �
 
 <div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--primary);">
 <p style="font-size: 1.1rem;">
-<strong>💡 IMPACTO NO PTV:</strong> O movimento respiratório pode deslocar o CTV em até 2-3 cm, necessitando margens adequadas no PTV para garantir cobertura completa durante todo o ciclo respiratório.
+<strong>💡 IMPACTO NO PTV:</strong> O movimento respiratório pode deslocar o GTV em até 2-3 cm, necessitando margens adequadas no PTV para garantir cobertura completa durante todo o ciclo respiratório.
 </p>
 </div>
 
@@ -2588,7 +2584,7 @@ Representa um volume <strong>fora do PTV</strong> que recebe uma dose maior do q
 <!--Imagem Hot Spots-->
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./imagem_distribuicao_dose.png"
+    <img src="img/imagem_distribuicao_dose.png"
          alt="Exemplo de distribuição de dose com pontos quentes"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
@@ -2779,7 +2775,7 @@ O ponto de referência ICRU deve ser localizado no centro do PTV e no eixo centr
   ">
 
     <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_feixes_ortogonais.png" 
+      <img src="img/imagem_feixes_ortogonais.png" 
            alt="Dois feixes ortogonais de 8 MV - Variação 102%-95%"
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 300px; height: auto; 
@@ -3868,6 +3864,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
