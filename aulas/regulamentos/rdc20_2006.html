@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RDC 20/2006 - Regulamentação em Radioterapia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0066CC;
+  --primary-dark: #004999;
+  --primary-light: #3399FF;
+  --secondary: #00A676;
+  --secondary-dark: #008060;
+  --accent: #FF4757;
+  --accent-light: #FF6B7A;
+  --warning: #FFA502;
+  --success: #2ED573;
+  --info: #00D9FF;
+  --purple: #7C3AED;
+  --dark: #0A0F1C;
+  --dark-surface: #111827;
+  --dark-card: #1A2332;
+  --gray-900: #1F2937;
+  --gray-700: #374151;
+  --gray-500: #6B7280;
+  --gray-400: #9CA3AF;
+  --gray-300: #D1D5DB;
+  --white: #FFFFFF;
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.06);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.5);
+  --shadow-xl: 0 20px 50px rgba(0,0,0,0.6);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--dark);
+  color: var(--gray-300);
+  line-height: 1.7;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* === BACKGROUND EFFECT === */
+.bg-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(0, 102, 204, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 70% 20%, rgba(0, 166, 118, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, var(--dark) 0%, #050810 100%);
+  z-index: -1;
+  animation: bgPulse 20s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* Grid lines background */
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* === CONTAINER === */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* === HEADER === */
+.header {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+  border-radius: 3px;
+}
+
+.badge-anvisa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.4);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 30px rgba(0, 102, 204, 0.3);
+}
+
+.header h1 span {
+  background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-subtitle {
+  font-size: 1.25rem;
+  color: var(--gray-400);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  font-weight: 400;
+}
+
+/* Presenter info */
+.presenter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+}
+
+.presenter-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--white);
+}
+
+.presenter-info {
+  text-align: left;
+}
+
+.presenter-name {
+  font-weight: 600;
+  color: var(--white);
+  font-size: 0.95rem;
+}
+
+.presenter-role {
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+
+/* === QUICK NAV === */
+.quick-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(10px);
+}
+
+.nav-pill {
+  padding: 0.6rem 1.25rem;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  color: var(--gray-400);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-pill:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 102, 204, 0.4);
+}
+
+.nav-pill.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+
+/* === STATS CARDS === */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+  transition: var(--transition);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--primary));
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: var(--glass-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}
+
+/* === CLICKABLE CARDS SECTION === */
+.cards-section {
+  margin-bottom: 3rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.section-subtitle {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+}
+
+/* Clickable Cards Grid */
+.click-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.click-card {
+  background: var(--dark-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.click-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--card-color, var(--primary));
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+
+.click-card:hover::before {
+  transform: scaleX(1);
+}
+
+.click-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--card-color, var(--primary));
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.click-card-header {
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.card-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--card-color, var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-header-text h3 {
+  font-size: 1.1rem;
+  color: var(--white);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.card-header-text p {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}
+
+.card-expand-icon {
+  margin-left: auto;
+  color: var(--gray-500);
+  transition: var(--transition);
+  font-size: 1.25rem;
+}
+
+.click-card:hover .card-expand-icon {
+  color: var(--card-color, var(--primary));
+  transform: rotate(180deg);
+}
+
+.click-card.expanded .card-expand-icon {
+  transform: rotate(180deg);
+  color: var(--card-color, var(--primary));
+}
+
+.click-card-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.click-card.expanded .click-card-content {
+  max-height: 2000px;
+}
+
+.card-content-inner {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* === EXPANDABLE MODULES === */
+.module {
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--dark-card);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+}
+
+.module:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.module-header {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.module-header:hover {
+  background: var(--glass-hover);
+}
+
+.module-header.active {
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.2), rgba(0, 166, 118, 0.1));
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.module-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.module-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: var(--module-color, var(--primary));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.module-text h3 {
+  font-size: 1.1rem;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.module-text p {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  margin-top: 0.15rem;
+}
+
+.module-toggle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400);
+  transition: var(--transition);
+}
+
+.module-header:hover .module-toggle {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.module-header.active .module-toggle {
+  background: var(--primary);
+  color: var(--white);
+  transform: rotate(180deg);
+}
+
+.module-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.module-content.active {
+  max-height: 5000px;
+}
+
+.module-inner {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* === CONTENT ELEMENTS === */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.info-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  transition: var(--transition);
+}
+
+.info-card:hover {
+  background: var(--glass-hover);
+  transform: translateY(-2px);
+}
+
+.info-card h4 {
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.check-list {
+  list-style: none;
+}
+
+.check-list li {
+  padding: 0.6rem 0;
+  padding-left: 1.75rem;
+  position: relative;
+  border-bottom: 1px solid var(--glass-border);
+  font-size: 0.9rem;
+}
+
+.check-list li:last-child {
+  border-bottom: none;
+}
+
+.check-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: bold;
+}
+
+.check-list li.danger::before {
+  content: '✗';
+  color: var(--accent);
+}
+
+/* Tables */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: var(--primary);
+  color: var(--white);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--glass-border);
+  font-size: 0.9rem;
+}
+
+tr:hover {
+  background: var(--glass-hover);
+}
+
+tr.highlight-danger {
+  background: rgba(255, 71, 87, 0.1);
+}
+
+/* Alerts */
+.alert {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.alert-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.alert-danger {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+}
+
+.alert-danger .alert-icon { color: var(--accent); }
+
+.alert-warning {
+  background: rgba(255, 165, 2, 0.1);
+  border: 1px solid rgba(255, 165, 2, 0.3);
+}
+
+.alert-warning .alert-icon { color: var(--warning); }
+
+.alert-success {
+  background: rgba(46, 213, 115, 0.1);
+  border: 1px solid rgba(46, 213, 115, 0.3);
+}
+
+.alert-success .alert-icon { color: var(--success); }
+
+.alert-info {
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+}
+
+.alert-info .alert-icon { color: var(--info); }
+
+.alert strong {
+  color: var(--white);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* Highlight Box */
+.highlight-box {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  margin: 1.5rem 0;
+  box-shadow: 0 8px 32px rgba(0, 102, 204, 0.3);
+}
+
+.highlight-box h3 {
+  color: var(--white);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.highlight-box p, .highlight-box li {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 1.5rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 1rem 0 1rem 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 1.35rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid var(--dark);
+  box-shadow: 0 0 0 3px var(--primary);
+}
+
+.timeline-item strong {
+  color: var(--white);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge-primary { background: var(--primary); color: var(--white); }
+.badge-success { background: var(--success); color: var(--dark); }
+.badge-warning { background: var(--warning); color: var(--dark); }
+.badge-danger { background: var(--accent); color: var(--white); }
+.badge-info { background: var(--info); color: var(--dark); }
+.badge-purple { background: var(--purple); color: var(--white); }
+
+/* Flow steps */
+.flow-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.flow-step {
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.flow-arrow {
+  color: var(--gray-500);
+}
+
+/* === CONTEXT SECTION (Historical) === */
+.context-section {
+  margin: 3rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(0, 102, 204, 0.1));
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: var(--radius-xl);
+}
+
+.context-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.context-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.context-header p {
+  color: var(--gray-400);
+}
+
+.context-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.context-card {
+  background: var(--dark-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: var(--transition);
+}
+
+.context-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.context-card h4 {
+  color: var(--white);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.context-card p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* === FOOTER === */
+.footer {
+  margin-top: 4rem;
+  padding: 3rem 2rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  text-align: center;
+}
+
+.footer-presenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.footer-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--white);
+  box-shadow: 0 4px 25px rgba(0, 102, 204, 0.4);
+}
+
+.footer-details {
+  text-align: left;
+}
+
+.footer-details h3 {
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+}
+
+.footer-details p {
+  color: var(--gray-400);
+  font-size: 0.95rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--gray-300);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.footer-link:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.footer-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-institutional {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.footer-institutional a {
+  color: var(--gray-400);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.footer-institutional a:hover {
+  color: var(--primary-light);
+}
+
+.footer-credits {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.footer-credits p {
+  color: var(--gray-500);
+  font-size: 0.85rem;
+}
+
+.footer-credits a {
+  color: var(--primary-light);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .container { padding: 1rem; }
+  .header { padding: 2rem 1rem; }
+  .header h1 { font-size: 2rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .click-cards-grid { grid-template-columns: 1fr; }
+  .content-grid { grid-template-columns: 1fr; }
+  .footer-presenter { flex-direction: column; text-align: center; }
+  .footer-details { text-align: center; }
+  .flow-steps { justify-content: center; }
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+/* Code style for articles */
+.article-ref {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  background: rgba(0, 102, 204, 0.2);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  color: var(--primary-light);
+}
+</style>
+</head>
+<body>
+
+<div class="bg-gradient"></div>
+<div class="grid-overlay"></div>
+
+<div class="container">
+  <!-- Header -->
+  <header class="header animate-in">
+    <span class="badge-anvisa">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      ANVISA - Resolução da Diretoria Colegiada
+    </span>
+    <h1>RDC <span>20/2006</span></h1>
+    <p class="header-subtitle">Regulamento Técnico para o Funcionamento de Serviços de Radioterapia</p>
+    <div class="presenter-badge">
+      <div class="presenter-avatar">DS</div>
+      <div class="presenter-info">
+        <div class="presenter-name">Diolando R L Silva</div>
+        <div class="presenter-role">Residente em Física Médica - Radioterapia</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Navigation -->
+  <nav class="quick-nav animate-in delay-1">
+    <button class="nav-pill active" onclick="scrollToSection('overview')">📋 Visão Geral</button>
+    <button class="nav-pill" onclick="scrollToSection('cards-equipe')">👥 Equipe</button>
+    <button class="nav-pill" onclick="scrollToSection('cards-equipamentos')">⚙️ Equipamentos</button>
+    <button class="nav-pill" onclick="scrollToSection('modulos')">📚 Módulos</button>
+    <button class="nav-pill" onclick="scrollToSection('contexto')">📖 Contexto</button>
+  </nav>
+
+  <!-- Stats Grid -->
+  <section class="stats-grid animate-in delay-2" id="overview">
+    <div class="stat-card" style="--card-accent: var(--primary);">
+      <div class="stat-icon">📅</div>
+      <div class="stat-value">2006</div>
+      <div class="stat-label">Publicação (02/02)</div>
+    </div>
+    <div class="stat-card" style="--card-accent: var(--secondary);">
+      <div class="stat-icon">📄</div>
+      <div class="stat-value">14</div>
+      <div class="stat-label">Capítulos do Anexo</div>
+    </div>
+    <div class="stat-card" style="--card-accent: var(--purple);">
+      <div class="stat-icon">👥</div>
+      <div class="stat-value">4+</div>
+      <div class="stat-label">Profissionais Mínimos</div>
+    </div>
+    <div class="stat-card" style="--card-accent: var(--warning);">
+      <div class="stat-icon">⏱️</div>
+      <div class="stat-value">24h</div>
+      <div class="stat-label">Prazo Notificação</div>
+    </div>
+  </section>
+
+  <!-- CARDS CLICKÁVEIS: EQUIPE -->
+  <section class="cards-section animate-in delay-3" id="cards-equipe">
+    <div class="section-header">
+      <div class="section-icon">👥</div>
+      <div>
+        <h2 class="section-title">Equipe Multidisciplinar</h2>
+        <p class="section-subtitle">Clique nos cards para ver as responsabilidades de cada profissional</p>
+      </div>
+    </div>
+
+    <div class="click-cards-grid">
+      <!-- Card: Supervisor de Proteção Radiológica -->
+      <div class="click-card" style="--card-color: var(--secondary);" onclick="toggleCard(this)">
+        <div class="click-card-header">
+          <div class="card-icon-box">🛡️</div>
+          <div class="card-header-text">
+            <h3>Supervisor de Proteção Radiológica</h3>
+            <p>Certificação CNEN obrigatória</p>
+          </div>
+          <span class="card-expand-icon">▼</span>
+        </div>
+        <div class="click-card-content">
+          <div class="card-content-inner">
+            <div class="alert alert-info">
+              <span class="alert-icon">ℹ️</span>
+              <div>
+                <strong>Quantitativo:</strong>
+                <p>1 titular + 1 substituto (fixo por serviço)</p>
+              </div>
+            </div>
+            <h4 style="color: var(--white); margin: 1rem 0 0.75rem;">📋 Responsabilidades Principais:</h4>
+            <ul class="check-list">
+              <li>Gerenciar o Programa de Proteção Radiológica</li>
+              <li>Supervisionar monitoração individual e de área</li>
+              <li>Orientar sobre uso de EPIs</li>
+              <li>Investigar exposições anormais</li>
+              <li>Manter registros de doses ocupacionais</li>
+              <li>Realizar treinamento da equipe em radioproteção</li>
+            </ul>
+            <p style="margin-top: 1rem; font-size: 0.85rem;"><span class="article-ref">Art. 5.2.1</span> O físico médico pode acumular a função de SPR</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Médico Radioterapeuta -->
+      <div class="click-card" style="--card-color: var(--primary);" onclick="toggleCard(this)">
+        <div class="click-card-header">
+          <div class="card-icon-box">👨‍⚕️</div>
+          <div class="card-header-text">
+            <h3>Médico Radioterapeuta</h3>
+            <p>Título de especialista CFM</p>
+          </div>
+          <span class="card-expand-icon">▼</span>
+        </div>
+        <div class="click-card-content">
+          <div class="card-content-inner">
+            <div class="alert alert-warning">
+              <span class="alert-icon">⚠️</span>
+              <div>
+                <strong>Dimensionamento:</strong>
+                <p>3 horas por paciente novo por ano (Ex: 500 pac/ano = 1500h)</p>
+              </div>
+            </div>
+            <h4 style="color: var(--white); margin: 1rem 0 0.75rem;">📋 Responsabilidades Principais:</h4>
+            <ul class="check-list">
+              <li>Realizar consulta e avaliação inicial</li>
+              <li>Elaborar prescrição escrita completa</li>
+              <li>Revisão médica semanal obrigatória</li>
+              <li>Documentar finalização do tratamento</li>
+              <li>Acompanhamento/seguimento dos pacientes</li>
+              <li>Notificar eventos adversos ao RT</li>
+            </ul>
+            <div class="alert alert-danger" style="margin-top: 1rem;">
+              <span class="alert-icon">🚨</span>
+              <div>
+                <strong>Presença obrigatória:</strong>
+                <p><span class="article-ref">Art. 5.2.4</span> Durante 2/3 do funcionamento do serviço</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Físico Médico -->
+      <div class="click-card" style="--card-color: var(--purple);" onclick="toggleCard(this)">
+        <div class="click-card-header">
+          <div class="card-icon-box">🔬</div>
+          <div class="card-header-text">
+            <h3>Físico Médico</h3>
+            <p>Especialização em Física Médica</p>
+          </div>
+          <span class="card-expand-icon">▼</span>
+        </div>
+        <div class="click-card-content">
+          <div class="card-content-inner">
+            <div class="alert alert-info">
+              <span class="alert-icon">ℹ️</span>
+              <div>
+                <strong>Dimensionamento:</strong>
+                <p>3 horas por paciente novo por ano (igual ao radioterapeuta)</p>
+              </div>
+            </div>
+            <h4 style="color: var(--white); margin: 1rem 0 0.75rem;">📋 Responsabilidades Principais:</h4>
+            <ul class="check-list">
+              <li>Testes de aceitação de equipamentos</li>
+              <li>Comissionamento completo</li>
+              <li>Calibração absoluta dos feixes</li>
+              <li>Programa de Controle de Qualidade</li>
+              <li>Dosimetria clínica e verificação de cálculos</li>
+              <li>Manter dosímetros calibrados (rastreável LNMRI)</li>
+              <li>Supervisionar serviços de manutenção</li>
+            </ul>
+            <p style="margin-top: 1rem; font-size: 0.85rem;"><span class="article-ref">Art. 5.2.3.5</span> Pode acumular função de SPR</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Técnico em Radioterapia -->
+      <div class="click-card" style="--card-color: var(--info);" onclick="toggleCard(this)">
+        <div class="click-card-header">
+          <div class="card-icon-box">🎯</div>
+          <div class="card-header-text">
+            <h3>Técnico em Radioterapia</h3>
+            <p>Atribuição definida em lei</p>
+          </div>
+          <span class="card-expand-icon">▼</span>
+        </div>
+        <div class="click-card-content">
+          <div class="card-content-inner">
+            <div class="alert alert-success">
+              <span class="alert-icon">✅</span>
+              <div>
+                <strong>Dimensionamento:</strong>
+                <p>10 horas para cada 50 pacientes tratados por dia</p>
+              </div>
+            </div>
+            <h4 style="color: var(--white); margin: 1rem 0 0.75rem;">📋 Responsabilidades Principais:</h4>
+            <ul class="check-list">
+              <li>Verificar parâmetros e setup diariamente</li>
+              <li>Posicionar e imobilizar o paciente</li>
+              <li>Operar o equipamento de tratamento</li>
+              <li>Realizar imagens de verificação (portal/CBCT)</li>
+              <li>Registrar tratamento diário na ficha</li>
+              <li>Participar de testes mecânicos e dosimétricos</li>
+            </ul>
+            <div class="highlight-box" style="margin-top: 1rem; background: linear-gradient(135deg, var(--info), #0891b2);">
+              <h3>💡 Exemplo prático</h3>
+              <p>Serviço com 100 pacientes/dia = 20h/dia = mínimo 3 técnicos por turno</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS CLICKÁVEIS: EQUIPAMENTOS -->
+  <section class="cards-section" id="cards-equipamentos">
+    <div class="section-header">
+      <div class="section-icon" style="background: linear-gradient(135deg, var(--warning), #d97706);">⚙️</div>
+      <div>
+        <h2 class="section-title">Equipamentos e Restrições</h2>
+        <p class="section-subtitle">Clique para ver detalhes técnicos e requisitos críticos</p>
+      </div>
+    </div>
+
+    <div class="click-cards-grid">
+      <!-- Card: Cobalto-60 -->
+      <div class="click-card" style="--card-color: var(--accent);" onclick="toggleCard(this)">
+        <div class="click-card-header">
+          <div class="card-icon-box">☢️</div>
+          <div class="card-header-text">
+            <h3>Cobalto-60 - Restrições</h3>
+            <p>Taxa de dose mínima obrigatória</p>
+          </div>
+          <span class="card-expand-icon">▼</span>
+        </div>
+        <div class="click-card-content">
+          <div class="card-content-inner">
+            <div class="alert alert-danger">
+              <span class="alert-icon">🚫</span>
+              <div>
+                <strong>PROIBIÇÕES CRÍTICAS</strong>
+                <p>Equipamentos com taxa abaixo do mínimo devem ser desativados</p>
+              </div>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Situação</th>
+                    <th>Taxa Mínima</th>
+                    <th>Condição</th>
+                    <th>Artigo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="highlight-danger">
+                    <td><strong>USO</strong></td>
+                    <td>≥ 50 cGy/min</td>
+                    <td>5cm prof, SSD=SAD, 10×10cm</td>
+                    <td><span class="article-ref">5.5.6</span></td>
+                  </tr>
+                  <tr class="highlight-danger">
+                    <td><strong>INSTALAÇÃO</strong></td>
+                    <td>≥ 150 cGy/min</td>
+                    <td>0.5cm prof, SSD=SAD, 10×10cm</td>
+                    <td><span class="article-ref">5.5.7</span></td>
+                  </tr>
+                  <tr class="highlight-danger">
+                    <td><strong>Não-isocêntrico</strong></td>
+                    <td>PROIBIDO</td>
+                    <td>DFS < 80cm (instalar/trocar)</td>
+                    <td><span class="article-ref">5.5.8</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray-400);">
+              <strong>Por que essa restrição?</strong> Fontes de Co-60 com baixa atividade prolongam excessivamente o tempo de tratamento, aumentando movimentação do paciente e comprometendo a precisão.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Braquiterapia HDR -->
+      <div class="click-card" style="--card-color: var(--warning);" onclick="toggleCard(this)">
+        <div class="click-card-header">
+          <div class="card-icon-box">💊</div>
+          <div class="card-header-text">
+            <h3>Braquiterapia HDR</h3>
+            <p>Atividade mínima das fontes</p>
+          </div>
+          <span class="card-expand-icon">▼</span>
+        </div>
+        <div class="click-card-content">
+          <div class="card-content-inner">
+            <div class="content-grid">
+              <div class="info-card">
+                <h4>🔴 Limite para USO</h4>
+                <p style="font-size: 1.5rem; font-weight: bold; color: var(--accent);">≥ 74 GBq (2 Ci)</p>
+                <p style="font-size: 0.85rem; color: var(--gray-400); margin-top: 0.5rem;"><span class="article-ref">Art. 5.5.12</span></p>
+              </div>
+              <div class="info-card">
+                <h4>🟠 Limite para INSTALAÇÃO</h4>
+                <p style="font-size: 1.5rem; font-weight: bold; color: var(--warning);">≥ 185 GBq (5 Ci)</p>
+                <p style="font-size: 0.85rem; color: var(--gray-400); margin-top: 0.5rem;"><span class="article-ref">Art. 5.5.13</span></p>
+              </div>
+            </div>
+            <h4 style="color: var(--white); margin: 1rem 0 0.75rem;">📦 Equipamentos Obrigatórios HDR:</h4>
+            <ul class="check-list">
+              <li>Aplicadores compatíveis com a técnica</li>
+              <li>Containers de emergência</li>
+              <li>Pinças interfixas ≥ 20cm</li>
+              <li>Sistema de emergência dentro da sala</li>
+              <li>Quarto exclusivo para braquiterapia</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Acelerador Linear -->
+      <div class="click-card" style="--card-color: var(--secondary);" onclick="toggleCard(this)">
+        <div class="click-card-header">
+          <div class="card-icon-box">⚡</div>
+          <div class="card-header-text">
+            <h3>Acelerador Linear</h3>
+            <p>Acessórios e recursos obrigatórios</p>
+          </div>
+          <span class="card-expand-icon">▼</span>
+        </div>
+        <div class="click-card-content">
+          <div class="card-content-inner">
+            <div class="content-grid">
+              <div class="info-card">
+                <h4>🎯 Posicionamento</h4>
+                <ul class="check-list">
+                  <li>3 lasers (precisão ±2mm)</li>
+                  <li>Suportes de imobilização</li>
+                  <li>Sistema de imagem portal</li>
+                </ul>
+              </div>
+              <div class="info-card">
+                <h4>🔧 Colimação</h4>
+                <ul class="check-list">
+                  <li>Bandeja para blocos OU MLC</li>
+                  <li>Filtros em cunha ou dinâmicos</li>
+                  <li>Colimadores para elétrons (se aplicável)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="alert alert-info" style="margin-top: 1rem;">
+              <span class="alert-icon">📊</span>
+              <div>
+                <strong>Radiocirurgia (Art. 5.5.14):</strong>
+                <p>Requer precisão de isocentro ≤ 1mm e controle de dose por grau de rotação</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Instrumentos de Dosimetria -->
+      <div class="click-card" style="--card-color: var(--purple);" onclick="toggleCard(this)">
+        <div class="click-card-header">
+          <div class="card-icon-box">📊</div>
+          <div class="card-header-text">
+            <h3>Instrumentos de Dosimetria</h3>
+            <p>Anexo II - Requisitos mínimos</p>
+          </div>
+          <span class="card-expand-icon">▼</span>
+        </div>
+        <div class="click-card-content">
+          <div class="card-content-inner">
+            <h4 style="color: var(--white); margin-bottom: 1rem;">📋 Equipamentos Obrigatórios:</h4>
+            <ul class="check-list">
+              <li>Câmara de ionização + eletrômetro</li>
+              <li>Objeto simulador de água (30×30×30cm mín.)</li>
+              <li>Câmaras para campos pequenos</li>
+              <li>Termômetro, barômetro, higrômetro</li>
+              <li>Filmes dosimétricos ou sistema equivalente</li>
+              <li>Fonte de referência Sr-90/Y-90</li>
+            </ul>
+            <div class="alert alert-success" style="margin-top: 1rem;">
+              <span class="alert-icon">✅</span>
+              <div>
+                <strong>Rastreabilidade:</strong>
+                <p>Calibração rastreável ao LNMRI (Laboratório Nacional de Metrologia)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULOS EXPANSÍVEIS -->
+  <section id="modulos">
+    <div class="section-header" style="margin-bottom: 1.5rem;">
+      <div class="section-icon" style="background: linear-gradient(135deg, var(--info), #0891b2);">📚</div>
+      <div>
+        <h2 class="section-title">Módulos Detalhados</h2>
+        <p class="section-subtitle">Clique para expandir cada módulo e ver o conteúdo completo</p>
+      </div>
+    </div>
+
+    <!-- Módulo 1: Contexto e Fundamentos -->
+    <div class="module">
+      <div class="module-header" onclick="toggleModule(this)" style="--module-color: var(--primary);">
+        <div class="module-left">
+          <div class="module-icon">📋</div>
+          <div class="module-text">
+            <h3>Módulo 1: Contexto e Fundamentos</h3>
+            <p>Base legal, objetivos e hierarquia normativa</p>
+          </div>
+        </div>
+        <span class="module-toggle">▼</span>
+      </div>
+      <div class="module-content">
+        <div class="module-inner">
+          <div class="highlight-box">
+            <h3>📅 Marco Regulatório</h3>
+            <p><strong>Publicação:</strong> 02 de fevereiro de 2006</p>
+            <p><strong>Objetivo:</strong> Estabelecer o Regulamento Técnico para o funcionamento de serviços de radioterapia, visando a defesa da saúde dos pacientes, dos profissionais envolvidos e do público em geral.</p>
+          </div>
+
+          <h4 style="color: var(--white); margin: 1.5rem 0 1rem;">🏛️ Hierarquia Legal</h4>
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>Constituição Federal - Art. 200, VII</strong>
+              <p>Participação do SUS no controle de materiais radioativos</p>
+            </div>
+            <div class="timeline-item">
+              <strong>Lei 6.437/77 - Art. 10, III</strong>
+              <p>Infração sanitária: instalar equipamentos geradores de radiação sem licença</p>
+            </div>
+            <div class="timeline-item">
+              <strong>Lei 9.605/98 - Art. 56</strong>
+              <p>Crime: usar substância radioativa em desacordo com exigências</p>
+            </div>
+            <div class="timeline-item">
+              <strong>RDC 20/2006</strong>
+              <p>Regulamento técnico específico para radioterapia</p>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <div class="info-card">
+              <h4>🎯 Abrangência</h4>
+              <p>Pessoas físicas e jurídicas de direito público ou privado, envolvidas na atenção a pessoas submetidas a intervenções radioterápicas com:</p>
+              <ul class="check-list" style="margin-top: 0.75rem;">
+                <li>Fontes radioativas seladas</li>
+                <li>Equipamentos emissores de radiação ionizante</li>
+              </ul>
+            </div>
+            <div class="info-card">
+              <h4>📚 Definições Críticas</h4>
+              <div style="margin-top: 0.5rem;">
+                <p><span class="badge badge-primary">Dose Prescrita</span> Dose documentada na prescrição escrita</p>
+                <p style="margin-top: 0.5rem;"><span class="badge badge-success">Comissionamento</span> Levantamento dos parâmetros dosimétricos</p>
+                <p style="margin-top: 0.5rem;"><span class="badge badge-danger">Evento Adverso Grave</span> Morte, risco ou incapacidade</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-warning">
+            <span class="alert-icon">⚠️</span>
+            <div>
+              <strong>Penalidades por Não Conformidade (Lei 6.437/77):</strong>
+              <p>Advertência, multa, interdição, cancelamento de licença, responsabilidade civil e criminal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 2: Licenciamento -->
+    <div class="module">
+      <div class="module-header" onclick="toggleModule(this)" style="--module-color: var(--secondary);">
+        <div class="module-left">
+          <div class="module-icon">🏢</div>
+          <div class="module-text">
+            <h3>Módulo 2: Organização e Licenciamento</h3>
+            <p>Fluxo de aprovação e estrutura organizacional</p>
+          </div>
+        </div>
+        <span class="module-toggle">▼</span>
+      </div>
+      <div class="module-content">
+        <div class="module-inner">
+          <div class="highlight-box" style="background: linear-gradient(135deg, var(--secondary), #047857);">
+            <h3>📋 Fluxo de Licenciamento</h3>
+            <p>Sequência obrigatória para funcionamento legal do serviço</p>
+          </div>
+
+          <div class="timeline" style="margin-top: 1.5rem;">
+            <div class="timeline-item">
+              <strong>1. Aprovação do Projeto pela CNEN</strong>
+              <p>Projeto básico de arquitetura com cálculo de blindagem</p>
+            </div>
+            <div class="timeline-item">
+              <strong>2. Aprovação pela Vigilância Sanitária</strong>
+              <p>Análise do projeto após aprovação CNEN</p>
+            </div>
+            <div class="timeline-item">
+              <strong>3. Autorização para Operação (CNEN)</strong>
+              <p>Após construção e testes de aceitação</p>
+            </div>
+            <div class="timeline-item">
+              <strong>4. Licença de Funcionamento (VISA)</strong>
+              <p>Condicionada à Autorização CNEN</p>
+            </div>
+            <div class="timeline-item">
+              <strong>5. Cadastro CNES/MS</strong>
+              <p>Registro no Cadastro Nacional de Estabelecimentos de Saúde</p>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <div class="info-card">
+              <h4>👤 Titular da Instituição</h4>
+              <ul class="check-list">
+                <li>Responsável legal perante VISA</li>
+                <li>Garantir conformidade com a RDC</li>
+                <li>Designar Responsável Técnico (RT)</li>
+                <li>Prover recursos necessários</li>
+              </ul>
+            </div>
+            <div class="info-card">
+              <h4>👨‍⚕️ Responsável Técnico</h4>
+              <ul class="check-list">
+                <li>Médico radioterapeuta</li>
+                <li>Responde por apenas 1 serviço</li>
+                <li>Obrigatório substituto designado</li>
+                <li>Coordena equipe e protocolos</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="alert alert-info">
+            <span class="alert-icon">ℹ️</span>
+            <div>
+              <strong>Art. 5.1.1 e 5.1.2:</strong>
+              <p>Qualquer construção, reforma, ampliação ou transferência necessita aprovação prévia CNEN + VISA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 3: Garantia da Qualidade -->
+    <div class="module">
+      <div class="module-header" onclick="toggleModule(this)" style="--module-color: var(--success);">
+        <div class="module-left">
+          <div class="module-icon">✅</div>
+          <div class="module-text">
+            <h3>Módulo 3: Garantia da Qualidade</h3>
+            <p>Testes de aceitação, comissionamento e CQ periódico</p>
+          </div>
+        </div>
+        <span class="module-toggle">▼</span>
+      </div>
+      <div class="module-content">
+        <div class="module-inner">
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>1. INSTALAÇÃO</strong>
+              <p>Equipamento instalado pelo fabricante</p>
+            </div>
+            <div class="timeline-item">
+              <strong>2. TESTES DE ACEITAÇÃO</strong>
+              <p>Físico Médico + Fabricante verificam especificações</p>
+            </div>
+            <div class="timeline-item">
+              <strong>3. COMISSIONAMENTO</strong>
+              <p>Levantamento completo dos parâmetros dosimétricos</p>
+            </div>
+            <div class="timeline-item">
+              <strong>4. INÍCIO CLÍNICO</strong>
+              <p>Liberação para tratamento de pacientes</p>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <div class="info-card">
+              <h4>🔍 Testes de Aceitação <span class="article-ref">Art. 6.3</span></h4>
+              <ul class="check-list">
+                <li>Entendimento do funcionamento</li>
+                <li>Dispositivos de segurança</li>
+                <li>Indicadores mecânicos</li>
+                <li>Verificação do isocentro</li>
+                <li>Independência dos parâmetros</li>
+              </ul>
+              <span class="badge badge-warning" style="margin-top: 0.5rem;">Relatório com aceite RT + Titular</span>
+            </div>
+            <div class="info-card">
+              <h4>📐 Comissionamento <span class="article-ref">Art. 6.5</span></h4>
+              <ul class="check-list">
+                <li>Perfis de campo (várias profundidades)</li>
+                <li>PDP (diferentes tamanhos de campo)</li>
+                <li>Fator de calibração</li>
+                <li>Fatores de atenuação</li>
+                <li>TPR/TAR verificado</li>
+              </ul>
+              <span class="badge badge-info" style="margin-top: 0.5rem;">Campos assimétricos para IMRT</span>
+            </div>
+          </div>
+
+          <h4 style="color: var(--white); margin: 1.5rem 0 1rem;">🔄 Controle de Qualidade Periódico</h4>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Frequência</th>
+                  <th>Verificações</th>
+                  <th>Tolerância</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge badge-danger">DIÁRIO</span></td>
+                  <td>Constância da dose de saída</td>
+                  <td>±3%</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-warning">MENSAL</span></td>
+                  <td>Parâmetros mecânicos, lasers</td>
+                  <td>±2mm</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-info">ANUAL</span></td>
+                  <td>Calibração absoluta do feixe</td>
+                  <td>±2%</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-purple">4 ANOS</span></td>
+                  <td>Avaliação externa (auditoria)</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-info" style="margin-top: 1rem;">
+            <span class="alert-icon">📋</span>
+            <div>
+              <strong>Art. 6.8 - Protocolos Validados:</strong>
+              <p>Usar protocolos nacionais ou, na ausência, internacionais AIEA para comissionamento e CQ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 4: Procedimentos Clínicos -->
+    <div class="module">
+      <div class="module-header" onclick="toggleModule(this)" style="--module-color: var(--info);">
+        <div class="module-left">
+          <div class="module-icon">🏥</div>
+          <div class="module-text">
+            <h3>Módulo 4: Procedimentos Clínicos</h3>
+            <p>Fluxo do paciente, prescrição e dosimetria clínica</p>
+          </div>
+        </div>
+        <span class="module-toggle">▼</span>
+      </div>
+      <div class="module-content">
+        <div class="module-inner">
+          <div class="highlight-box" style="background: linear-gradient(135deg, var(--info), #0891b2);">
+            <h3>🔄 Fluxo Completo do Paciente</h3>
+            <div class="flow-steps" style="margin-top: 1rem;">
+              <span class="flow-step">1. Consulta</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-step">2. Decisão</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-step">3. Consentimento</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-step">4. Prescrição</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-step">5. Simulação</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-step">6. Planejamento</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-step">7. Tratamento</span>
+              <span class="flow-arrow">→</span>
+              <span class="flow-step">8. Seguimento</span>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <div class="info-card">
+              <h4>📋 Avaliação Inicial <span class="article-ref">Art. 9.1</span></h4>
+              <ul class="check-list">
+                <li>Identificação completa</li>
+                <li>Histórico e tratamentos anteriores</li>
+                <li>Exames físicos e complementares</li>
+                <li>Diagnóstico histopatológico</li>
+                <li>Estadiamento tumoral</li>
+                <li>Gravidez confirmada/suspeita</li>
+                <li>Tratamento combinado</li>
+                <li>Médico solicitante (CRM)</li>
+              </ul>
+            </div>
+            <div class="info-card">
+              <h4>✍️ Prescrição Escrita <span class="article-ref">Art. 8.1</span></h4>
+              <ul class="check-list">
+                <li>Dose total e por fração</li>
+                <li>PTV definido</li>
+                <li>Energias e tipos de radiação</li>
+                <li>Disposição dos campos</li>
+                <li>Período total de tratamento</li>
+                <li>Para 3D: incluir OAR e CTV</li>
+              </ul>
+              <span class="badge badge-danger" style="margin-top: 0.5rem;">Sempre ANTES da administração</span>
+            </div>
+          </div>
+
+          <h4 style="color: var(--white); margin: 1.5rem 0 1rem;">📅 Verificações Obrigatórias</h4>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Verificação</th>
+                  <th>Frequência</th>
+                  <th>Responsável</th>
+                  <th>Artigo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Revisão médica</td>
+                  <td>SEMANAL</td>
+                  <td>Radioterapeuta</td>
+                  <td><span class="article-ref">9.3</span></td>
+                </tr>
+                <tr>
+                  <td>Portal/CBCT (conformada)</td>
+                  <td>SEMANAL</td>
+                  <td>Técnico/RT</td>
+                  <td><span class="article-ref">9.8b</span></td>
+                </tr>
+                <tr>
+                  <td>Verificação do cálculo</td>
+                  <td>Até 3ª fração ou 10% dose</td>
+                  <td>Físico Médico</td>
+                  <td><span class="article-ref">9.7c</span></td>
+                </tr>
+                <tr>
+                  <td>Parâmetros e setup</td>
+                  <td>DIÁRIO</td>
+                  <td>Técnico</td>
+                  <td><span class="article-ref">9.8a</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alert alert-success" style="margin-top: 1rem;">
+            <span class="alert-icon">✅</span>
+            <div>
+              <strong>Art. 9.7 - Dosimetria Clínica:</strong>
+              <p>Algoritmo validado + Parâmetros comissionados + Verificação obrigatória</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 5: Eventos Adversos -->
+    <div class="module">
+      <div class="module-header" onclick="toggleModule(this)" style="--module-color: var(--accent);">
+        <div class="module-left">
+          <div class="module-icon">⚠️</div>
+          <div class="module-text">
+            <h3>Módulo 5: Eventos Adversos e Notificação</h3>
+            <p>Classificação, protocolo de ação e investigação</p>
+          </div>
+        </div>
+        <span class="module-toggle">▼</span>
+      </div>
+      <div class="module-content">
+        <div class="module-inner">
+          <div class="alert alert-danger" style="font-size: 1.05rem;">
+            <span class="alert-icon">🚨</span>
+            <div>
+              <strong>NOTIFICAÇÃO OBRIGATÓRIA EM 24 HORAS</strong>
+              <p>Eventos adversos graves devem ser notificados à Vigilância Sanitária</p>
+            </div>
+          </div>
+
+          <div class="content-grid">
+            <div class="info-card" style="border-color: var(--accent);">
+              <h4>❌ Eventos que EXIGEM Notificação</h4>
+              <ul class="check-list">
+                <li class="danger">Tratamento em paciente errado</li>
+                <li class="danger">Tratamento em tecido/órgão errado</li>
+                <li class="danger">Dose diferente da prescrita</li>
+                <li class="danger">Fracionamento incorreto</li>
+                <li class="danger">Falha de equipamento com dano</li>
+                <li class="danger">Erro de administração de dose</li>
+                <li class="danger">Qualquer situação anormal grave</li>
+              </ul>
+            </div>
+            <div class="info-card">
+              <h4>📊 Definição de Evento Adverso Grave</h4>
+              <p>Qualquer ocorrência clínica desfavorável que resulte em:</p>
+              <div style="margin-top: 1rem;">
+                <span class="badge badge-danger">Morte</span>
+                <span class="badge badge-danger">Risco de morte</span>
+                <span class="badge badge-danger">Hospitalização</span>
+                <span class="badge badge-danger">Incapacidade</span>
+                <span class="badge badge-danger">Anomalia congênita</span>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="color: var(--white); margin: 1.5rem 0 1rem;">🚦 Protocolo de Ação</h4>
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>1. IDENTIFICAR EVENTO</strong>
+              <p>Qualquer membro da equipe detecta</p>
+            </div>
+            <div class="timeline-item">
+              <strong>2. PARAR IMEDIATAMENTE</strong>
+              <p>Suspender tratamento do paciente</p>
+            </div>
+            <div class="timeline-item">
+              <strong>3. NOTIFICAR RT</strong>
+              <p>Responsável Técnico assume investigação</p>
+            </div>
+            <div class="timeline-item">
+              <strong>4. NOTIFICAR VISA (24h)</strong>
+              <p>Prazo máximo para comunicação formal</p>
+            </div>
+            <div class="timeline-item">
+              <strong>5. INVESTIGAÇÃO COMPLETA</strong>
+              <p>Análise de causa raiz e medidas corretivas</p>
+            </div>
+            <div class="timeline-item">
+              <strong>6. DOCUMENTAÇÃO</strong>
+              <p>Registro permanente do evento e ações</p>
+            </div>
+          </div>
+
+          <div class="alert alert-warning" style="margin-top: 1rem;">
+            <span class="alert-icon">⚠️</span>
+            <div>
+              <strong>Cultura de Segurança:</strong>
+              <p>A notificação não deve ter caráter punitivo. O objetivo é aprender com os erros e prevenir recorrências.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Módulo 6: Registros e Documentação -->
+    <div class="module">
+      <div class="module-header" onclick="toggleModule(this)" style="--module-color: var(--gray-500);">
+        <div class="module-left">
+          <div class="module-icon">📝</div>
+          <div class="module-text">
+            <h3>Módulo 6: Registros e Documentação</h3>
+            <p>Fichas de tratamento e arquivamento obrigatório</p>
+          </div>
+        </div>
+        <span class="module-toggle">▼</span>
+      </div>
+      <div class="module-content">
+        <div class="module-inner">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Documento</th>
+                  <th>Conteúdo</th>
+                  <th>Guarda</th>
+                  <th>Artigo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ficha de Tratamento</strong></td>
+                  <td>Todos os parâmetros do tratamento</td>
+                  <td>20 anos mín.</td>
+                  <td><span class="article-ref">7.3a</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Controle de Qualidade</strong></td>
+                  <td>Registros de CQ periódico</td>
+                  <td>5 anos</td>
+                  <td><span class="article-ref">7.3b</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Manutenção</strong></td>
+                  <td>Intervenções realizadas</td>
+                  <td>Vida útil equip.</td>
+                  <td><span class="article-ref">7.3c</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Eventos Adversos</strong></td>
+                  <td>Investigação completa e medidas</td>
+                  <td>Permanente</td>
+                  <td><span class="article-ref">7.3d</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-grid">
+            <div class="info-card">
+              <h4>📄 Ficha de Tratamento Completa</h4>
+              <ul class="check-list">
+                <li>Nome e prontuário do paciente</li>
+                <li>Prescrição escrita detalhada</li>
+                <li>Plano de dose</li>
+                <li>Descrição da região/volume</li>
+                <li>Tipo de irradiação e irradiador</li>
+                <li>Campos de tratamento</li>
+                <li>Registro de simulação</li>
+                <li>Parâmetros dosimétricos</li>
+                <li>Registro de intercorrências</li>
+                <li>Resultados das revisões médicas</li>
+              </ul>
+            </div>
+            <div class="info-card">
+              <h4>📊 Documentos para Inspeção VISA</h4>
+              <ul class="check-list">
+                <li>Licença CNEN atualizada</li>
+                <li>Certificados de calibração</li>
+                <li>Registros de manutenção</li>
+                <li>Fichas de tratamento</li>
+                <li>Programa de garantia da qualidade</li>
+                <li>Registros de treinamento</li>
+                <li>Notificações de eventos</li>
+                <li>Dosimetria da equipe</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="alert alert-warning" style="margin-top: 1rem;">
+            <span class="alert-icon">⚠️</span>
+            <div>
+              <strong>RASTREABILIDADE:</strong>
+              <p>Capacidade de recuperar histórico, aplicação ou localização por meio de identificações registradas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXTO HISTÓRICO -->
+  <section class="context-section" id="contexto">
+    <div class="context-header">
+      <h2>📖 Contexto Histórico</h2>
+      <p>Por que a RDC 20/2006 é tão importante para a segurança em radioterapia</p>
+    </div>
+
+    <div class="context-cards">
+      <div class="context-card">
+        <h4>🇧🇷 Caso Goiânia (1987)</h4>
+        <p>O acidente com Césio-137 em Goiânia foi o maior acidente radiológico fora de usinas nucleares. Uma fonte de radioterapia abandonada foi violada, contaminando centenas de pessoas e causando 4 mortes. Este evento motivou mudanças regulatórias significativas no Brasil.</p>
+      </div>
+      <div class="context-card">
+        <h4>📊 Acidentes no Brasil (2011-2014)</h4>
+        <p>Pesquisas documentam 4 acidentes radiológicos com uma morte neste período no Brasil. Internacionalmente, os EUA registraram 169 acidentes com 2 mortes (2000-2010) e a França 569 acidentes sem mortes (2001-2014).</p>
+      </div>
+      <div class="context-card">
+        <h4>🔬 Elaboração da RDC</h4>
+        <p>O trabalho de elaboração iniciou em 2002 com um Grupo de Trabalho coordenado pela Anvisa, envolvendo SAS/MS, INCA, CNEN e Vigilância Sanitária do Paraná. Após 250 sugestões na consulta pública de 2005, a RDC foi publicada em 2006.</p>
+      </div>
+      <div class="context-card">
+        <h4>✅ Lições Aprendidas</h4>
+        <p>Os principais aspectos identificados nas análises de acidentes incluem: necessidade de verificação independente de cálculos, importância do comissionamento adequado, cultura de segurança não punitiva, e comunicação efetiva entre a equipe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-presenter">
+      <div class="footer-avatar">DS</div>
+      <div class="footer-details">
+        <h3>Diolando R L Silva</h3>
+        <p>Residente em Física Médica - Radioterapia</p>
+        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: var(--gray-500);">Material educacional baseado na RDC 20/2006 ANVISA</p>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <a href="mailto:diolando.fismed@gmail.com" class="footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Email
+      </a>
+      <a href="https://linkedin.com/in/diolando-silva" target="_blank" class="footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://instagram.com/diolando07" target="_blank" class="footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+        Instagram
+      </a>
+    </div>
+
+    <div class="footer-institutional">
+      <a href="https://www.anvisa.gov.br" target="_blank">ANVISA</a>
+      <a href="https://www.cnen.gov.br" target="_blank">CNEN</a>
+      <a href="https://www.inca.gov.br" target="_blank">INCA</a>
+    </div>
+
+    <div class="footer-credits">
+      <p>Desenvolvido por <a href="https://diolando.dev" target="_blank">diolando.dev</a> © 2025</p>
+      <p style="margin-top: 0.5rem;">Resolução RDC Nº 20, de 02 de fevereiro de 2006 - Material educacional para capacitação em radioterapia</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+// Toggle expandable cards
+function toggleCard(card) {
+  const wasExpanded = card.classList.contains('expanded');
+  
+  // Close all cards in the same grid
+  const grid = card.closest('.click-cards-grid');
+  if (grid) {
+    grid.querySelectorAll('.click-card').forEach(c => {
+      c.classList.remove('expanded');
+    });
+  }
+  
+  // Toggle clicked card
+  if (!wasExpanded) {
+    card.classList.add('expanded');
+  }
+}
+
+// Toggle expandable modules
+function toggleModule(header) {
+  const content = header.nextElementSibling;
+  const wasActive = header.classList.contains('active');
+  
+  // Close all modules
+  document.querySelectorAll('.module-header').forEach(h => {
+    h.classList.remove('active');
+    h.nextElementSibling.classList.remove('active');
+  });
+  
+  // Toggle clicked module
+  if (!wasActive) {
+    header.classList.add('active');
+    content.classList.add('active');
+  }
+}
+
+// Scroll to section
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  
+  // Update nav pills
+  document.querySelectorAll('.nav-pill').forEach(pill => {
+    pill.classList.remove('active');
+  });
+  event.target.classList.add('active');
+}
+
+// Intersection Observer for animations
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-in');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.module, .click-card, .stat-card').forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
