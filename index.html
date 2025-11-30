@@ -3,39 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diolando.dev - ICRU 50 e 62</title>
+<title>Física Médica - Biblioteca de Aulas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 :root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --primary-light: #a5b4fc;
-  --secondary: #14b8a6;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-light: #60a5fa;
+  --secondary: #10b981;
   --accent: #f59e0b;
-  --accent-light: #fbbf24;
-  --success: #10b981;
-  --error: #ef4444;
-  --warning: #f59e0b;
+  --danger: #ef4444;
+  --purple: #8b5cf6;
   --dark: #0f172a;
-  --dark-light: #1e293b;
-  --gray: #64748b;
-  --gray-light: #94a3b8;
+  --dark-card: #1e293b;
+  --dark-hover: #334155;
+  --gray-100: #f1f5f9;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
   --white: #ffffff;
-  --bg: #0a0e1a;
-  --bg-card: rgba(255, 255, 255, 0.05);
-  --bg-card-hover: rgba(255, 255, 255, 0.08);
-  --glass: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  
-  /* Cores ICRU oficiais */
-  --gtv-color: #FF0000; /* Vermelho */
-  --ctv-color: #FFA500; /* Laranja */
-  --itv-color: #0000FF; /* Azul */
-  --ptv-color: #008000; /* Verde */
-  --tv-color: #800080;  /* Roxo */
-  --iv-color: #FFFF00;  /* Amarelo */
-  --prv-color: #FF69B4; /* Rosa */
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --radius: 12px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s ease;
 }
 
 * {
@@ -46,3830 +40,1313 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--white);
+  background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
+  color: var(--gray-300);
+  min-height: 100vh;
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
-body::before {
-  content: '';
+/* Toast */
+.toast-container {
   position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  background: var(--dark-card);
+  border: 1px solid var(--glass-border);
+  color: var(--white);
+  animation: slideIn 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: var(--shadow);
+}
+
+.toast.success { border-left: 4px solid var(--secondary); }
+.toast.error { border-left: 4px solid var(--danger); }
+.toast.info { border-left: 4px solid var(--primary); }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Header */
+header {
+  background: var(--dark-card);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(120, 198, 255, 0.3) 0%, transparent 50%);
-  animation: backgroundFloat 20s ease-in-out infinite;
-  z-index: -1;
+  z-index: 100;
+  backdrop-filter: blur(10px);
 }
 
-@keyframes backgroundFloat {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.1) rotate(180deg); }
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.container {
+.logo {
+  font-size: 2rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+nav a {
+  padding: 0.5rem 1rem;
+  color: var(--gray-400);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+
+nav a:hover, nav a.active {
+  background: var(--glass);
+  color: var(--white);
+}
+
+/* Main */
+main {
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-.presentation-header {
-  text-align: center;
-  padding: 3rem 2rem;
-  margin-bottom: 3rem;
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  border: 1px solid var(--glass-border);
-  position: relative;
-  overflow: hidden;
-}
-
-.presentation-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-  animation: shimmer 2s linear infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.presentation-header h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--primary-light), var(--secondary), var(--accent-light));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 1rem;
-}
-
-.presenter-info {
+.page-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--bg-card);
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
-}
-
-.info-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-  border-color: var(--primary);
-}
-
-.profile-photo,
-.institution-logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid var(--primary);
-  background: var(--glass);
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-  flex-shrink: 0;
-  position: relative;
-}
-
-.institution-logo {
-  border-color: var(--secondary);
-  box-shadow: 0 0 20px rgba(20, 184, 166, 0.4);
-}
-
-.profile-photo img,
-.institution-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.profile-placeholder,
-.logo-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-}
-
-.logo-placeholder {
-  background: linear-gradient(135deg, var(--secondary), #0d9488);
-}
-
-.info-item span {
-  color: var(--gray-light);
-}
-
-.section {
-  margin-bottom: 3rem;
-  animation: fadeInUp 0.8s ease-out;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary-light);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.section-title::before {
-  content: '';
-  width: 4px;
-  height: 40px;
-  background: linear-gradient(180deg, var(--primary), var(--secondary));
-  border-radius: 4px;
-}
-
-.card {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  padding: 2rem;
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
   margin-bottom: 2rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  background: var(--bg-card-hover);
-  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-  border-color: var(--primary);
-}
-
-.card h3 {
-  font-size: 1.5rem;
-  color: var(--accent-light);
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.volumes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.volume-card {
-  background: var(--bg-card);
-  padding: 1.5rem;
-  border-radius: 20px;
-  border: 2px solid var(--glass-border);
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.volume-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-}
-
-.volume-card.gtv::before { background: linear-gradient(90deg, var(--gtv-color), #cc0000); }
-.volume-card.ctv::before { background: linear-gradient(90deg, var(--ctv-color), #cc8400); }
-.volume-card.ptv::before { background: linear-gradient(90deg, var(--ptv-color), #006400); }
-.volume-card.itv::before { background: linear-gradient(90deg, var(--itv-color), #0000cc); }
-.volume-card.tv::before { background: linear-gradient(90deg, var(--tv-color), #660066); }
-.volume-card.iv::before { background: linear-gradient(90deg, var(--iv-color), #cccc00); }
-
-.volume-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-  border-color: var(--primary-light);
-}
-
-.volume-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.header-content h1 {
   font-size: 2rem;
-  background: var(--glass);
-  border-radius: 50%;
-  border: 3px solid var(--glass-border);
-  position: relative;
-  animation: pulse 3s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
-  50% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(99, 102, 241, 0); }
-}
-
-.volume-card.gtv .volume-icon {
-  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(204, 0, 0, 0.1));
-  border-color: var(--gtv-color);
-}
-
-.volume-card.ctv .volume-icon {
-  background: linear-gradient(135deg, rgba(255, 165, 0, 0.2), rgba(204, 132, 0, 0.1));
-  border-color: var(--ctv-color);
-}
-
-.volume-card.ptv .volume-icon {
-  background: linear-gradient(135deg, rgba(0, 128, 0, 0.2), rgba(0, 100, 0, 0.1));
-  border-color: var(--ptv-color);
-}
-
-.volume-card.itv .volume-icon {
-  background: linear-gradient(135deg, rgba(0, 0, 255, 0.2), rgba(0, 0, 204, 0.1));
-  border-color: var(--itv-color);
-}
-
-.volume-card.tv .volume-icon {
-  background: linear-gradient(135deg, rgba(128, 0, 128, 0.2), rgba(102, 0, 102, 0.1));
-  border-color: var(--tv-color);
-}
-
-.volume-card.iv .volume-icon {
-  background: linear-gradient(135deg, rgba(255, 255, 0, 0.2), rgba(204, 204, 0, 0.1));
-  border-color: var(--iv-color);
-}
-
-.volume-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-align: center;
+  color: var(--white);
   margin-bottom: 0.5rem;
 }
 
-.volume-card.gtv .volume-title { color: var(--gtv-color); }
-.volume-card.ctv .volume-title { color: var(--ctv-color); }
-.volume-card.ptv .volume-title { color: var(--ptv-color); }
-.volume-card.itv .volume-title { color: var(--itv-color); }
-.volume-card.tv .volume-title { color: var(--tv-color); }
-.volume-card.iv .volume-title { color: var(--iv-color); }
-
-.volume-subtitle {
-  text-align: center;
-  color: var(--gray-light);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.volume-description {
-  color: var(--white);
-  line-height: 1.8;
-  text-align: justify;
-  font-size: 0.95rem;
-}
-
-/* Visualização Integrada dos Volumes - VERSÃO COMPACTA */
-.integrated-volumes-section-compact {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  padding: 2rem;
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
-  margin: 2rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.integrated-volumes-section-compact::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-  animation: shimmer 2s linear infinite;
-}
-
-.volumes-visualization-compact {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.nested-volumes-compact {
-  position: relative;
-  width: 500px;
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-}
-
-.nested-volume {
-  position: absolute;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: breathe 4s ease-in-out infinite;
-  cursor: pointer;
-}
-
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-}
-
-.nested-volume:hover {
-  transform: scale(1.05) !important;
-  z-index: 10;
-  filter: brightness(1.3);
-}
-
-.nested-volume.active {
-  transform: scale(1.08) !important;
-  z-index: 15;
-  filter: brightness(1.4);
-  animation: pulse-active 1s ease-in-out infinite;
-}
-
-@keyframes pulse-active {
-  0%, 100% {
-    box-shadow: 0 0 40px currentColor, inset 0 0 40px rgba(255, 255, 255, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 60px currentColor, inset 0 0 60px rgba(255, 255, 255, 0.2);
-  }
-}
-
-.ptv-outer {
-  width: 100%;
-  height: 100%;
-  max-width: 500px;
-  max-height: 500px;
-  background: radial-gradient(circle, rgba(0, 128, 0, 0.15), rgba(0, 128, 0, 0.05));
-  border: 4px solid var(--ptv-color);
-  box-shadow: 0 0 40px rgba(0, 128, 0, 0.4), inset 0 0 40px rgba(0, 128, 0, 0.1);
-  animation-delay: 0s;
-}
-
-.itv-outer {
-  width: 75%;
-  height: 75%;
-  background: radial-gradient(circle, rgba(0, 0, 255, 0.2), rgba(0, 0, 255, 0.08));
-  border: 4px solid var(--itv-color);
-  box-shadow: 0 0 35px rgba(0, 0, 255, 0.5), inset 0 0 35px rgba(0, 0, 255, 0.15);
-  animation-delay: 0.5s;
-}
-
-.ctv-outer {
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(circle, rgba(255, 165, 0, 0.25), rgba(255, 165, 0, 0.1));
-  border: 4px solid var(--ctv-color);
-  box-shadow: 0 0 30px rgba(255, 165, 0, 0.6), inset 0 0 30px rgba(255, 165, 0, 0.2);
-  animation-delay: 1s;
-}
-
-.gtv-outer {
-  width: 25%;
-  height: 25%;
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.35), rgba(255, 0, 0, 0.15));
-  border: 4px solid var(--gtv-color);
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.7), inset 0 0 25px rgba(255, 0, 0, 0.3);
-  animation-delay: 1.5s;
-}
-
-.tumor-core {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle, var(--gtv-color), #cc0000);
-  border-radius: 50%;
-  animation: pulse-tumor 2s ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-  pointer-events: none;
-}
-
-@keyframes pulse-tumor {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-}
-
-/* Badges dos volumes - pequenos e elegantes */
-.volume-badge {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.2rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  padding: 0.5rem 1rem;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 30px;
-  backdrop-filter: blur(10px);
-  border: 2px solid;
-  z-index: 5;
-  pointer-events: none;
-  text-shadow: 0 0 10px currentColor;
-  transition: all 0.3s ease;
-}
-
-.gtv-badge {
-  color: var(--gtv-color);
-  border-color: var(--gtv-color);
-  font-size: 1rem;
-}
-
-.ctv-badge {
-  color: var(--ctv-color);
-  border-color: var(--ctv-color);
-  font-size: 1.1rem;
-}
-
-.itv-badge {
-  color: var(--itv-color);
-  border-color: var(--itv-color);
-  font-size: 1.15rem;
-}
-
-.ptv-badge {
-  color: var(--ptv-color);
-  border-color: var(--ptv-color);
-  font-size: 1.2rem;
-}
-
-/* Info Display Box - VERSÃO COMPACTA */
-.volume-info-display-compact {
-  width: 100%;
-  max-width: 700px;
-  min-height: 140px;
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  border: 2px solid var(--glass-border);
-  padding: 1.5rem;
-  margin: 0 auto;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.volume-info-display-compact.active {
-  border-color: var(--primary);
-  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
-}
-
-.volume-info-icon-compact {
-  font-size: 2.5rem;
-  animation: bounceIn 0.6s ease-out;
-  margin-bottom: 0.5rem;
-}
-
-.volumes-legend-compact {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  width: 100%;
-  max-width: 900px;
-  margin: 1.5rem auto 0;
-}
-
-.legend-item-compact {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: var(--bg-card);
-  border-radius: 10px;
-  border: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.legend-item-compact:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.2);
-}
-
-.legend-item-compact .legend-color {
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-}
-
-@keyframes bounceIn {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.volume-info-content h4 {
-  font-size: 2rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
-  animation: slideInTitle 0.5s ease-out;
-}
-
-@keyframes slideInTitle {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.volume-info-content p {
-  font-size: 1.1rem;
-  color: var(--white);
-  line-height: 1.8;
-  max-width: 600px;
-  margin: 0;
-  animation: fadeInText 0.7s ease-out;
-}
-
-@keyframes fadeInText {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.margin-indicator {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  font-weight: 700;
-  z-index: 20;
-  animation: float 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.sm-indicator {
-  top: 50px;
-  right: 50px;
-  border: 2px solid var(--ptv-color);
-  color: var(--ptv-color);
-  box-shadow: 0 0 20px rgba(0, 128, 0, 0.5);
-}
-
-.im-indicator {
-  bottom: 50px;
-  left: 50px;
-  border: 2px solid var(--itv-color);
-  color: var(--itv-color);
-  box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
-}
-
-.margin-arrow {
-  font-size: 1.5rem;
-}
-
-.margin-text {
-  font-size: 1rem;
-  letter-spacing: 2px;
-}
-
-.volumes-legend {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  width: 100%;
-  max-width: 900px;
-  margin-top: 2rem;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  background: var(--bg-card);
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.legend-item:hover {
-  transform: translateX(10px);
-  background: var(--bg-card-hover);
-  border-color: var(--primary);
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
-}
-
-.volume-info-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  text-align: center;
-}
-
-.legend-color {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 3px solid;
-  flex-shrink: 0;
-  box-shadow: 0 0 15px currentColor;
-}
-
-.gtv-color {
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.5), rgba(255, 0, 0, 0.2));
-  border-color: var(--gtv-color);
-}
-
-.ctv-color {
-  background: radial-gradient(circle, rgba(255, 165, 0, 0.5), rgba(255, 165, 0, 0.2));
-  border-color: var(--ctv-color);
-}
-
-.itv-color {
-  background: radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(0, 0, 255, 0.2));
-  border-color: var(--itv-color);
-}
-
-.ptv-color {
-  background: radial-gradient(circle, rgba(0, 128, 0, 0.5), rgba(0, 128, 0, 0.2));
-  border-color: var(--ptv-color);
-}
-
-.legend-item span {
-  color: var(--white);
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-/* Modal para imagens em tela cheia */
-.image-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.95);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.image-modal.active {
-  display: flex;
-  opacity: 1;
-}
-
-.image-modal-content {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
-}
-
-.image-modal.active .image-modal-content {
-  transform: scale(1);
-}
-
-.image-modal-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 1001;
-  transition: color 0.3s ease;
-}
-
-.image-modal-close:hover {
-  color: var(--primary-light);
-}
-
-.image-modal-controls {
-  position: absolute;
-  bottom: 30px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.image-modal-btn {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border: 2px solid var(--glass-border);
-  color: white;
-  padding: 12px 20px;
-  border-radius: 50px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.image-modal-btn:hover {
-  background: var(--primary);
-  border-color: var(--primary);
-  transform: translateY(-3px);
-}
-
-/* Melhorias para as imagens na página */
-.image-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
-}
-
-.image-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-  cursor: zoom-in;
-  transition: all 0.3s ease;
-}
-
-.image-container img:hover {
-  transform: scale(1.02);
-  border-color: var(--primary-light);
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
-}
-
-/* Ajustes para imagens específicas */
-.image-placeholder img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* Restante do CSS existente mantido... */
-
-.timeline {
-  position: relative;
-  padding: 2rem 0;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, var(--primary), var(--secondary), var(--accent));
-  transform: translateX(-50%);
-}
-
-.timeline-item {
-  display: flex;
-  margin-bottom: 3rem;
-  position: relative;
-}
-
-.timeline-item:nth-child(odd) {
-  flex-direction: row-reverse;
-}
-
-.timeline-content {
-  width: 45%;
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  padding: 2rem;
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
-  transition: all 0.4s ease;
-}
-
-.timeline-content:hover {
-  transform: scale(1.05);
-  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
-}
-
-.timeline-marker {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  border-radius: 50%;
-  border: 4px solid var(--bg);
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
-  z-index: 1;
-}
-
-.timeline-year {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--accent-light);
-  margin-bottom: 0.5rem;
-}
-
-.image-placeholder {
-  width: 100%;
-  height: 300px;
-  background: var(--bg-card);
-  border-radius: 16px;
-  border: 2px dashed var(--glass-border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 1.5rem 0;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.image-placeholder::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(from 0deg, transparent, var(--primary), transparent);
-  opacity: 0;
-  animation: rotate 4s linear infinite;
-}
-
-@keyframes rotate {
-  100% { transform: rotate(360deg); }
-}
-
-.image-placeholder:hover::before {
-  opacity: 0.1;
-}
-
-.image-placeholder:hover {
-  border-color: var(--primary);
-  background: var(--bg-card-hover);
-}
-
-.image-placeholder span {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-.image-placeholder p {
-  color: var(--gray-light);
-  font-weight: 500;
-  z-index: 1;
-}
-
-.formula-box {
-  background: var(--bg-card);
-  padding: 2rem;
-  border-radius: 16px;
-  border: 2px solid var(--primary);
-  margin: 2rem 0;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--primary-light);
-  position: relative;
-  overflow: hidden;
-}
-
-.formula-box::before {
-  content: '=';
-  position: absolute;
-  font-size: 8rem;
-  opacity: 0.05;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.list-styled {
-  list-style: none;
-  padding: 0;
-}
-
-.list-styled li {
-  padding: 1rem;
-  margin: 0.5rem 0;
-  background: var(--bg-card);
-  border-radius: 12px;
-  border-left: 4px solid var(--primary);
-  transition: all 0.3s ease;
-}
-
-.list-styled li:hover {
-  background: var(--bg-card-hover);
-  transform: translateX(10px);
-  border-left-color: var(--secondary);
-}
-
-.list-styled li::before {
-  content: '▸';
-  color: var(--primary);
-  font-weight: bold;
-  margin-right: 1rem;
-}
-
-.highlight-box {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(20, 184, 166, 0.1));
-  border: 2px solid var(--primary);
-  border-radius: 16px;
-  padding: 2rem;
-  margin: 2rem 0;
-  position: relative;
-}
-
-.highlight-box::before {
-  content: '💡';
-  position: absolute;
-  top: -15px;
-  left: 20px;
-  background: var(--bg);
-  padding: 0 10px;
-  font-size: 1.5rem;
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
-}
-
-.conformity-index {
-  text-align: center;
-  padding: 3rem;
-  background: var(--glass);
-  border-radius: 20px;
-  border: 2px solid var(--glass-border);
-  margin: 2rem 0;
-}
-
-.conformity-index .formula {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent-light);
-  margin: 2rem 0;
-  padding: 2rem;
-  background: var(--bg-card);
-  border-radius: 12px;
-}
-
-.badge {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0.25rem;
-}
-
-.badge.serial {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  border: 1px solid #ef4444;
-}
-
-.badge.parallel {
-  background: rgba(16, 185, 129, 0.2);
-  color: #10b981;
-  border: 1px solid #10b981;
-}
-
-.badge.serial-parallel {
-  background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
-  border: 1px solid #f59e0b;
+.header-content p {
+  color: var(--gray-400);
 }
 
-.back-button {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: var(--white);
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 50px;
   cursor: pointer;
-  font-size: 1rem;
   font-weight: 600;
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-  transition: all 0.3s ease;
-  z-index: 100;
-  text-decoration: none;
+  font-size: 0.9rem;
+  transition: var(--transition);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.back-button:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--white);
 }
 
-/* Estatísticas de Impacto */
-.impact-stats {
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.btn-secondary {
+  background: var(--dark-hover);
+  color: var(--gray-300);
+  border: 1px solid var(--glass-border);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--secondary), #059669);
+  color: var(--white);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--gray-300);
+}
+
+/* Stats Grid */
+.stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
-  margin: 2rem 0;
+  margin-bottom: 2rem;
 }
 
 .stat-card {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  padding: 2rem;
-  border-radius: 20px;
-  border: 2px solid var(--glass-border);
-  text-align: center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  background: var(--dark-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: var(--transition);
 }
 
 .stat-card:hover {
-  transform: translateY(-10px) scale(1.05);
+  transform: translateY(-3px);
   border-color: var(--primary);
-  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
 }
 
 .stat-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  animation: bounce 2s ease-in-out infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.stat-card:nth-child(1) .stat-icon {
-  animation-delay: 0s;
-}
-
-.stat-card:nth-child(2) .stat-icon {
-  animation-delay: 0.2s;
-}
-
-.stat-card:nth-child(3) .stat-icon {
-  animation-delay: 0.4s;
-}
-
-.stat-card:nth-child(4) .stat-icon {
-  animation-delay: 0.6s;
-}
-
-.stat-number {
-  font-size: 3.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 0.5rem;
-}
-
-.stat-sublabel {
-  font-size: 0.85rem;
-  color: var(--gray-light);
-  font-weight: 400;
-}
-
-/* Links de Contato */
-.contact-links {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.contact-link {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  color: var(--gray-light);
-  text-decoration: none;
-  padding: 0.75rem 1.25rem;
-  background: var(--bg-card);
-  border-radius: 12px;
+  justify-content: center;
+  background: var(--glass);
+  border-radius: var(--radius);
+}
+
+.stat-info h3 {
+  font-size: 1.75rem;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.stat-info p {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--dark-card);
   border: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
+  border-radius: var(--radius);
+  color: var(--white);
   font-size: 0.95rem;
 }
 
-.contact-link:hover {
-  color: var(--white);
-  background: var(--bg-card-hover);
+.search-box input:focus {
+  outline: none;
   border-color: var(--primary);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
 }
 
-.contact-icon {
-  width: 20px;
-  height: 20px;
+.filter-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.filter-group select {
+  padding: 0.75rem 1rem;
+  background: var(--dark-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  color: var(--white);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Aulas Container */
+.aulas-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.aulas-container.list-view {
+  grid-template-columns: 1fr;
+}
+
+/* Aula Card */
+.aula-card {
+  background: var(--dark-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.aula-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.aula-card-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.aula-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
   flex-shrink: 0;
 }
 
-/* Seção Final Compacta */
-.final-section {
+.aula-icon.html { background: linear-gradient(135deg, #f97316, #ea580c); }
+.aula-icon.pdf { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.aula-icon.pptx { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.aula-icon.video { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+.aula-title {
+  flex: 1;
+}
+
+.aula-title h3 {
+  color: var(--white);
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aula-title h3 .favorite-star {
+  color: var(--accent);
+}
+
+.aula-title .category-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
   background: var(--glass);
-  backdrop-filter: blur(20px);
-  padding: 2rem;
-  border-radius: 24px;
-  border: 1px solid var(--glass-border);
-  margin-top: 1.5rem;
-  text-align: center;
-  position: relative;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+
+.aula-card-body {
+  padding: 1.25rem;
+}
+
+.aula-description {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.final-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-  animation: shimmer 2s linear infinite;
+.aula-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--gray-500);
 }
 
-.thank-you-header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-light), var(--secondary), var(--accent-light));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.aula-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.aula-card-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.aula-card-footer .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  grid-column: 1 / -1;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  color: var(--white);
   margin-bottom: 0.5rem;
 }
 
-.thank-you-header p {
-  font-size: 1.1rem;
-  color: var(--gray-light);
+.empty-state p {
+  color: var(--gray-400);
   margin-bottom: 1.5rem;
 }
 
-.presenter-info-final {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  margin: 1.5rem 0;
-  flex-wrap: wrap;
-}
-
-.margin-types {
-  display: flex;
-  gap: 2rem;
-  margin: 2rem 0;
-  flex-wrap: wrap;
-}
-
-.margin-card {
-  flex: 1;
-  min-width: 250px;
-  padding: 2rem;
-  background: var(--glass);
-  border-radius: 16px;
-  border: 2px solid var(--glass-border);
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.margin-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary);
-}
-
-.margin-card h4 {
-  font-size: 1.3rem;
-  color: var(--accent-light);
-  margin-bottom: 1rem;
-}
-
-.margin-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-/* Media Queries para responsividade */
-@media (max-width: 768px) {
-  .nested-volumes {
-    width: 350px;
-    height: 350px;
-  }
-
-  .nested-volumes-compact {
-    width: 350px;
-    height: 350px;
-  }
-
-  .volumes-visualization-compact {
-    gap: 1rem;
-  }
-
-  .volumes-legend-compact {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .ptv-outer {
-    width: 350px;
-    height: 350px;
-  }
-
-  .itv-outer {
-    width: 260px;
-    height: 260px;
-  }
-
-  .ctv-outer {
-    width: 180px;
-    height: 180px;
-  }
-
-  .gtv-outer {
-    width: 100px;
-    height: 100px;
-  }
-
-  .tumor-core {
-    width: 40px;
-    height: 40px;
-  }
-
-  .volume-badge {
-    font-size: 0.9rem;
-    padding: 0.3rem 0.7rem;
-  }
-
-  .gtv-badge {
-    font-size: 0.8rem;
-  }
-
-  .ctv-badge {
-    font-size: 0.85rem;
-  }
-
-  .itv-badge {
-    font-size: 0.9rem;
-  }
-
-  .ptv-badge {
-    font-size: 0.95rem;
-  }
-
-  .margin-indicator {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.8rem;
-  }
-
-  .sm-indicator {
-    top: 20px;
-    right: 20px;
-  }
-
-  .im-indicator {
-    bottom: 20px;
-    left: 20px;
-  }
-
-  .volumes-legend {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-photo,
-  .institution-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  .presenter-info {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .info-item {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .volume-info-display {
-    padding: 1.5rem;
-  }
-
-  .volume-info-display-compact {
-    padding: 1rem;
-    min-height: 100px;
-  }
-
-  .volume-info-icon {
-    font-size: 3rem;
-  }
-
-  .volume-info-icon-compact {
-    font-size: 2rem;
-  }
-
-  .volume-info-content h4 {
-    font-size: 1.5rem;
-  }
-
-  .volume-info-content p {
-    font-size: 1rem;
-  }
-
-  .impact-stats {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .stat-card {
-    padding: 1.5rem;
-  }
-
-  .stat-icon {
-    font-size: 2rem;
-  }
-
-  .stat-number {
-    font-size: 2.5rem;
-  }
-
-  .stat-label {
-    font-size: 0.9rem;
-  }
-
-  .stat-sublabel {
-    font-size: 0.75rem;
-  }
-
-  .back-button {
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-  }
-
-  .contact-link {
-    font-size: 0.85rem;
-    padding: 0.6rem 1rem;
-  }
-
-  .final-section {
-    margin-bottom: 5rem;
-  }
-
-  .presenter-info-final {
-    flex-direction: column;
-  }
-
-  .presentation-header h1 {
-    font-size: 2rem;
-  }
-
-  .volumes-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .timeline::before {
-    left: 0;
-  }
-
-  .timeline-item {
-    flex-direction: column !important;
-  }
-
-  .timeline-content {
-    width: 100%;
-    margin-left: 2rem;
-  }
-
-  .timeline-marker {
-    left: 0;
-    transform: translateX(0);
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .back-button {
-    bottom: 1rem;
-    right: 1rem;
-  }
-}
-</style>
-</head>
-<body>
-<div class="container">
-<div class="presentation-header">
-<h1>📋 ICRU 50 e 62</h1>
-<p style="font-size: 1.2rem; color: var(--gray-light); margin-top: 1rem;">
-Especificação de Volumes e Doses em Radioterapia
-</p>
-<div class="author-section" style="margin-top: 2rem; text-align: center;">
-  <div style="
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 3rem;
-      flex-wrap: wrap;
-  ">
-            <!-- FOTO DO APRESENTADOR -->
-<div style="display: flex; flex-direction: column; align-items: center; min-width: 200px;">
-  <div style="
-      width: 150px; 
-      height: 150px; 
-      border-radius: 10px;
-      overflow: hidden;
-      border: 2px solid rgba(255,255,255,0.15);
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.05);
-  ">
-    <img src="img/foto_apresentador.jpg" 
-         alt="Foto do apresentador" 
-         style="width: 100%; height: 100%; object-fit: cover;">
-  </div>
-  <p style="margin-top: 1rem; font-size: 1.1rem; line-height: 1.5;">
-    <span style="color: var(--gray-light);">Apresentado por:</span><br>
-    <strong>Diolando R. L. Silva</strong>
-  </p>
-</div>
-
-
-   
-    <!-- LOGO DA INSTITUIÇÃO -->
-    <div style="display: flex; flex-direction: column; align-items: center; min-width: 200px;">
-      <div style="
-          width: 150px; 
-          height: 150px; 
-          border-radius: 10px;
-          overflow: hidden;
-          border: 2px solid rgba(255,255,255,0.15);
-          box-shadow: 0 0 15px rgba(0,0,0,0.5);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(255,255,255,0.05);
-          padding: 10px;
-      ">
-        <img src="img/logo_instituicao.png" 
-             alt="Logo da instituição" 
-             style="max-width: 100%; max-height: 100%; object-fit: contain;">
-      </div>
-      <p style="margin-top: 1rem; font-size: 1.1rem; line-height: 1.5;">
-        <span style="color: var(--gray-light);">Instituição:</span><br>
-        <strong>Rede MaterDei de Saúde</strong>
-      </p>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- Modal para imagens em tela cheia - MOVIDO PARA FORA DO HEADER -->
-<div class="image-modal" id="imageModal">
-  <span class="image-modal-close" id="modalClose">&times;</span>
-  <img class="image-modal-content" id="modalImage">
-  <div class="image-modal-controls">
-    <button class="image-modal-btn" id="zoomInBtn">Zoom +</button>
-    <button class="image-modal-btn" id="zoomOutBtn">Zoom -</button>
-    <button class="image-modal-btn" id="resetZoomBtn">Resetar Zoom</button>
-  </div>
-</div>
-
-<!-- Introdução -->
-<div class="section">
-<h2 class="section-title">📋 Introdução ao ICRU</h2>
-<div class="card">
-<h3>Comissão Internacional de Unidades de Radiação e Medidas (1925)</h3>
-<p style="font-size: 1.1rem; line-height: 1.8;">
-<strong style="color: var(--accent-light);">OBJETIVO:</strong> Desenvolver e promulgar recomendações internacionalmente aceitas sobre quantidades e unidades relacionadas à radiação, terminologia, procedimentos de medição e dados de referência.
-</p>
-</div>
-
-<div class="timeline">
-<div class="timeline-item">
-<div class="timeline-marker"></div>
-<div class="timeline-content">
-<div class="timeline-year">📅 ICRU 29 - 1978</div>
-<p><strong>Especificação de Dose para Relatar Teleterapia com Feixe de Fótons</strong></p>
-<p>Descreveu a necessidade da especificação de volume e dose em radioterapia.</p>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-marker"></div>
-<div class="timeline-content">
-<div class="timeline-year">📅 ICRU 50 - 1993</div>
-<p><strong>Atualização das recomendações</strong></p>
-<ul class="list-styled">
-<li>Adequação ao modelo de tratamento 3D</li>
-<li>Introdução de novos conceitos</li>
-<li>Definição de volumes de planejamento</li>
-</ul>
-</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-marker"></div>
-<div class="timeline-content">
-<div class="timeline-year">📅 ICRU 62 - 1999</div>
-<p><strong>Complementação do Report 50</strong></p>
-<ul class="list-styled">
-<li>Definição mais exata das margens</li>
-<li>Redefinição de conceitos</li>
-<li>Introdução do ITV e margens específicas</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Especificações -->
-<div class="section">
-<h2 class="section-title">🎯 Especificações de Volume e Dose</h2>
-<div class="card">
-<h3>Três Propósitos Essenciais - ICRU 50</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Conforme <strong>ICRU 50 - Seção 1</strong>, a especificação de volumes e doses serve para três propósitos distintos no processo de radioterapia.
-</p>
-
-<div class="grid-2">
-<div class="highlight-box">
-<h4 style="color: var(--primary-light); margin-bottom: 1rem;">1️⃣ PRESCRIÇÃO</h4>
-<p><strong>ICRU 50 Página 1:</strong> "O oncologista radiationista normalmente prescreve doses tanto para a doença maligna quanto para os tecidos normais relevantes."</p>
-</div>
-<div class="highlight-box">
-<h4 style="color: var(--primary-light); margin-bottom: 1rem;">2️⃣ REGISTRO</h4>
-<p><strong>ICRU 50 Página 1:</strong> "O terapeuta também registra as doses administradas durante o tratamento dentro de vários volumes ou em vários pontos nos tecidos para fins de documentação."</p>
-</div>
-</div>
-<div class="highlight-box">
-<h4 style="color: var(--primary-light); margin-bottom: 1rem;">3️⃣ RELATÓRIO</h4>
-<p><strong>ICRU 50 Página 1:</strong> "As doses também terão que ser especificadas para fins de relatório... para permitir a comparação dos resultados do tratamento."</p>
-</div>
-</div>
-
-<!-- FLUXOGRAMA SIMPLIFICADO -->
-<div class="card">
-<h3>📋 Figura 2.1 - Fluxo do Processo de Radioterapia</h3>
-
-<div class="flowchart-simple" style="position: relative; padding: 2rem; background: var(--dark-light); border-radius: 16px; margin: 1.5rem 0;">
-
-  <!-- Linha principal -->
-  <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--primary), var(--secondary)); transform: translateX(-50%);"></div>
-
-  <!-- Etapas do Fluxo -->
-  <div class="flow-item" style="position: relative; margin: 2rem 0; display: flex; justify-content: center;">
-    <div class="flow-circle" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; z-index: 2;">
-      1
-    </div>
-    <div class="flow-content" style="position: absolute; left: calc(50% + 50px); top: 50%; transform: translateY(-50%); background: var(--glass); padding: 1rem; border-radius: 12px; border: 1px solid var(--glass-border); min-width: 300px;">
-      <h4 style="color: var(--primary-light); margin: 0 0 0.5rem 0;">Work-up Clínico</h4>
-      <p style="margin: 0; color: var(--gray-light); font-size: 0.9rem;">Diagnóstico, estadiamento, avaliação</p>
-    </div>
-  </div>
-
-  <div class="flow-item" style="position: relative; margin: 2rem 0; display: flex; justify-content: center;">
-    <div class="flow-circle" style="width: 60px; height: 60px; background: linear-gradient(135deg, #4f46e5, #3730a3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; z-index: 2;">
-      2
-    </div>
-    <div class="flow-content" style="position: absolute; right: calc(50% + 50px); top: 50%; transform: translateY(-50%); background: var(--glass); padding: 1rem; border-radius: 12px; border: 1px solid var(--glass-border); min-width: 300px; text-align: right;">
-      <h4 style="color: var(--primary-light); margin: 0 0 0.5rem 0;">Prescrição</h4>
-      <p style="margin: 0; color: var(--gray-light); font-size: 0.9rem;">Definição de volumes e doses</p>
-    </div>
-  </div>
-
-  <div class="flow-item" style="position: relative; margin: 2rem 0; display: flex; justify-content: center;">
-    <div class="flow-circle" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; z-index: 2;">
-      3
-    </div>
-    <div class="flow-content" style="position: absolute; left: calc(50% + 50px); top: 50%; transform: translateY(-50%); background: var(--glass); padding: 1rem; border-radius: 12px; border: 1px solid var(--glass-border); min-width: 300px;">
-      <h4 style="color: var(--primary-light); margin: 0 0 0.5rem 0;">Planejamento</h4>
-      <p style="margin: 0; color: var(--gray-light); font-size: 0.9rem;">Simulação, delineamento, cálculo</p>
-    </div>
-  </div>
-
-  <div class="flow-item" style="position: relative; margin: 2rem 0; display: flex; justify-content: center;">
-    <div class="flow-circle" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; z-index: 2;">
-      4
-    </div>
-    <div class="flow-content" style="position: absolute; right: calc(50% + 50px); top: 50%; transform: translateY(-50%); background: var(--glass); padding: 1rem; border-radius: 12px; border: 1px solid var(--glass-border); min-width: 300px; text-align: right;">
-      <h4 style="color: var(--primary-light); margin: 0 0 0.5rem 0;">Verificação</h4>
-      <p style="margin: 0; color: var(--gray-light); font-size: 0.9rem;">Controle de qualidade e posicionamento</p>
-    </div>
-  </div>
-
-  <div class="flow-item" style="position: relative; margin: 2rem 0; display: flex; justify-content: center;">
-    <div class="flow-circle" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; z-index: 2;">
-      5
-    </div>
-    <div class="flow-content" style="position: absolute; left: calc(50% + 50px); top: 50%; transform: translateY(-50%); background: var(--glass); padding: 1rem; border-radius: 12px; border: 1px solid var(--glass-border); min-width: 300px;">
-      <h4 style="color: var(--primary-light); margin: 0 0 0.5rem 0;">Tratamento</h4>
-      <p style="margin: 0; color: var(--gray-light); font-size: 0.9rem;">Administração das frações</p>
-    </div>
-  </div>
-
-  <div class="flow-item" style="position: relative; margin: 2rem 0; display: flex; justify-content: center;">
-    <div class="flow-circle" style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #047857); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; z-index: 2;">
-      6
-    </div>
-    <div class="flow-content" style="position: absolute; right: calc(50% + 50px); top: 50%; transform: translateY(-50%); background: var(--glass); padding: 1rem; border-radius: 12px; border: 1px solid var(--glass-border); min-width: 300px; text-align: right;">
-      <h4 style="color: var(--primary-light); margin: 0 0 0.5rem 0;">Follow-up</h4>
-      <p style="margin: 0; color: var(--gray-light); font-size: 0.9rem;">Avaliação de resultados e relatório</p>
-    </div>
-  </div>
-
-</div>
-
-<!-- Definição de Volumes -->
-<div class="section">
-<h2 class="section-title">📐 Definição de Volumes</h2>
-
-<!-- ========== CARDS HORIZONTAIS ========== -->
-<div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
-  
-  <!-- GTV Card -->
-  <div class="volume-card-horizontal gtv" style="
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
-      background: linear-gradient(90deg, rgba(255, 0, 0, 0.1), var(--glass));
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      border: 2px solid var(--gtv-color);
-      transition: all 0.3s ease;
-  " onmouseover="this.style.transform='translateX(10px)'; this.style.boxShadow='0 10px 30px rgba(255, 0, 0, 0.3)';" onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <div style="
-          width: 70px;
-          height: 70px;
-          background: radial-gradient(circle, rgba(255, 0, 0, 0.3), rgba(255, 0, 0, 0.1));
-          border: 3px solid var(--gtv-color);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2rem;
-          box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-      ">🔴</div>
-    </div>
-    <div>
-      <h3 style="color: var(--gtv-color); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-        GTV <span style="color: var(--gray-light); font-size: 1rem; font-weight: 500;">- Volume Tumoral Visível</span>
-      </h3>
-      <p style="color: var(--white); line-height: 1.8; margin: 0;">
-        Representa o volume palpável ou visível do tumor, sendo a região onde há a maior concentração de células malignas.
-      </p>
-    </div>
-  </div>
-
-  <!-- CTV Card -->
-  <div class="volume-card-horizontal ctv" style="
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
-      background: linear-gradient(90deg, rgba(255, 165, 0, 0.1), var(--glass));
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      border: 2px solid var(--ctv-color);
-      transition: all 0.3s ease;
-  " onmouseover="this.style.transform='translateX(10px)'; this.style.boxShadow='0 10px 30px rgba(255, 165, 0, 0.3)';" onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <div style="
-          width: 70px;
-          height: 70px;
-          background: radial-gradient(circle, rgba(255, 165, 0, 0.3), rgba(255, 165, 0, 0.1));
-          border: 3px solid var(--ctv-color);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2rem;
-          box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
-      ">🟠</div>
-    </div>
-    <div>
-      <h3 style="color: var(--ctv-color); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-        CTV <span style="color: var(--gray-light); font-size: 1rem; font-weight: 500;">- Volume Alvo Clínico</span>
-      </h3>
-      <p style="color: var(--white); line-height: 1.8; margin: 0;">
-        Volume de tecido que engloba tanto o GTV visível quanto a doença maligna microscópica subclínica.
-      </p>
-    </div>
-  </div>
-
-  <!-- ITV Card -->
-  <div class="volume-card-horizontal itv" style="
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
-      background: linear-gradient(90deg, rgba(0, 0, 255, 0.1), var(--glass));
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      border: 2px solid var(--itv-color);
-      transition: all 0.3s ease;
-  " onmouseover="this.style.transform='translateX(10px)'; this.style.boxShadow='0 10px 30px rgba(0, 0, 255, 0.3)';" onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <div style="
-          width: 70px;
-          height: 70px;
-          background: radial-gradient(circle, rgba(0, 0, 255, 0.3), rgba(0, 0, 255, 0.1));
-          border: 3px solid var(--itv-color);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2rem;
-          box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
-      ">🔵</div>
-    </div>
-    <div>
-      <h3 style="color: var(--itv-color); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-        ITV <span style="color: var(--gray-light); font-size: 1rem; font-weight: 500;">- Volume Alvo Interno</span>
-      </h3>
-      <p style="color: var(--white); line-height: 1.8; margin: 0;">
-        Volume que é a somatória do CTV com as margens devido a sua variação de posição e formato.
-      </p>
-    </div>
-  </div>
-
-  <!-- PTV Card -->
-  <div class="volume-card-horizontal ptv" style="
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
-      background: linear-gradient(90deg, rgba(0, 128, 0, 0.1), var(--glass));
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      border: 2px solid var(--ptv-color);
-      transition: all 0.3s ease;
-  " onmouseover="this.style.transform='translateX(10px)'; this.style.boxShadow='0 10px 30px rgba(0, 128, 0, 0.3)';" onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <div style="
-          width: 70px;
-          height: 70px;
-          background: radial-gradient(circle, rgba(0, 128, 0, 0.3), rgba(0, 128, 0, 0.1));
-          border: 3px solid var(--ptv-color);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2rem;
-          box-shadow: 0 0 20px rgba(0, 128, 0, 0.5);
-      ">🟢</div>
-    </div>
-    <div>
-      <h3 style="color: var(--ptv-color); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-        PTV <span style="color: var(--gray-light); font-size: 1rem; font-weight: 500;">- Volume Alvo de Planejamento</span>
-      </h3>
-      <p style="color: var(--white); line-height: 1.8; margin: 0;">
-        É o CTV mais margens de erro. Leva-se em consideração os movimentos acometidos pela doença (respiratórios, variação de órgãos).
-      </p>
-    </div>
-  </div>
-
-  <!-- TV Card -->
-  <div class="volume-card-horizontal tv" style="
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
-      background: linear-gradient(90deg, rgba(128, 0, 128, 0.1), var(--glass));
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      border: 2px solid var(--tv-color);
-      transition: all 0.3s ease;
-  " onmouseover="this.style.transform='translateX(10px)'; this.style.boxShadow='0 10px 30px rgba(128, 0, 128, 0.3)';" onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <div style="
-          width: 70px;
-          height: 70px;
-          background: radial-gradient(circle, rgba(128, 0, 128, 0.3), rgba(128, 0, 128, 0.1));
-          border: 3px solid var(--tv-color);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2rem;
-          box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);
-      ">🟣</div>
-    </div>
-    <div>
-      <h3 style="color: var(--tv-color); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-        TV <span style="color: var(--gray-light); font-size: 1rem; font-weight: 500;">- Volume Tratado</span>
-      </h3>
-      <p style="color: var(--white); line-height: 1.8; margin: 0;">
-        Área abrangida por uma isodose selecionada pelo radioterapeuta como adequada para alcançar os objetivos de tratamento.
-      </p>
-    </div>
-  </div>
-
-  <!-- IV Card -->
-  <div class="volume-card-horizontal iv" style="
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem;
-      background: linear-gradient(90deg, rgba(255, 255, 0, 0.1), var(--glass));
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      border: 2px solid var(--iv-color);
-      transition: all 0.3s ease;
-  " onmouseover="this.style.transform='translateX(10px)'; this.style.boxShadow='0 10px 30px rgba(255, 255, 0, 0.3)';" onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <div style="
-          width: 70px;
-          height: 70px;
-          background: radial-gradient(circle, rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.1));
-          border: 3px solid var(--iv-color);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2rem;
-          box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
-      ">🟡</div>
-    </div>
-    <div>
-      <h3 style="color: var(--iv-color); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-        IV <span style="color: var(--gray-light); font-size: 1rem; font-weight: 500;">- Volume Irradiado</span>
-      </h3>
-      <p style="color: var(--white); line-height: 1.8; margin: 0;">
-        Volume de tecido que recebe uma dose considerada significativa em relação à tolerância dos tecidos normais.
-      </p>
-    </div>
-  </div>
-
-</div>
-<!-- ========== FIM DOS CARDS HORIZONTAIS ========== -->
-
-<!-- Visualização Integrada dos Volumes -->
-<div class="integrated-volumes-section-compact"> 
-  <h3 style="text-align: center; font-size: 1.5rem; color: var(--primary-light); margin-bottom: 1rem;">
-    🎯 Relação Hierárquica dos Volumes
-  </h3>
-  <p style="text-align: center; color: var(--gray-light); margin-bottom: 1rem; font-size: 0.95rem;">
-    💡 Clique em cada círculo para ver as informações detalhadas
-  </p>
-
-  <div class="volumes-visualization-compact">
-    <div class="nested-volumes-compact">
-      <!-- PTV - Maior -->
-      <div class="nested-volume ptv-outer" onclick="showVolumeInfo('ptv')">
-        <div class="volume-badge ptv-badge">PTV</div>
-      </div>
-
-      <!-- ITV -->
-      <div class="nested-volume itv-outer" onclick="showVolumeInfo('itv')">
-        <div class="volume-badge itv-badge">ITV</div>
-      </div>
-
-      <!-- CTV -->
-      <div class="nested-volume ctv-outer" onclick="showVolumeInfo('ctv')">
-        <div class="volume-badge ctv-badge">CTV</div>
-      </div>
-
-      <!-- GTV - Menor (centro) -->
-      <div class="nested-volume gtv-outer" onclick="showVolumeInfo('gtv')">
-        <div class="volume-badge gtv-badge">GTV</div>
-      </div>
-
-      <div class="margin-indicator sm-indicator">
-        <span class="margin-arrow">↔</span>
-        <span class="margin-text">SM</span>
-      </div>
-
-
-      <div class="margin-indicator im-indicator">
-        <span class="margin-arrow">↔</span>
-        <span class="margin-text">IM</span>
-      </div>
-    </div>
-
-    <!-- Info Box compacto -->
-    <div class="volume-info-display-compact" id="volumeInfoDisplay">
-      <div class="volume-info-content">
-        <div class="volume-info-icon-compact" id="volumeInfoIcon">🎯</div>
-        <h4 id="volumeInfoTitle" style="font-size: 1.3rem;">Clique em um volume</h4>
-        <p id="volumeInfoDescription" style="font-size: 0.95rem;">
-          Selecione um dos círculos acima para ver informações detalhadas
-        </p>
-      </div>
-    </div>
-
-    <div class="volumes-legend-compact">
-      <div class="legend-item-compact" onclick="showVolumeInfo('gtv')">
-        <div class="legend-color gtv-color"></div>
-        <span><strong>GTV</strong> - Tumor visível</span>
-      </div>
-      <div class="legend-item-compact" onclick="showVolumeInfo('ctv')">
-        <div class="legend-color ctv-color"></div>
-        <span><strong>CTV</strong> - GTV + microscópica</span>
-      </div>
-      <div class="legend-item-compact" onclick="showVolumeInfo('itv')">
-        <div class="legend-color itv-color"></div>
-        <span><strong>ITV</strong> - CTV + IM</span>
-      </div>
-      <div class="legend-item-compact" onclick="showVolumeInfo('ptv')">
-        <div class="legend-color ptv-color"></div>
-        <span><strong>PTV</strong> - ITV + SM</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-/* ===== Ajustes específicos dos volumes ===== */
-.nested-volumes-compact {
-  position: relative;
-  width: 400px;
-  height: 400px;
-  margin: 0 auto;
-}
-
-.nested-volume {
-  position: absolute;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-/* Tamanhos e cores */
-.ptv-outer {
-  width: 400px;
-  height: 400px;
-  border: 4px solid limegreen;
-  z-index: 1;
-}
-
-.itv-outer {
-  width: 320px;
-  height: 320px;
-  border: 4px solid blue;
-  top: 40px;
-  left: 40px;
-  z-index: 2;
-}
-
-.ctv-outer {
-  width: 240px;
-  height: 240px;
-  border: 4px solid gold;
-  top: 80px;
-  left: 80px;
-  z-index: 3;
-}
-
-.gtv-outer {
-  width: 160px;
-  height: 160px;
-  border: 4px solid red;
-  top: 120px;
-  left: 120px;
-  z-index: 4;
-}
-
-/* Nome dentro de cada círculo */
-.volume-badge {
-  position: relative;
-  font-weight: bold;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  padding: 4px 10px;
-  backdrop-filter: blur(4px);
-}
-
-/* Destaque no círculo selecionado */
-.nested-volume.active {
-  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.5);
-}
-</style>
-
-<script>
-function showVolumeInfo(volume) {
-  const title = document.getElementById("volumeInfoTitle");
-  const desc = document.getElementById("volumeInfoDescription");
-
-  switch (volume) {
-    case 'gtv':
-      title.textContent = "GTV - Tumor visível";
-      desc.textContent = "Volume do tumor visível nas imagens.";
-      break;
-    case 'ctv':
-      title.textContent = "CTV - Volume Clínico Alvo";
-      desc.textContent = "Inclui GTV + margens microscópicas de doença.";
-      break;
-    case 'itv':
-      title.textContent = "ITV - Volume Interno Alvo";
-      desc.textContent = "Inclui CTV + margens internas (IM) para movimentação.";
-      break;
-    case 'ptv':
-      title.textContent = "PTV - Volume de Planejamento";
-      desc.textContent = "Inclui ITV + margens de setup (SM).";
-      break;
-  }
-
-  // Remove destaque anterior e aplica ao volume clicado
-  document.querySelectorAll('.nested-volume').forEach(v => v.classList.remove('active'));
-  document.querySelector(`.${volume}-outer`).classList.add('active');
-}
-</script>
-
-
-<!-- Imagem Próstata - Legenda Abaixo -->
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      gap: 2rem;
-      flex-wrap: wrap;
-      max-width: 1400px;
-      margin: 0 auto;
-  ">
-
-    <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/imagem_prostata_axial.JPG" 
-           alt="Plano axial - próstata" 
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 430px; height: auto; 
-                  border-radius: 16px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 25px rgba(0,0,0,0.6); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.95rem;">
-        <strong>Plano Axial</strong>
-      </p>
-    </div>
-
-    <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/imagem_prostata_coronal.JPG" 
-           alt="Plano coronal - próstata" 
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 430px; height: auto; 
-                  border-radius: 16px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 25px rgba(0,0,0,0.6); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.95rem;">
-        <strong>Plano Coronal</strong>
-      </p>
-    </div>
-
-    <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/imagem_prostata_sagital.JPG" 
-           alt="Plano sagital - próstata" 
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 430px; height: auto; 
-                  border-radius: 16px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 25px rgba(0,0,0,0.6); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.95rem;">
-        <strong>Plano Sagital</strong>
-      </p>
-    </div>
-  </div>
-</div>
-
-<div class="formula-box">
-PTV = CTV + IM + SM
-</div>
-</div>
-
-<!-- Margens -->
-<div class="section">
-<h2 class="section-title">📏 Margens e Incertezas</h2>
-
-<div class="margin-types">
-<div class="margin-card">
-<div class="margin-icon">↔️</div>
-<h4>IM - Margem Interna</h4>
-<p>Leva em consideração as variações do tamanho, forma e posição do CTV em relação a pontos de referência anatômica.</p>
-<ul class="list-styled" style="text-align: left; margin-top: 1rem;">
-<li>Movimento respiratório</li>
-<li>Enchimento de bexiga/estômago</li>
-<li>Variações do órgão</li>
-</ul>
-</div>
-
-<div class="margin-card">
-<div class="margin-icon">🎯</div>
-<h4>SM - Margem de Set-up</h4>
-<p>Adicionada para levar em consideração as incertezas devidas ao posicionamento do paciente.</p>
-<ul class="list-styled" style="text-align: left; margin-top: 1rem;">
-<li>Posicionamento do paciente</li>
-<li>Imobilização</li>
-<li>Erros de alinhamento</li>
-</ul>
-</div>
-</div>
-
-<div class="card">
-<h3>Tipos de Incertezas Geométricas</h3>
-<div class="grid-2">
-<div class="highlight-box">
-<h4 style="color: var(--error);">⚠️ TIPO A: ALEATÓRIAS</h4>
-<p>Variações que ocorrem de forma imprevisível entre frações do tratamento (intrafração e interfrações).</p>
-</div>
-<div class="highlight-box">
-<h4 style="color: var(--warning);">⚠️ TIPO B: SISTEMÁTICAS</h4>
-<p>Erros consistentes que afetam todo o tratamento de forma similar.</p>
-</div>
-</div>
-</div>
-
-<!-- Movimento do GTV em Pulmão -->
-<div class="section">
-<h2 class="section-title">🫁 Movimento do GTV em Câncer de Pulmão</h2>
-
-<div class="card">
-<h3>Análise dos Movimentos Respiratórios</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Em pacientes com câncer de pulmão, o movimento do GTV devido à respiração é uma consideração crítica para o planejamento do PTV.
-</p>
-
-<!-- Imagem do Pulmão -->
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="img/imagem_movimentos_pulmao.png" 
-         alt="Movimento do GTV em pacientes com câncer de pulmão"
-         onclick="openImageModal(this.src, this.alt)"
-         style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
-    
-    <div style="margin-top: 1.5rem;">
-      <div style="display: inline-block; background: var(--glass); backdrop-filter: blur(20px); padding: 1rem 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
-        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">🫁 Movimento do GTV em Câncer de Pulmão</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--primary);">
-<p style="font-size: 1.1rem;">
-<strong>💡 IMPACTO NO PTV:</strong> O movimento respiratório pode deslocar o GTV em até 2-3 cm, necessitando margens adequadas no PTV para garantir cobertura completa durante todo o ciclo respiratório.
-</p>
-</div>
-
-<div class="grid-2" style="margin-top: 1.5rem;">
-<div class="highlight-box">
-<h5 style="color: var(--primary-light);">📐 Variação Craniocaudal</h5>
-<p>Maior movimento na direção superior-inferior devido à ação do diafragma</p>
-</div>
-<div class="highlight-box">
-<h5 style="color: var(--secondary);">🎯 Estratégias de Compensação</h5>
-<p>Uso de 4D-CT, gating respiratório ou ITV para manejar o movimento</p>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Órgãos de Risco -->
-<div class="section">
-<h2 class="section-title">⚠️ Órgãos de Risco (OR)</h2>
-<div class="card">
-<h3>Definição e Classificação</h3>
-<p style="font-size: 1.1rem; margin-bottom: 2rem;">
-São tecidos normais delimitados e incluídos, cuja resposta à radiação pode afetar consideravelmente o planejamento e/ou a dose prescrita.
-</p>
-
-<div class="formula-box">
-PRV = OAR + IM + SM
-</div>
-
-<h3 style="margin-top: 2rem; color: var(--accent-light);">Classificação dos Órgãos:</h3>
-<div class="margin-types">
-<div class="margin-card">
-<span class="badge serial">SERIAL</span>
-<p style="margin-top: 1rem;">Todo órgão de risco é uma unidade continuada. Danos em um ponto causarão danos completos do órgão.</p>
-<p style="margin-top: 0.5rem; color: var(--gray-light);"><strong>Ex:</strong> Medula espinhal, sistema digestório</p>
-<p style="margin-top: 0.5rem;"><em>Dose pontual é significativa</em></p>
-</div>
-
-<div class="margin-card">
-<span class="badge parallel">PARALELO</span>
-<p style="margin-top: 1rem;">Órgão consiste em várias unidades funcionais. Se uma parte é danificada, o resto compensa a perda.</p>
-<p style="margin-top: 0.5rem; color: var(--gray-light);"><strong>Ex:</strong> Pulmão, bexiga</p>
-<p style="margin-top: 0.5rem;"><em>Dose média é considerada</em></p>
-</div>
-
-<div class="margin-card">
-<span class="badge serial-parallel">SERIAL-PARALELO</span>
-<p style="margin-top: 1rem;">Órgãos com características mistas de estruturas seriais e paralelas.</p>
-<p style="margin-top: 0.5rem; color: var(--gray-light);"><strong>Ex:</strong> Rim (glomérulo-paralelo, túbulos-serial), Coração</p>
-</div>
-</div>
-</div>
-
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="img/imagem_orgaos_risco.jpg" 
-         alt="Órgãos de risco no planejamento Crânio"
-         onclick="openImageModal(this.src, this.alt)"
-         style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
-    
-    <div style="margin-top: 1.5rem;">
-      <div style="display: inline-block; background: var(--glass); backdrop-filter: blur(20px); padding: 1rem 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
-        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">🛡️ Contornos dos Órgãos de Risco – Planejamento Crânio</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Volume de Planejamento de Órgão de Risco (PRV) -->
-<div class="section">
-<h2 class="section-title">🛡️ Volume de Planejamento de Órgão de Risco (PRV)</h2>
-
-<div class="card" style="background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 20, 147, 0.05)); border: 2px solid var(--prv-color);">
-<h3 style="color: var(--prv-color);">📚 Origem: ICRU 62 (1999)</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-O conceito de <strong>PRV (Planning Organ at Risk Volume)</strong> foi introduzido pelo <strong>ICRU Report 62</strong> como complemento ao ICRU 50, para abordar especificamente as incertezas geométricas dos órgãos de risco.
-</p>
-
-<div class="formula-box" style="background: linear-gradient(135deg, rgba(255, 105, 180, 0.15), rgba(255, 20, 147, 0.1)); border-color: var(--prv-color);">
-PRV = Órgão de Risco + IM + SM
-</div>
-
-<div class="grid-2" style="margin-top: 1.5rem;">
-<div class="highlight-box" style="border-color: var(--prv-color);">
-<h5 style="color: var(--prv-color);">🎯 Conceito PRV</h5>
-<p>Volume geométrico que engloba o órgão de risco mais margens para compensar:</p>
-<ul class="list-styled" style="text-align: left; margin-top: 0.5rem;">
-<li>Movimentos internos (IM)</li>
-<li>Incertezas de posicionamento (SM)</li>
-<li>Variações de forma e tamanho</li>
-</ul>
-</div>
-
-<div class="highlight-box" style="border-color: var(--prv-color);">
-<h5 style="color: var(--prv-color);">📊 Aplicação Prática</h5>
-<p>O PRV é usado durante o planejamento para:</p>
-<ul class="list-styled" style="text-align: left; margin-top: 0.5rem;">
-<li>Otimizar a distribuição de dose</li>
-<li>Proteger adequadamente os OARs</li>
-<li>Definir constraints realistas</li>
-</ul>
-</div>
-</div>
-</div>
-
-<!-- Imagem PRV - ICRU 62 -->
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="img/Fig.PRV.conceito.png"
-         alt="ICRU 62 - Conceito do PRV"
-         onclick="openImageModal(this.src, this.alt)"
-         style="width: 90%; max-width: 800px; border-radius: 16px; border: 2px solid var(--prv-color); box-shadow: 0 0 30px rgba(255, 105, 180, 0.3); object-fit: contain;">
-    
-    <div style="margin-top: 1.5rem;">
-      <div style="display: inline-block; background: var(--glass); backdrop-filter: blur(20px); padding: 1rem 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
-        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">📚 ICRU 62 - Conceito do PRV</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-<h3>🔄 Comparação: PTV vs PRV</h3>
-<div class="grid-2">
-<div class="highlight-box" style="border-color: var(--ptv-color);">
-<h5 style="color: var(--ptv-color);">📈 PTV</h5>
-<p><strong>Finalidade:</strong> Garantir dose adequada ao CTV</p>
-<p><strong>Fórmula:</strong> PTV = CTV + IM + SM</p>
-<p><strong>Foco:</strong> Cobertura de dose para controle tumoral</p>
-</div>
-
-<div class="highlight-box" style="border-color: var(--prv-color);">
-<h5 style="color: var(--prv-color);">📉 PRV</h5>
-<p><strong>Finalidade:</strong> Proteger órgãos sensíveis</p>
-<p><strong>Fórmula:</strong> PRV = OAR + IM + SM</p>
-<p><strong>Foco:</strong> Limitação de dose para evitar toxicidade</p>
-</div>
-</div>
-
-<div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--accent);">
-<p style="font-size: 1.1rem;">
-<strong>💡 INOVAÇÃO ICRU 62:</strong> O PRV trouxe simetria conceitual ao tratamento - assim como garantimos dose ao CTV através do PTV, protegemos os OARs através do PRV, ambos considerando as mesmas incertezas geométricas.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Índice de Conformidade - Parâmetro Clínico Moderno -->
-<div class="section">
-<h2 class="section-title">📊 Índice de Conformidade (IC)</h2>
-
-<div class="card" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05)); border: 2px solid var(--warning);">
-<h3 style="color: var(--warning);">🎯 Status do Conceito</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1rem;">
-<strong>O Índice de Conformidade não é formalmente definido em nenhum relatório ICRU.</strong>
-</p>
-<p style="font-size: 1.1rem;">
-Este é um <strong>parâmetro clínico operacional</strong> que surgiu da prática e foi adotado pela comunidade de radioterapia para quantificar a qualidade dos planos de tratamento.
-</p>
-</div>
-
-<div class="card">
-<h3>📈 Origem e Adoção Clínica</h3>
-
-<div class="grid-2">
-<div class="highlight-box">
-<h5 style="color: var(--primary-light);">🏥 Prática Clínica</h5>
-<p><strong>Surgimento:</strong> Anos 2000 com IMRT/VMAT</p>
-<p><strong>Contexto:</strong> Necessidade de parâmetros objetivos</p>
-<p><strong>Uso:</strong> Avaliação comparativa de planos</p>
-</div>
-
-<div class="highlight-box">
-<h5 style="color: var(--secondary);">🔬 Literatura Científica</h5>
-<p><strong>Publicações:</strong> IJROBP, Radiotherapy & Oncology</p>
-<p><strong>Guidelines:</strong> IAEA, ESTRO, ASTRO</p>
-<p><strong>Variações:</strong> Diferentes fórmulas propostas</p>
-</div>
-</div>
-
-<div class="formula-box" style="margin-top: 1.5rem;">
-IC = Volume da Isodose de Prescrição / Volume do PTV
-</div>
-</div>
-
-<div class="card">
-<h3>🔄 Relação com os Princípios ICRU</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Embora não definido formalmente, o IC opera dentro do framework conceitual estabelecido pelo ICRU:
-</p>
-
-<ul class="list-styled">
-<li><strong>Base no Volume Tratado</strong> - Conceito ICRU 50 Seção 2.3.4</li>
-<li><strong>Relação com PTV</strong> - Conceito geométrico ICRU 50</li>
-<li><strong>Otimização de dose</strong> - Princípio de homogeneidade ICRU</li>
-<li><strong>Proteção de OARs</strong> - Filosofia ICRU 62 de balanceamento</li>
-</ul>
-
-<div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--accent);">
-<p style="font-size: 1.1rem;">
-<strong>💡 CONCLUSÃO:</strong> O IC é um exemplo de como a prática clínica evoluiu além dos relatórios ICRU, mantendo-se fiel aos seus princípios fundamentais enquanto desenvolve ferramentas práticas para a era da radioterapia de precisão.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Distribuição de Dose -->
-<div class="section">
-<h2 class="section-title">📈 Distribuição de Dose Absorvida</h2>
-<div class="card">
-<h3>Recomendações de Homogeneidade</h3>
-<p style="font-size: 1.1rem; line-height: 1.8;">
-Quando a dose a um dado volume é prescrita, a dose correspondente que é entregue deve ser o mais homogênea possível.
-</p>
-<div class="highlight-box" style="margin-top: 2rem;">
-<p style="font-size: 1.2rem;"><strong>RECOMENDAÇÃO ICRU:</strong></p>
-<p style="font-size: 1.3rem; color: var(--accent-light); margin-top: 1rem;">
-O grau de heterogeneidade deve ser mantido entre <strong>-5%</strong> e <strong>+7%</strong> da dose prescrita
-</p>
-</div>
-</div>
-
-<div class="card">
-<h3>Variação da Dose no PTV</h3>
-<ul class="list-styled">
-<li><strong style="color: var(--error);">D<sub>max</sub></strong> - A menor dose em um volume definido</li>
-<li><strong style="color: var(--warning);">D<sub>min</sub></strong> - Garantir o controle tumoral</li>
-<li><strong style="color: var(--primary-light);">D<sub>average</sub></strong> - Média dos valores de dose nos pontos da rede</li>
-<li><strong style="color: var(--secondary);">D<sub>median</sub></strong> - Valor central dos valores dose na rede de pontos</li>
-<li><strong style="color: var(--accent-light);">D<sub>modal</sub></strong> - Valor de dose que ocorre mais frequentemente no volume</li>
-</ul>
-</div>
-
-<div class="card">
-<h3>🔥 Pontos Quentes (Hot Spots)</h3>
-<div class="highlight-box">
-<p style="font-size: 1.1rem;">
-Representa um volume <strong>fora do PTV</strong> que recebe uma dose maior do que 100% da dose prescrita para o PTV.
-</p>
-<p style="margin-top: 1rem; color: var(--warning);">
-⚠️ <strong>Critério:</strong> O ponto quente só é significativo se seu diâmetro mínimo excede <strong>15mm</strong>
-</p>
-<p style="margin-top: 0.5rem; font-size: 0.9rem;">
-(Para órgãos pequenos, um diâmetro menor que 15mm deve ser considerado)
-</p>
-</div>
-</div>
-
-<!--Imagem Hot Spots-->
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="img/imagem_distribuicao_dose.png"
-         alt="Exemplo de distribuição de dose com pontos quentes"
-         onclick="openImageModal(this.src, this.alt)"
-         style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
-    
-    <div style="margin-top: 1.5rem;">
-      <div style="display: inline-block; background: var(--glass); backdrop-filter: blur(20px); padding: 1rem 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
-        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">🔥 Exemplo de Distribuição de Dose com Pontos Quentes</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Recomendações para Relatórios -->
-<div class="section">
-<h2 class="section-title">📝 Recomendações para Elaboração de Relatórios</h2>
-<div class="card">
-<h3>Objetivos das Recomendações</h3>
-<p style="font-size: 1.1rem; line-height: 1.8;">
-<strong style="color: var(--accent-light);">OBJETIVO PRINCIPAL:</strong> Promover uniformidade entre os centros de Radioterapia no relatório de seus tratamentos.
-</p>
-<div class="highlight-box" style="margin-top: 2rem;">
-É essencial que o mesmo tipo de tratamento seja relatado da mesma forma para diferentes centros, usando a mesma terminologia e definições.
-</div>
-</div>
-
-<div class="card">
-<h3>Ponto de Referência ICRU</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-O sistema atual de recomendações baseia-se na seleção de um ponto dentro do PTV que deve atender aos seguintes critérios:
-</p>
-<ul class="list-styled">
-<li>A dose no ponto deve ser <strong>clinicamente relevante</strong></li>
-<li>Ponto deve é <strong>fácil de definir</strong></li>
-<li>Local onde a dose pode ser determinado com <strong>precisão física</strong></li>
-<li>Deve ser selecionado em uma região onde <strong>não há gradiente de dose acentuado</strong></li>
-</ul>
-
-<div class="highlight-box" style="margin-top: 2rem;">
-<p style="font-size: 1.1rem;">
-<strong>LOCALIZAÇÃO IDEAL:</strong> Centro do PTV e no eixo central do campo, em uma região de distribuição de dose homogênea
-</p>
-</div>
-</div>
-
-<!--Imagem Ponto de ref. ICRU-->
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="img/imagem_ponto_icru.png"
-         alt="Posicionamento ideal do ponto de referência ICRU"
-         onclick="openImageModal(this.src, this.alt)"
-         style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
-    
-    <div style="margin-top: 1.5rem;">
-      <div style="display: inline-block; background: var(--glass); backdrop-filter: blur(20px); padding: 1rem 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
-        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">🎯 Posicionamento Ideal do Ponto de Referência ICRU</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-<h3>Níveis de Avaliação de Dose</h3>
-<p style="margin-bottom: 2rem; color: var(--gray-light);">
-O nível de completude e precisão do relatório de dose depende da situação do departamento e do objetivo do tratamento.
-</p>
-
-<div class="margin-types">
-<div class="margin-card" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));">
-<div class="margin-icon">1️⃣</div>
-<h4>NÍVEL 1: Técnicas Simples</h4>
-<p style="margin-top: 1rem;"><em>(ex: tratamento paliativo)</em></p>
-<ul class="list-styled" style="text-align: left; margin-top: 1rem;">
-<li>Dose no ponto ICRU com precisão</li>
-<li>Estimativa das doses máximas e mínimas para o PTV</li>
-<li>Uso de tabelas PDP e cartas de isodose</li>
-</ul>
-</div>
-
-<div class="margin-card" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));">
-<div class="margin-icon">2️⃣</div>
-<h4>NÍVEL 2: Planejamento Avançado</h4>
-<ul class="list-styled" style="text-align: left; margin-top: 1rem;">
-<li>Definição de GTV, CTV, PTV, OR, PRV usando CT/RM</li>
-<li>Dose no ponto ICRU, D<sub>max</sub> e D<sub>min</sub></li>
-<li>Distribuições de doses completas em planos ou volumes</li>
-<li>Trocas de informações mais completas</li>
-</ul>
-</div>
-
-<div class="margin-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));">
-<div class="margin-icon">3️⃣</div>
-<h4>NÍVEL 3: Técnicas Avançadas</h4>
-<p style="margin-top: 1rem;">Inclui o desenvolvimento de novas técnicas para as quais os critérios de relatório ainda não foram estabelecidos.</p>
-<ul class="list-styled" style="text-align: left; margin-top: 1rem;">
-<li>IMRT, VMAT, Radioterapia Estereotáxica</li>
-<li>Análises dosimétricas avançadas</li>
-<li>Histogramas dose-volume detalhados</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Prescrição de Dose -->
-<div class="section">
-<h2 class="section-title">💊 Prescrição para Distribuição de Dose</h2>
-<div class="card">
-<h3>Tipos de Configuração de PTV</h3>
-<div class="grid-2">
-<div class="highlight-box">
-<h4 style="color: var(--primary-light);">✅ PTV Único e Simples</h4>
-<p>Usado em grande proporção de tratamentos, principalmente paliativos. Ponto ICRU na intersecção dos eixos do feixe.</p>
-</div>
-<div class="highlight-box">
-<h4 style="color: var(--warning);">⚠️ PTV Único e Complexo</h4>
-<p>Feixes não coplanares, paralelos não opostos ou intersecção fora do PTV. Seguir recomendações ICRU 50.</p>
-</div>
-</div>
-<div class="grid-2" style="margin-top: 1rem;">
-<div class="highlight-box">
-<h4 style="color: var(--secondary);">🔄 PTVs Adjacentes</h4>
-<p>Para cada PTV: dose no ponto ICRU, D<sub>max</sub> e D<sub>min</sub>. Considerar contribuição entre PTVs.</p>
-</div>
-<div class="highlight-box">
-<h4 style="color: var(--accent-light);">⭕ PTVs Sobrepostos</h4>
-<p>Comum em casos de boost. Calcular distribuições somadas e contribuição cumulativa.</p>
-</div>
-</div>
-</div>
-<!-- Imagem PTV simples e complexas -->
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="img/imagem_configuracoes_ptv.png"
-         alt="Exemplos de configurações de PTV simples e complexas"
-         onclick="openImageModal(this.src, this.alt)"
-         style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
-    
-    <div style="margin-top: 1.5rem;">
-      <div style="display: inline-block; background: var(--glass); backdrop-filter: blur(20px); padding: 1rem 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
-        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">⚡ Exemplos de Configurações de PTV Simples e Complexas</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Configurações de Feixes para PTV Único -->
-
-<div class="section">
-<h2 class="section-title">🎯 Configurações de Feixes para PTV Único</h2>
-
-<div class="card">
-<h3>Exemplos de Arranjos de Feixes Simples</h3>
-<p style="font-size: 1.1rem; margin-bottom: 2rem;">
-O ponto de referência ICRU deve ser localizado no centro do PTV e no eixo central do(s) feixe(s), em regiões de distribuição de dose homogênea.
-</p>
-
-<div class="grid-2">
-<div class="highlight-box">
-<h4 style="color: var(--primary-light);">🔄 Dois Feixes Ortogonais</h4>
-<p><strong>8 MV, Ponto ICRU:</strong> Centro do PTV e nos eixos dos feixes</p>
-<p><strong>Variação de dose no PTV:</strong> 102% a 95%</p>
-</div>
-<div class="highlight-box">
-<h4 style="color: var(--secondary);">🔺 Três Feixes Convergentes</h4>
-<p><strong>8 MV, Ponto ICRU:</strong> Centro do PTV e nos eixos dos feixes</p>
-<p><strong>Variação de dose no PTV:</strong> 108% a 90%</p>
-</div>
-</div>
-
-<div class="highlight-box" style="margin-top: 1rem;">
-<h4 style="color: var(--accent-light);">◼️ Técnica em Caixa (4 Feixes)</h4>
-<p><strong>8 MV, Ponto ICRU:</strong> Centro do PTV e nos eixos dos feixes</p>
-<p><strong>Variação de dose no PTV:</strong> 103% a 95%</p>
-</div>
-</div>
-
-<!-- Imagens das Configurações de Feixes -->
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      gap: 2rem;
-      flex-wrap: wrap;
-      max-width: 1400px;
-      margin: 0 auto;
-  ">
-
-    <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/imagem_feixes_ortogonais.png" 
-           alt="Dois feixes ortogonais de 8 MV - Variação 102%-95%"
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 300px; height: auto; 
-                  border-radius: 16px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 25px rgba(0,0,0,0.6); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.9rem;">
-        <strong>Dois Feixes Ortogonais (8 MV)</strong><br>
-        Variação: 102%-95%
-      </p>
-    </div>
-
-    <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/imagem_tres_feixes.png" 
-           alt="Três feixes convergentes de 8 MV - Variação 108%-90%"
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 300px; height: auto; 
-                  border-radius: 16px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 25px rgba(0,0,0,0.6); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.9rem;">
-        <strong>Três Feixes Convergentes (8 MV)</strong><br>
-        Variação: 108%-90%
-      </p>
-    </div>
-
-    <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/imagem_tecnica_caixa.png" 
-           alt="Técnica em caixa com 4 feixes de 8 MV - Variação 103%-95%"
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 300px; height: auto; 
-                  border-radius: 16px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 25px rgba(0,0,0,0.6); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.9rem;">
-        <strong>Técnica em BOX (4 Feixes - 8 MV)</strong><br>
-        Variação: 103%-95%
-      </p>
-    </div>
-  </div>
-</div>
-
-<div class="card" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(20, 184, 166, 0.1));">
-<h3>⚡ Filtros de Cunha (Wedge Filters)</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Os <strong>filtros de cunha de 45°</strong> observados nas figuras são dispositivos de modulação de feixe que criam gradientes de dose controlados, permitindo:
-</p>
-
-<ul class="list-styled">
-<li><strong>Compensação de contornos</strong> - Adaptam a distribuição de dose à superfície irregular do paciente</li>
-<li><strong>Otimização de homogeneidade</strong> - Corrigem variações de dose em alvos assimétricos</li>
-<li><strong>Proteção de órgãos de risco</strong> - Reduzem dose em tecidos sensíveis adjacentes</li>
-</ul>
-
-<div class="highlight-box" style="margin-top: 1.5rem;">
-<p style="font-size: 1.1rem;">
-<strong>ICRU 50 RECOMENDA:</strong> Quando filtros de cunha são utilizados, isso deve ser claramente documentado no relatório do tratamento, incluindo o ângulo da cunha e sua orientação.
-</p>
-</div>
-</div>
-
-<!-- Filtro Cunha -->
-<div class="card" style="margin-top: 2rem;">
-<h3>📊 Análise Comparativa</h3>
-<div class="highlight-box">
-<p style="font-size: 1.1rem;">
-<strong>PADRÃO OBSERVADO:</strong> Configurações com maior número de feixes convergindo para um ponto central tendem a produzir distribuições de dose mais homogêneas dentro do PTV.
-</p>
-</div>
-
-<ul class="list-styled">
-<li><strong>Dois feixes ortogonais:</strong> Variação de 7% (102%-95%)</li>
-<li><strong>Três feixes convergentes:</strong> Variação de 18% (108%-90%) - maior heterogeneidade</li>
-<li><strong>Quatro feixes em box:</strong> Variação de 8% (103%-95%) - boa homogeneidade</li>
-</ul>
-</div>
-</div>
-
-<!-- Variação de Dose no CTV -->
-<div class="section">
-<h2 class="section-title">🎯 Variação de Dose no CTV</h2>
-<div class="card">
-<h3>Estimativa a partir do PTV</h3>
-<p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-O controle do tumor depende da dose no CTV e sua variação. No entanto, a variação de dose no CTV só pode ser estimada a partir do PTV.
-</p>
-
-<div class="margin-types">
-<div class="margin-card" style="border-color: var(--primary);">
-<h4>📍 Dose no Centro</h4>
-<p style="margin-top: 1rem; font-size: 1.1rem;">
-Dose no centro do CTV ≈ Dose no centro do PTV
-</p>
-</div>
-
-<div class="margin-card" style="border-color: var(--error);">
-<h4>📈 Dose Máxima</h4>
-<p style="margin-top: 1rem; font-size: 1.1rem;">
-Dose máxima no CTV ≈ Dose máxima no PTV
-</p>
-</div>
-
-<div class="margin-card" style="border-color: var(--success);">
-<h4>📉 Dose Mínima</h4>
-<p style="margin-top: 1rem; font-size: 1.1rem;">
-Dose mínima no CTV ≥ Dose mínima no PTV
-</p>
-</div>
-</div>
-
-<div class="highlight-box" style="margin-top: 2rem;">
-<p style="font-size: 1.1rem;">
-<strong>CONCLUSÃO:</strong> Valores de doses referentes ao PTV podem ser relatados como uma estimativa razoável para o CTV. A dose mínima para o PTV pode ser considerada como um limite inferior do intervalo possível de valores de dose para o CTV.
-</p>
-</div>
-</div>
-
-<!-- Relação Dose CTV e PTV -->
-<div class="section">
-<h2 class="section-title">📊 Relação entre Distribuição de Dose no CTV e PTV</h2>
-
-<div class="card">
-<h3>Estimativa da Dose no CTV a partir do PTV</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Conforme <strong>ICRU 50 - Seção 2.4.1</strong>, a distribuição de dose no PTV é usada como estimativa para a dose no CTV, considerando que o CTV está contido dentro do PTV.
-</p>
-
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="img/Fig.2.6.dose.mama.png"
-         alt="ICRU 50 - Figura 2.6: Distribuição de dose tangencial em carcinoma mamário mostrando relação CTV-PTV"
-         onclick="openImageModal(this.src, this.alt)"
-         style="width: 90%; max-width: 800px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
-    
-    <div style="margin-top: 1.5rem;">
-      <div style="display: inline-block; background: var(--glass); backdrop-filter: blur(20px); padding: 1rem 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
-        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">📈 ICRU 50 - Figura 2.6: Distribuição de Dose em Carcinoma Mamário</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="grid-2" style="margin-top: 1.5rem;">
-<div class="highlight-box">
-<h5 style="color: var(--primary-light);">🎯 Princípio Fundamental</h5>
-<p><strong>ICRU 50 - Seção 2.4.1:</strong> "A distribuição de dose para o PTV tem que ser considerada representativa da dose para o CTV."</p>
-</div>
-
-<div class="highlight-box">
-<h5 style="color: var(--secondary);">📊 Variação de Dose</h5>
-<p>A homogeneidade de dose no PTV garante que o CTV receba dose adequada dentro dos limites de -5% a +7% recomendados.</p>
-</div>
-</div>
-
-<div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--accent);">
-<p style="font-size: 1.1rem;">
-<strong>💡 RELAÇÃO PRÁTICA:</strong> Como o CTV está contido dentro do PTV, a dose mínima no PTV representa o limite inferior da dose possível no CTV, enquanto a dose máxima no PTV representa o limite superior.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Classificação e Codificação - Com Tabelas Interativas -->
-<div class="section">
-<h2 class="section-title">🔬 Classificação e Codificação</h2>
-
-<div class="card">
-<h3>📋 Recomendações ICRU 50 para Documentação</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Conforme <strong>ICRU 50 - Seção 3.2.1</strong>, a descrição dos volumes deve ser precisa e permitir troca inequívoca de informações entre centros.
-</p>
-
-<div class="highlight-box" style="border-color: var(--primary);">
-<p style="font-size: 1.1rem;">
-<strong>ICRU 50 - Página 27:</strong> "Para fins de registro e documentação, pode ser necessário codificar esta descrição anatômica. Existem vários sistemas para codificar anatomia."
-</p>
-</div>
-</div>
-
-<!-- TABELA INTERATIVA - CÓDIGO ANATÔMICO -->
-<div class="card">
-<h3>🏷️ Tabela I.2 - Código Anatômico (ICRU 50 Apêndice I)</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--gray-light);">
-Baseado no CID-O(10) com adaptações para radioterapia. Formato: <strong>Órgão + Subsite 1 + Subsite 2 + Lateralidade</strong>
-</p>
-
-<div style="background: var(--dark-light); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
-<h5 style="color: var(--primary-light); margin-bottom: 1rem;">🔤 Sistema de Lateralidade</h5>
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-<div>
-<ul class="list-styled" style="text-align: left;">
-<li><strong>1</strong> = Direita</li>
-<li><strong>2</strong> = Esquerda</li>
-</ul>
-</div>
-<div>
-<ul class="list-styled" style="text-align: left;">
-<li><strong>3</strong> = Central</li>
-<li><strong>4</strong> = Bilateral</li>
-</ul>
-</div>
-</div>
-</div>
-
-<div class="table-container" style="overflow-x: auto; margin: 1.5rem 0;">
-<table style="width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: 8px; overflow: hidden;">
-<thead>
-<tr style="background: linear-gradient(135deg, var(--primary), var(--primary-dark));">
-<th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Código</th>
-<th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Estrutura Anatômica</th>
-<th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Exemplo</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-bottom: 1px solid var(--glass-border);">
-<td style="padding: 1rem; color: var(--primary-light); font-weight: 600;">C00-C14</td>
-<td style="padding: 1rem;">Cavidade Oral e Faringe</td>
-<td style="padding: 1rem; color: var(--gray-light);">C01.9 = Base da língua</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border); background: var(--bg-card-hover);">
-<td style="padding: 1rem; color: var(--primary-light); font-weight: 600;">C15-C26</td>
-<td style="padding: 1rem;">Órgãos Digestivos</td>
-<td style="padding: 1rem; color: var(--gray-light);">C16.2 = Corpo do estômago</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border);">
-<td style="padding: 1rem; color: var(--primary-light); font-weight: 600;">C30-C39</td>
-<td style="padding: 1rem;">Sistema Respiratório</td>
-<td style="padding: 1rem; color: var(--gray-light);">C34.1 = Lobo superior, pulmão</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border); background: var(--bg-card-hover);">
-<td style="padding: 1rem; color: var(--primary-light); font-weight: 600;">C50</td>
-<td style="padding: 1rem;">Mama</td>
-<td style="padding: 1rem; color: var(--gray-light);">C50.4 = Quadrante superior externo</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border);">
-<td style="padding: 1rem; color: var(--primary-light); font-weight: 600;">C61</td>
-<td style="padding: 1rem;">Próstata</td>
-<td style="padding: 1rem; color: var(--gray-light);">C61.9 = Próstata</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border); background: var(--bg-card-hover);">
-<td style="padding: 1rem; color: var(--primary-light); font-weight: 600;">C71</td>
-<td style="padding: 1rem;">Cérebro</td>
-<td style="padding: 1rem; color: var(--gray-light);">C71.1 = Lobo frontal</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border);">
-<td style="padding: 1rem; color: var(--primary-light); font-weight: 600;">C77</td>
-<td style="padding: 1rem;">Linfonodos</td>
-<td style="padding: 1rem; color: var(--gray-light);">C77.0 = Linfonodos de cabeça e pescoço</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<div class="highlight-box" style="margin-top: 1rem; border-color: var(--accent);">
-<p style="font-size: 0.95rem; margin: 0;">
-<strong>💡 Exemplo Completo:</strong> C34.1-2 = Pulmão (C34), Lobo Superior (.1), Lateralidade Esquerda (-2)
-</p>
-</div>
-</div>
-
-<!-- TABELA INTERATIVA - CÓDIGO DE SEÇÕES -->
-<div class="card">
-<h3>📏 Tabela I.3 - Código de Seções (ICRU 50 Apêndice I)</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--gray-light);">
-Planos transversais paralelos perpendiculares ao eixo longitudinal do corpo em intervalos de 3-4 cm.
-</p>
-
-<div class="table-container" style="overflow-x: auto; margin: 1.5rem 0;">
-<table style="width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: 8px; overflow: hidden;">
-<thead>
-<tr style="background: linear-gradient(135deg, var(--secondary), #0d9488);">
-<th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Código</th>
-<th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Nível Anatômico</th>
-<th style="padding: 1rem; text-align: left; color: white; font-weight: 600;">Ponto de Referência</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-bottom: 1px solid var(--glass-border);">
-<td style="padding: 1rem; color: var(--secondary); font-weight: 600;">08</td>
-<td style="padding: 1rem;">Crânio</td>
-<td style="padding: 1rem; color: var(--gray-light);">Glabela - protuberância occipital externa</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border); background: var(--bg-card-hover);">
-<td style="padding: 1rem; color: var(--secondary); font-weight: 600;">13</td>
-<td style="padding: 1rem;">Pescoço</td>
-<td style="padding: 1rem; color: var(--gray-light);">CIV - Laringe</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border);">
-<td style="padding: 1rem; color: var(--secondary); font-weight: 600;">22</td>
-<td style="padding: 1rem;">Tórax</td>
-<td style="padding: 1rem; color: var(--gray-light);">ThIII - Entrada esternal</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border); background: var(--bg-card-hover);">
-<td style="padding: 1rem; color: var(--secondary); font-weight: 600;">24</td>
-<td style="padding: 1rem;">Tórax</td>
-<td style="padding: 1rem; color: var(--gray-light);">ThV</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border);">
-<td style="padding: 1rem; color: var(--secondary); font-weight: 600;">27</td>
-<td style="padding: 1rem;">Tórax</td>
-<td style="padding: 1rem; color: var(--gray-light);">ThVIII - Processo xifoide</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border); background: var(--bg-card-hover);">
-<td style="padding: 1rem; color: var(--secondary); font-weight: 600;">41</td>
-<td style="padding: 1rem;">Abdômen</td>
-<td style="padding: 1rem; color: var(--gray-light);">LII - Umbigo</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border);">
-<td style="padding: 1rem; color: var(--secondary); font-weight: 600;">42</td>
-<td style="padding: 1rem;">Abdômen</td>
-<td style="padding: 1rem; color: var(--gray-light);">LIII - Crista ilíaca</td>
-</tr>
-<tr style="border-bottom: 1px solid var(--glass-border); background: var(--bg-card-hover);">
-<td style="padding: 1rem; color: var(--secondary); font-weight: 600;">51</td>
-<td style="padding: 1rem;">Pelve</td>
-<td style="padding: 1rem; color: var(--gray-light);">Borda superior do acetábulo</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-<!-- EXEMPLOS PRÁTICOS INTERATIVOS -->
-<div class="card">
-<h3>🎯 Exemplos Práticos de Aplicação</h3>
-
-<div class="grid-2">
-<div class="highlight-box" style="border-color: var(--primary-light);">
-<h5 style="color: var(--primary-light);">🫁 Carcinoma Pulmonar</h5>
-<div style="margin-top: 1rem;">
-<p><strong>GTV:</strong> Tumor lobo superior direito</p>
-<p><strong>Código:</strong> C34.1-1</p>
-<p><strong>Seção:</strong> 24 (ThV)</p>
-</div>
-</div>
-
-<div class="highlight-box" style="border-color: var(--secondary);">
-<h5 style="color: var(--secondary);">🦵 Sarcoma de Coxa</h5>
-<div style="margin-top: 1rem;">
-<p><strong>GTV:</strong> Tumor músculo posterior da coxa</p>
-<p><strong>Código:</strong> C49.2B-1</p>
-<p><strong>Seção:</strong> 61 (Fêmur, metade inferior)</p>
-</div>
-</div>
-
-<div class="highlight-box" style="border-color: var(--accent-light);">
-<h5 style="color: var(--accent-light);">🧠 Glioblastoma</h5>
-<div style="margin-top: 1rem;">
-<p><strong>GTV:</strong> Tumor lobo frontal</p>
-<p><strong>Código:</strong> C71.1-3</p>
-<p><strong>Seção:</strong> 08 (Crânio)</p>
-</div>
-</div>
-
-<div class="highlight-box" style="border-color: var(--success);">
-<h5 style="color: var(--success);">🫀 Linfonodos Mediastinais</h5>
-<div style="margin-top: 1rem;">
-<p><strong>GTV:</strong> Linfonodos mediastino superior</p>
-<p><strong>Código:</strong> C77.1A-3</p>
-<p><strong>Seção:</strong> 22 (ThIII)</p>
-</div>
-</div>
-</div>
-</div>
-
-<div class="card" style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(160, 82, 45, 0.05));">
-<h3>📝 Benefícios da Codificação Padronizada</h3>
-<div class="grid-2">
-<div class="highlight-box">
-<h5 style="color: var(--primary-light);">🏥 Comunicação</h5>
-<p>Permite troca inequívoca de informações entre centros e profissionais</p>
-</div>
-<div class="highlight-box">
-<h5 style="color: var(--secondary);">📊 Pesquisa</h5>
-<p>Facilita agrupamento e análise de dados multicêntricos</p>
-</div>
-<div class="highlight-box">
-<h5 style="color: var(--accent-light);">💻 Documentação</h5>
-<p>Padronização para sistemas de registro eletrônico</p>
-</div>
-<div class="highlight-box">
-<h5 style="color: var(--success);">📈 Qualidade</h5>
-<p>Permite auditoria e controle de qualidade consistentes</p>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Volume Tratado vs Volume Irradiado -->
-<div class="section">
-<h2 class="section-title">📊 Volume Tratado vs Volume Irradiado</h2>
-<div class="grid-2">
-<div class="card">
-<h3 style="color: var(--primary-light);">🎯 Volume Tratado</h3>
-<p style="line-height: 1.8;">Volume contido dentro de uma isodose específica escolhida pelo radioterapeuta como adequada para alcançar os objetivos de tratamento.</p>
-<div class="highlight-box" style="margin-top: 1rem;">
-<p><strong>ICRU 50 - Reportar:</strong></p>
-<ul class="list-styled">
-<li>Isodose escolhida (ex: 95%)</li>
-<li>Dose absorvida correspondente (Gy)</li>
-<li>Volume estimado (cm³)</li>
-</ul>
-</div>
-</div>
-
-<div class="card">
-<h3 style="color: var(--secondary);">🌐 Volume Irradiado</h3>
-<p style="line-height: 1.8;">Volume que recebe dose considerada significativa em relação à tolerância dos tecidos normais.</p>
-<div class="highlight-box" style="margin-top: 1rem;">
-<p><strong>ICRU 50 - Reportar:</strong></p>
-<ul class="list-styled">
-<li>Isodose escolhida (ex: 20%)</li>
-<li>Dose absorvida correspondente (Gy)</li>
-<li>Volume estimado (cm³)</li>
-</ul>
-</div>
-</div>
-</div>
-
-<!-- Imagens ICRU 50 - Figura 2.5 (SUA sequência) -->
-<div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
-  <div style="
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      gap: 2rem;
-      flex-wrap: wrap;
-      max-width: 1200px;
-      margin: 0 auto;
-  ">
-
-    <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/Fig.2.5.a.png"
-           alt="ICRU 50 - Fig.2.5.a: 2 feixes opostos igualmente ponderados - TV: 2.4x PTV, IV: 4.6x PTV"
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 350px; height: auto; 
-                  border-radius: 12px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 20px rgba(0,0,0,0.5); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.9rem;">
-        <strong>Fig.2.5.a</strong><br>2 feixes opostos<br>TV/IV: 2.4/4.6x PTV
-      </p>
-    </div>
-
-    <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/Fig.2.5.bc.png"
-           alt="ICRU 50 - Fig.2.5.b-c: 3 feixes e técnica em caixa - Comparação TV/IV"
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 350px; height: auto; 
-                  border-radius: 12px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 20px rgba(0,0,0,0.5); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.9rem;">
-        <strong>Fig.2.5.b-c</strong><br>3 feixes & 4 feixes<br>TV/IV: 1.9/9.0x & 1.4/9.0x PTV
-      </p>
-    </div>
-
-    <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="img/Fig.2.5.d.png"
-           alt="ICRU 50 - Fig.2.5.d: Terapia com feixe móvel (arco grande) - TV: 1.1x PTV, IV: 11.0x PTV"
-           onclick="openImageModal(this.src, this.alt)"
-           style="width: 100%; max-width: 350px; height: auto; 
-                  border-radius: 12px; 
-                  border: 2px solid rgba(255,255,255,0.1); 
-                  box-shadow: 0 0 20px rgba(0,0,0,0.5); 
-                  object-fit: contain;">
-      <p style="text-align: center; color: var(--gray-light); margin-top: 1rem; font-size: 0.9rem;">
-        <strong>Fig.2.5.d</strong><br>Arco grande<br>TV/IV: 1.1/11.0x PTV
-      </p>
-    </div>
-  </div>
-</div>
-
-<div class="card" style="margin-top: 2rem;">
-<h3>📈 Análise da Figura 2.5 - ICRU 50</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-A Figura 2.5 demonstra a evolução das técnicas e seu impacto na relação entre Volume Tratado e Volume Irradiado para o <strong>mesmo PTV</strong>.
-</p>
-
-<div class="grid-2">
-<div class="highlight-box">
-<h5 style="color: var(--primary-light);">📊 Progressão das Técnicas</h5>
-<p><strong>2 feixes → 3 feixes → 4 feixes → Arco</strong></p>
-<p>Redução progressiva do Volume Tratado em relação ao PTV</p>
-</div>
-<div class="highlight-box">
-<h5 style="color: var(--secondary);">🎯 Otimização do Plano</h5>
-<p><strong>Volume Tratado:</strong> Tende a se aproximar do PTV</p>
-<p><strong>Volume Irradiado:</strong> Pode variar conforme a técnica</p>
-</div>
-</div>
-
-<div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--accent);">
-<p style="font-size: 1.1rem;">
-<strong>💡 CONCLUSÃO ICRU:</strong> Técnicas mais complexas permitem melhor conformidade do Volume Tratado ao PTV, demonstrando a importância da seleção e otimização da técnica de tratamento.
-</p>
-</div>
-</div>
-</div>
-
-<!-- Dificuldades na Delimitação -->
-<div class="section">
-<h2 class="section-title">⚠️ Dificuldades na Delimitação</h2>
-
-<div class="card">
-<h3>Variabilidade Inter-Observador na Delimitação do GTV</h3>
-<p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Conforme discutido no <strong>ICRU 50</strong>, diferentes especialistas podem delinear o GTV de forma significativamente diferente mesmo observando as mesmas imagens, o que impacta diretamente na definição do CTV e PTV.
-</p>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Variabilidade Inter-Observador - Opção 3</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-:root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --primary-light: #a5b4fc;
-  --secondary: #14b8a6;
-  --accent: #f59e0b;
-  --accent-light: #fbbf24;
-  --success: #10b981;
-  --error: #ef4444;
-  --warning: #f59e0b;
-  --dark: #0f172a;
-  --dark-light: #1e293b;
-  --gray: #64748b;
-  --gray-light: #94a3b8;
-  --white: #ffffff;
-  --bg: #0a0e1a;
-  --bg-card: rgba(255, 255, 255, 0.05);
-  --bg-card-hover: rgba(255, 255, 255, 0.08);
-  --glass: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--white);
-  line-height: 1.6;
-  padding: 2rem;
-}
-
-body::before {
-  content: '';
+/* Modal */
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
-  animation: backgroundFloat 20s ease-in-out infinite;
-  z-index: -1;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  overflow-y: auto;
 }
 
-@keyframes backgroundFloat {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.1) rotate(180deg); }
+.modal-overlay.active {
+  display: flex;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+.modal {
+  background: var(--dark-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary-light);
-  margin-bottom: 1.5rem;
+.modal-large {
+  max-width: 95vw;
+  max-height: 95vh;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--dark-card);
+  z-index: 10;
+}
+
+.modal-header h3 {
+  color: var(--white);
+  font-size: 1.25rem;
+}
+
+.close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--glass);
+  color: var(--gray-400);
+  font-size: 1.5rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.close-btn:hover {
+  background: var(--danger);
+  color: var(--white);
+}
+
+/* Form */
+form {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--gray-300);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--dark);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 0.95rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-.section-title::before {
-  content: '';
-  width: 4px;
-  height: 40px;
-  background: linear-gradient(180deg, var(--primary), var(--secondary));
-  border-radius: 4px;
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
 }
 
-.card {
+.checkbox-label input {
+  width: auto;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* File Upload */
+.file-upload-area {
+  border: 2px dashed var(--glass-border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.file-upload-area:hover {
+  border-color: var(--primary);
   background: var(--glass);
-  backdrop-filter: blur(20px);
-  padding: 2rem;
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
-  margin-bottom: 2rem;
 }
 
-.highlight-box {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(20, 184, 166, 0.1));
-  border: 2px solid var(--primary);
-  border-radius: 16px;
-  padding: 2rem;
-  margin: 2rem 0;
-  position: relative;
+.upload-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
 }
 
-.highlight-box::before {
-  content: '💡';
-  position: absolute;
-  top: -15px;
-  left: 20px;
-  background: var(--bg);
-  padding: 0 10px;
-  font-size: 1.5rem;
-}
-
-.list-styled {
-  list-style: none;
-  padding: 0;
-}
-
-.list-styled li {
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   padding: 1rem;
-  margin: 0.5rem 0;
-  background: var(--bg-card);
-  border-radius: 12px;
-  border-left: 4px solid var(--primary);
-  transition: all 0.3s ease;
+  background: var(--glass);
+  border-radius: 8px;
 }
 
-.list-styled li::before {
-  content: '▸';
+.file-icon {
+  font-size: 2rem;
+}
+
+.file-info {
+  flex: 1;
+  text-align: left;
+}
+
+.file-info strong {
+  color: var(--white);
+  display: block;
+}
+
+.file-info small {
+  color: var(--gray-400);
+}
+
+.btn-remove {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: var(--danger);
+  color: var(--white);
+  cursor: pointer;
+}
+
+/* Viewer */
+.viewer-container {
+  padding: 1rem;
+  min-height: 70vh;
+}
+
+.viewer-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--glass-border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Footer */
+footer {
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid var(--glass-border);
+  margin-top: 3rem;
+}
+
+.signature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--gray-500);
+}
+
+.developer-name {
   color: var(--primary);
-  font-weight: bold;
-  margin-right: 1rem;
+  font-weight: 600;
 }
 
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
-}
+/* Category Colors */
+.category-fisica-radiacao { color: #f97316; }
+.category-dosimetria { color: #3b82f6; }
+.category-controle-qualidade { color: #10b981; }
+.category-planejamento { color: #8b5cf6; }
+.category-braquiterapia { color: #ec4899; }
+.category-radiobiologia { color: #14b8a6; }
+.category-protecao-radiologica { color: #f59e0b; }
+.category-outros { color: #64748b; }
 
+/* Responsive */
 @media (max-width: 768px) {
-  .legend-container {
-    flex-direction: column !important;
-    gap: 1rem !important;
+  header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .toolbar {
+    flex-direction: column;
+  }
+  
+  .search-box {
+    width: 100%;
+  }
+  
+  .filter-group {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .aulas-container {
+    grid-template-columns: 1fr;
   }
 }
 </style>
 </head>
 <body>
-<div class="container">
 
-<h2 class="section-title">⚠️ Dificuldades na Delimitação</h2>
+<div class="toast-container" id="toastContainer"></div>
 
-<div class="card">
-  <h3 style="color: var(--accent-light); margin-bottom: 1rem;">Variabilidade Inter-Observador na Delimitação do GTV</h3>
-  <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-    Conforme discutido no <strong>ICRU 50</strong>, diferentes especialistas podem delinear o GTV de forma significativamente diferente mesmo observando as mesmas imagens, o que impacta diretamente na definição do CTV e PTV.
-  </p>
-
-  <!-- Representação Visual da Variabilidade - VERSÃO MINIMALISTA -->
-  <div style="background: var(--dark-light); padding: 2rem; border-radius: 16px; margin: 1.5rem 0; position: relative;">
-    
-    <!-- Área de visualização -->
-    <div style="position: relative; height: 400px; display: flex; align-items: center; justify-content: center;">
-      
-      <!-- Área do Tumor "Real" -->
-      <div style="position: absolute; width: 120px; height: 120px; background: rgba(255, 0, 0, 0.3); border: 2px dashed #FF0000; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10;">
-        <span style="color: #FF0000; font-weight: bold; background: rgba(0,0,0,0.8); padding: 0.5rem; border-radius: 8px; font-size: 0.85rem;">GTV Real</span>
+<!-- Modal Upload -->
+<div class="modal-overlay" id="uploadModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>📤 Adicionar Nova Aula</h3>
+      <button class="close-btn" onclick="closeUploadModal()">×</button>
+    </div>
+    <form id="uploadForm" onsubmit="saveAula(event)">
+      <div class="form-group">
+        <label>📚 Título da Aula *</label>
+        <input type="text" id="aulaTitle" required placeholder="Ex: Dosimetria Clínica - Parte 1">
       </div>
 
-      <!-- Delimitação do Observador 1 -->
-      <div class="observer-contour" data-observer="1" style="position: absolute; width: 135px; height: 115px; border: 3px solid #FFA500; border-radius: 50%; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 0 15px rgba(255, 165, 0, 0.4);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 25px rgba(255, 165, 0, 0.7)'; this.style.zIndex='5';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 15px rgba(255, 165, 0, 0.4)'; this.style.zIndex='1';"></div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>📂 Categoria *</label>
+          <select id="aulaCategory" required>
+            <option value="">Selecione...</option>
+            <option value="fisica-radiacao">Física das Radiações</option>
+            <option value="dosimetria">Dosimetria</option>
+            <option value="controle-qualidade">Controle de Qualidade</option>
+            <option value="planejamento">Planejamento</option>
+            <option value="braquiterapia">Braquiterapia</option>
+            <option value="radiobiologia">Radiobiologia</option>
+            <option value="protecao-radiologica">Proteção Radiológica</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
 
-      <!-- Delimitação do Observador 2 -->
-      <div class="observer-contour" data-observer="2" style="position: absolute; width: 115px; height: 140px; border: 3px solid #00FF00; border-radius: 60% 50% 50% 60%; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 25px rgba(0, 255, 0, 0.7)'; this.style.zIndex='5';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 15px rgba(0, 255, 0, 0.4)'; this.style.zIndex='1';"></div>
-
-      <!-- Delimitação do Observador 3 -->
-      <div class="observer-contour" data-observer="3" style="position: absolute; width: 110px; height: 125px; border: 3px solid #0080FF; border-radius: 70% 70% 70% 50%; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 0 15px rgba(0, 128, 255, 0.4);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 25px rgba(0, 128, 255, 0.7)'; this.style.zIndex='5';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 15px rgba(0, 128, 255, 0.4)'; this.style.zIndex='1';"></div>
-    </div>
-
-    <!-- Legenda inferior centralizada -->
-    <div class="legend-container" style="display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); flex-wrap: wrap;">
-      
-      <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1rem; background: rgba(255, 165, 0, 0.1); border-radius: 8px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255, 165, 0, 0.2)'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='rgba(255, 165, 0, 0.1)'; this.style.transform='translateY(0)';">
-        <div style="width: 40px; height: 4px; background: #FFA500; border-radius: 2px; box-shadow: 0 0 8px rgba(255, 165, 0, 0.6);"></div>
-        <span style="color: #FFA500; font-weight: 600; font-size: 0.95rem;">Observador 1</span>
-      </div>
-      
-      <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1rem; background: rgba(0, 255, 0, 0.1); border-radius: 8px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(0, 255, 0, 0.2)'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='rgba(0, 255, 0, 0.1)'; this.style.transform='translateY(0)';">
-        <div style="width: 40px; height: 4px; background: #00FF00; border-radius: 2px; box-shadow: 0 0 8px rgba(0, 255, 0, 0.6);"></div>
-        <span style="color: #00FF00; font-weight: 600; font-size: 0.95rem;">Observador 2</span>
-      </div>
-      
-      <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1rem; background: rgba(0, 128, 255, 0.1); border-radius: 8px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(0, 128, 255, 0.2)'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='rgba(0, 128, 255, 0.1)'; this.style.transform='translateY(0)';">
-        <div style="width: 40px; height: 4px; background: #0080FF; border-radius: 2px; box-shadow: 0 0 8px rgba(0, 128, 255, 0.6);"></div>
-        <span style="color: #0080FF; font-weight: 600; font-size: 0.95rem;">Observador 3</span>
+        <div class="form-group">
+          <label>📅 Data da Aula</label>
+          <input type="date" id="aulaDate">
+        </div>
       </div>
 
+      <div class="form-group">
+        <label>👨‍🏫 Professor/Instrutor</label>
+        <input type="text" id="aulaProfessor" placeholder="Ex: Dr. João Silva">
+      </div>
+
+      <div class="form-group">
+        <label>📝 Descrição</label>
+        <textarea id="aulaDescription" rows="3" placeholder="Breve descrição do conteúdo da aula..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>🔗 Caminho do Arquivo *</label>
+        <input type="text" id="aulaFilePath" required placeholder="aulas/categoria/nome-arquivo.html">
+        <small style="color: var(--gray-500); margin-top: 0.5rem; display: block;">
+          Caminho relativo para o arquivo (ex: aulas/icru/icru50_62.html)
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>📄 Tipo de Arquivo *</label>
+        <select id="aulaFileType" required>
+          <option value="html">HTML (Apresentação)</option>
+          <option value="pdf">PDF</option>
+          <option value="pptx">PowerPoint</option>
+          <option value="video">Vídeo</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="aulaFavorite">
+          <span>⭐ Marcar como favorita</span>
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeUploadModal()">Cancelar</button>
+        <button type="submit" class="btn btn-success">💾 Salvar Aula</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Visualização -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal modal-large">
+    <div class="modal-header">
+      <h3 id="viewTitle">📖 Visualizando Aula</h3>
+      <button class="close-btn" onclick="closeViewModal()">×</button>
     </div>
-    
-    <p style="text-align: center; color: var(--gray-light); font-size: 0.85rem; margin-top: 1rem; font-style: italic;">
-      💡 Passe o mouse sobre os contornos para destacá-los
-    </p>
-
-  </div>
-
-  <div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--warning);">
-    <p style="font-size: 1.1rem;">
-      <strong>⚠️ PROBLEMA IDENTIFICADO NO ICRU:</strong> "Diferentes especialistas (radioterapeutas, radiologistas, neurocirurgiões) delimitam o GTV de forma significativamente diferente, mesmo observando as mesmas imagens."
-    </p>
-  </div>
-
-  <div class="grid-2" style="margin-top: 1.5rem;">
-    <div class="highlight-box">
-      <h5 style="color: var(--primary-light); font-size: 1.2rem; margin-bottom: 1rem;">🔍 Fatores que Influenciam</h5>
-      <ul class="list-styled" style="text-align: left; margin-top: 0.5rem;">
-        <li>Experiência do observador</li>
-        <li>Qualidade da imagem</li>
-        <li>Critérios de interpretação</li>
-        <li>Contexto clínico</li>
-      </ul>
-    </div>
-
-    <div class="highlight-box">
-      <h5 style="color: var(--secondary); font-size: 1.2rem; margin-bottom: 1rem;">🎯 Estratégias de Mitigação</h5>
-      <ul class="list-styled" style="text-align: left; margin-top: 0.5rem;">
-        <li>Consensos multidisciplinares</li>
-        <li>Guias de delineamento (atlas)</li>
-        <li>Ferramentas de IA</li>
-        <li>Controle de qualidade peer-review</li>
-      </ul>
+    <div class="viewer-container" id="viewerContainer">
+      <div class="viewer-loading">
+        <div class="spinner"></div>
+        <p>Carregando arquivo...</p>
+      </div>
     </div>
   </div>
-
-  <div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--accent);">
-    <p style="font-size: 1.1rem;">
-      <strong>💡 IMPACTO NO TRATAMENTO:</strong> A variabilidade na delimitação do GTV propaga-se para o CTV e PTV, podendo resultar em subdosagem de áreas tumorais ou sobredosagem de tecidos saudáveis.
-    </p>
-  </div>
-
 </div>
 
-</div>
-</body>
-</html>
+<!-- Modal Edição -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>✏️ Editar Aula</h3>
+      <button class="close-btn" onclick="closeEditModal()">×</button>
+    </div>
+    <form id="editForm" onsubmit="updateAula(event)">
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label>📚 Título da Aula *</label>
+        <input type="text" id="editTitle" required>
+      </div>
 
-<!-- Resumo Final -->
-<div class="section">
-<h2 class="section-title">📌 Resumo e Pontos-Chave</h2>
-<div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(20, 184, 166, 0.1));">
-<h3>Conceitos Essenciais ICRU 50 e 62</h3>
-<ul class="list-styled">
-<li><strong>GTV:</strong> Volume tumoral visível - conceito anatômico</li>
-<li><strong>CTV:</strong> Volume alvo clínico incluindo doença microscópica - conceito anatômico</li>
-<li><strong>ITV:</strong> CTV + Margem Interna (IM) - variações internas</li>
-<li><strong>PTV:</strong> ITV + Margem de Set-up (SM) - conceito geométrico</li>
-<li><strong>PRV:</strong> Volume de planejamento de órgão de risco</li>
-<li><strong>TV:</strong> Volume dentro de isodose prescrita</li>
-<li><strong>IV:</strong> Volume com dose significativa</li>
-</ul>
-</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>📂 Categoria *</label>
+          <select id="editCategory" required>
+            <option value="fisica-radiacao">Física das Radiações</option>
+            <option value="dosimetria">Dosimetria</option>
+            <option value="controle-qualidade">Controle de Qualidade</option>
+            <option value="planejamento">Planejamento</option>
+            <option value="braquiterapia">Braquiterapia</option>
+            <option value="radiobiologia">Radiobiologia</option>
+            <option value="protecao-radiologica">Proteção Radiológica</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
 
-<div class="card" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));">
-<h3>Margens e Incertezas</h3>
-<ul class="list-styled">
-<li><strong>IM:</strong> Compensar variações internas (respiração, enchimento de órgãos)</li>
-<li><strong>SM:</strong> Compensar incertezas de posicionamento e alinhamento</li>
-<li><strong>Tipo A:</strong> Incertezas aleatórias (intrafração/interfração)</li>
-<li><strong>Tipo B:</strong> Incertezas sistemáticas</li>
-</ul>
-</div>
+        <div class="form-group">
+          <label>📅 Data da Aula</label>
+          <input type="date" id="editDate">
+        </div>
+      </div>
 
-<div class="card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));">
-<h3>Recomendações de Dose</h3>
-<ul class="list-styled">
-<li>Homogeneidade: <strong>-5% a +7%</strong> da dose prescrita</li>
-<li>Ponto ICRU: centro do PTV, eixo central, região homogênea</li>
-<li>Reportar: D<sub>ICRU</sub>, D<sub>max</sub>, D<sub>min</sub>, DVH quando disponível</li>
-<li>Ponto quente significativo: <strong>> 15mm</strong></li>
-<li>3 níveis de avaliação conforme complexidade</li>
-</ul>
-</div>
-</div>
+      <div class="form-group">
+        <label>👨‍🏫 Professor/Instrutor</label>
+        <input type="text" id="editProfessor">
+      </div>
 
-<!-- Referências e Encerramento -->
-<div class="section" style="margin-bottom: 1rem;">
-<h2 class="section-title">📚 Referências Bibliográficas</h2>
-<div class="card" style="margin-bottom: 1.5rem;">
-<ul class="list-styled">
-<li><strong>ICRU Report 50:</strong> Prescribing, Recording and Reporting Photon Beam Therapy, 1993.</li>
-<li><strong>ICRU Report 62:</strong> Prescribing, Recording and Reporting Photon Beam Therapy (Supplement to ICRU Report 50), 1999.</li>
-<li><strong>ICRU Report 83:</strong> Prescribing, Recording, and Reporting Photon-Beam Intensity-Modulated Radiation Therapy (IMRT), 2010.</li>
-<li><strong>Khan, Faiz M.</strong> <em>The Physics of Radiation Therapy.</em> 6ed. Lippincott Williams & Wilkins, 2020.</li>
-</ul>
+      <div class="form-group">
+        <label>📝 Descrição</label>
+        <textarea id="editDescription" rows="3"></textarea>
+      </div>
 
-<!-- Novas Referências sobre Índice de Conformidade -->
-<div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--glass-border);">
-<h4 style="color: var(--accent-light); margin-bottom: 1rem;">📊 Referências Específicas - Índice de Conformidade</h4>
-<ul class="list-styled">
-<li><strong>IAEA TECDOC-1588:</strong> Commissioning and Quality Assurance of Computerized Planning Systems for Radiation Treatment of Cancer. International Atomic Energy Agency, 2008.</li>
-<li><strong>Feuvret et al.</strong> <em>"Conformity index: A review."</em> International Journal of Radiation Oncology, Biology, Physics, 2006.</li>
-<li><strong>Paddick I.</strong> <em>"A simple scoring ratio to index the conformity of radiosurgical treatment plans."</em> Journal of Neurosurgery, 2000.</li>
-<li><strong>Shaw et al.</strong> <em>"Radiosurgery treatment planning: Basic principles and review of optimization techniques."</em> Medical Dosimetry, 1998.</li>
-<li><strong>ESTRO ACROP Guidelines:</strong> Quality Assurance of Radiotherapy Planning for Linear Accelerator Based Stereotactic Radiotherapy. European Society for Radiotherapy and Oncology, 2020.</li>
-</ul>
-</div>
-</div>
+      <div class="form-group">
+        <label>🔗 Caminho do Arquivo</label>
+        <input type="text" id="editFilePath">
+      </div>
 
-<!-- Estatísticas de Impacto -->
-<div class="impact-stats" style="margin: 1.5rem 0;">
-<div class="stat-card">
-<div class="stat-icon">📊</div>
-<div class="stat-number">2</div>
-<div class="stat-label">Relatórios ICRU</div>
-<div class="stat-sublabel">ICRU 50 & 62</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">🎯</div>
-<div class="stat-number">7</div>
-<div class="stat-label">Volumes Definidos</div>
-<div class="stat-sublabel">GTV, CTV, ITV, PTV, TV, IV, PRV</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">📐</div>
-<div class="stat-number">2</div>
-<div class="stat-label">Tipos de Margem</div>
-<div class="stat-sublabel">IM & SM</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">⚡</div>
-<div class="stat-number">3</div>
-<div class="stat-label">Níveis de Relatório</div>
-<div class="stat-sublabel">Simples → Avançado</div>
-</div>
-</div>
-</div>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="editFavorite">
+          <span>⭐ Marcar como favorita</span>
+        </label>
+      </div>
 
-<!-- Agradecimento Final -->
-<div class="final-section">
-<div class="thank-you-header">
-<h1>🙏 Obrigado!</h1>
-<p>Dúvidas e Discussões</p>
-</div>
-
-
-</div>
-</div>
-</div>
-
-<!-- Informações de Contato com ícones oficiais -->
-<div class="contact-links">
-<a href="mailto:diolandofm@gmail.com" class="contact-link">
-<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-<path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-</svg>
-<span>diolandofm@gmail.com</span>
-</a>
-<a href="https://linkedin.com/in/diolando-silva" target="_blank" class="contact-link">
-<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-<path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-</svg>
-<span>/diolando-silva</span>
-</a>
-<a href="https://instagram.com/diolando07" target="_blank" class="contact-link">
-<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-<path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
-</svg>
-<span>@diolando07</span>
-</a>
-</div>
-</div>
-
-</div>
-
-<!-- Footer do desenvolvedor -->
-<div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border); text-align: center;">
-<p style="color: var(--gray-light); font-size: 0.9rem; margin: 0;">
-Desenvolvido por <a href="https://diolando.dev" target="_blank" style="color: var(--primary-light); text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--primary-light)'">diolando.dev</a> © 2025
-</p>
-</div>
-</div>
-
-</div>
-
-<!-- Modal para imagens em tela cheia -->
-<div class="image-modal" id="imageModal">
-  <span class="image-modal-close" id="modalClose">&times;</span>
-  <img class="image-modal-content" id="modalImage">
-  <div class="image-modal-controls">
-    <button class="image-modal-btn" id="zoomInBtn">Zoom +</button>
-    <button class="image-modal-btn" id="zoomOutBtn">Zoom -</button>
-    <button class="image-modal-btn" id="resetZoomBtn">Resetar Zoom</button>
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancelar</button>
+        <button type="submit" class="btn btn-success">💾 Salvar Alterações</button>
+      </div>
+    </form>
   </div>
 </div>
 
-<button class="back-button" onclick="window.location.href='aulas.html'">
-← Voltar para Aulas
-</button>
+<header>
+  <div class="logo-container">
+    <div class="logo">🎓</div>
+    <div class="brand-text">Física Médica - Aulas</div>
+  </div>
+  <nav>
+    <a href="#" class="active">📚 Aulas</a>
+    <a href="https://github.com/diresidentedev" target="_blank">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <div class="page-header">
+    <div class="header-content">
+      <h1>📚 Biblioteca de Aulas</h1>
+      <p>Material de apoio para residência em Física Médica - Radioterapia</p>
+    </div>
+    <button class="btn btn-primary" onclick="openUploadModal()">
+      <span>➕</span> Nova Aula
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📚</div>
+      <div class="stat-info">
+        <h3 id="totalAulas">0</h3>
+        <p>Total de Aulas</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-info">
+        <h3 id="totalFavoritas">0</h3>
+        <p>Favoritas</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📂</div>
+      <div class="stat-info">
+        <h3 id="totalCategorias">0</h3>
+        <p>Categorias</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">👁️</div>
+      <div class="stat-info">
+        <h3 id="totalViews">0</h3>
+        <p>Visualizações</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 Buscar aulas..." oninput="filterAulas()">
+    </div>
+    <div class="filter-group">
+      <select id="categoryFilter" onchange="filterAulas()">
+        <option value="">📂 Todas Categorias</option>
+        <option value="fisica-radiacao">Física das Radiações</option>
+        <option value="dosimetria">Dosimetria</option>
+        <option value="controle-qualidade">Controle de Qualidade</option>
+        <option value="planejamento">Planejamento</option>
+        <option value="braquiterapia">Braquiterapia</option>
+        <option value="radiobiologia">Radiobiologia</option>
+        <option value="protecao-radiologica">Proteção Radiológica</option>
+        <option value="outros">Outros</option>
+      </select>
+      <select id="sortFilter" onchange="filterAulas()">
+        <option value="recent">⏰ Mais Recentes</option>
+        <option value="oldest">📅 Mais Antigas</option>
+        <option value="name-asc">🔤 A-Z</option>
+        <option value="name-desc">🔤 Z-A</option>
+        <option value="favorites">⭐ Favoritas</option>
+      </select>
+      <button class="btn btn-icon" onclick="toggleView()" title="Alternar visualização">
+        <span id="viewIcon">📋</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="aulas-container" id="aulasContainer">
+    <!-- Cards serão renderizados aqui -->
+  </div>
+</main>
+
+<footer>
+  <div class="signature">
+    <span>Desenvolvido por</span>
+    <a href="https://diolando.dev" target="_blank" class="developer-name">diolando.dev</a>
+    <span>© 2025</span>
+  </div>
+</footer>
 
 <script>
-// Script para o modal de imagens
-const imageModal = document.getElementById('imageModal');
-const modalImage = document.getElementById('modalImage');
-const modalClose = document.getElementById('modalClose');
-const zoomInBtn = document.getElementById('zoomInBtn');
-const zoomOutBtn = document.getElementById('zoomOutBtn');
-const resetZoomBtn = document.getElementById('resetZoomBtn');
-
-let currentScale = 1;
-
-function openImageModal(src, alt) {
-  modalImage.src = src;
-  modalImage.alt = alt;
-  imageModal.classList.add('active');
-  currentScale = 1;
-  modalImage.style.transform = 'scale(1)';
-  document.body.style.overflow = 'hidden'; // Impede scroll da página principal
-}
-
-function closeImageModal() {
-  imageModal.classList.remove('active');
-  document.body.style.overflow = 'auto'; // Restaura scroll da página principal
-}
-
-function zoomIn() {
-  currentScale += 0.1;
-  modalImage.style.transform = `scale(${currentScale})`;
-}
-
-function zoomOut() {
-  if (currentScale > 0.5) {
-    currentScale -= 0.1;
-    modalImage.style.transform = `scale(${currentScale})`;
+// ==================== DATABASE ====================
+const AULAS_INICIAIS = [
+  {
+    id: "icru-50-62",
+    title: "ICRU 50 e 62 - Volumes de Tratamento",
+    category: "planejamento",
+    date: "2024-12-01",
+    professor: "Diolando R L Silva",
+    description: "Apresentação sobre os relatórios ICRU 50 e 62, definindo os volumes de tratamento em radioterapia: GTV, CTV, PTV e órgãos de risco.",
+    filePath: "aulas/icru/icru50_62.html",
+    fileType: "html",
+    favorite: true,
+    views: 0,
+    createdAt: "2024-12-01T00:00:00.000Z"
+  },
+  {
+    id: "rdc20-2006",
+    title: "RDC 20/2006 - Regulamentação em Radioterapia",
+    category: "protecao-radiologica",
+    date: "2025-01-15",
+    professor: "Diolando R L Silva",
+    description: "Regulamento Técnico para Funcionamento de Serviços de Radioterapia - ANVISA. Equipe mínima, equipamentos, garantia da qualidade e eventos adversos.",
+    filePath: "aulas/regulamentos/rdc20_2006.html",
+    fileType: "html",
+    favorite: true,
+    views: 0,
+    createdAt: "2025-01-15T00:00:00.000Z"
   }
-}
+];
 
-function resetZoom() {
-  currentScale = 1;
-  modalImage.style.transform = 'scale(1)';
-}
+// ==================== STATE ====================
+let aulas = [];
+let isListView = false;
 
-// Event listeners
-modalClose.addEventListener('click', closeImageModal);
-zoomInBtn.addEventListener('click', zoomIn);
-zoomOutBtn.addEventListener('click', zoomOut);
-resetZoomBtn.addEventListener('click', resetZoom);
-
-// Fechar modal ao clicar fora da imagem
-imageModal.addEventListener('click', function(e) {
-  if (e.target === imageModal) {
-    closeImageModal();
-  }
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  loadAulas();
+  renderAulas();
+  updateStats();
 });
 
-// Fechar modal com tecla ESC
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape' && imageModal.classList.contains('active')) {
-    closeImageModal();
+// ==================== STORAGE ====================
+function loadAulas() {
+  const stored = localStorage.getItem('fismed_aulas');
+  if (stored) {
+    aulas = JSON.parse(stored);
+  } else {
+    // Primeira vez - carregar aulas iniciais
+    aulas = [...AULAS_INICIAIS];
+    saveToStorage();
   }
-});
+}
 
-// Informações dos volumes
-const volumeData = {
-  gtv: {
-    icon: '🔴',
-    title: 'GTV - Volume Tumoral Visível',
-    description: 'Representa o volume palpável ou visível do tumor, sendo a região onde há a maior concentração de células malignas. É identificado através de exames de imagem (TC, RM, PET-CT) e exame físico.',
-    color: '#FF0000' // Vermelho ICRU
-  },
-  ctv: {
-    icon: '🟠',
-    title: 'CTV - Volume Alvo Clínico',
-    description: 'Volume de tecido que engloba tanto o GTV visível quanto a doença maligna microscópica subclínica. Inclui áreas com possível extensão microscópica do tumor e linfonodos regionais em risco.',
-    color: '#FFA500' // Laranja ICRU
-  },
-  itv: {
-    icon: '🔵',
-    title: 'ITV - Volume Alvo Interno',
-    description: 'Volume que é a somatória do CTV com as margens internas (IM), compensando as variações de tamanho, forma e posição do CTV devido a movimentos fisiológicos (respiração, enchimento de bexiga, peristaltismo).',
-    color: '#0000FF' // Azul ICRU
-  },
-  ptv: {
-    icon: '🟢',
-    title: 'PTV - Volume Alvo de Planejamento',
-    description: 'É o ITV mais a margem de set-up (SM). Conceito geométrico que garante que a dose prescrita seja entregue ao CTV, compensando incertezas de posicionamento do paciente e variações nos movimentos dos órgãos. Fórmula: PTV = CTV + IM + SM',
-    color: '#008000' // Verde ICRU
+function saveToStorage() {
+  localStorage.setItem('fismed_aulas', JSON.stringify(aulas));
+}
+
+// ==================== RENDER ====================
+function renderAulas(list = aulas) {
+  const container = document.getElementById('aulasContainer');
+  
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📚</div>
+        <h3>Nenhuma aula encontrada</h3>
+        <p>Adicione sua primeira aula ou ajuste os filtros!</p>
+        <button class="btn btn-primary" onclick="openUploadModal()">
+          ➕ Adicionar Aula
+        </button>
+      </div>
+    `;
+    return;
   }
-};
+  
+  container.innerHTML = list.map(aula => createAulaCard(aula)).join('');
+}
 
-function showVolumeInfo(volumeType) {
-  const data = volumeData[volumeType];
-  const infoDisplay = document.getElementById('volumeInfoDisplay');
-  const icon = document.getElementById('volumeInfoIcon');
-  const title = document.getElementById('volumeInfoTitle');
-  const description = document.getElementById('volumeInfoDescription');
+function createAulaCard(aula) {
+  const categoryNames = {
+    'fisica-radiacao': 'Física das Radiações',
+    'dosimetria': 'Dosimetria',
+    'controle-qualidade': 'Controle de Qualidade',
+    'planejamento': 'Planejamento',
+    'braquiterapia': 'Braquiterapia',
+    'radiobiologia': 'Radiobiologia',
+    'protecao-radiologica': 'Proteção Radiológica',
+    'outros': 'Outros'
+  };
+  
+  const fileIcons = {
+    html: '🌐',
+    pdf: '📕',
+    pptx: '📊',
+    video: '🎬'
+  };
+  
+  const dateFormatted = aula.date ? new Date(aula.date).toLocaleDateString('pt-BR') : '-';
+  
+  return `
+    <div class="aula-card" data-id="${aula.id}">
+      <div class="aula-card-header">
+        <div class="aula-icon ${aula.fileType}">${fileIcons[aula.fileType] || '📄'}</div>
+        <div class="aula-title">
+          <h3>
+            ${aula.favorite ? '<span class="favorite-star">⭐</span>' : ''}
+            ${aula.title}
+          </h3>
+          <span class="category-badge category-${aula.category}">${categoryNames[aula.category] || aula.category}</span>
+        </div>
+      </div>
+      <div class="aula-card-body">
+        <p class="aula-description">${aula.description || 'Sem descrição'}</p>
+        <div class="aula-meta">
+          <span>📅 ${dateFormatted}</span>
+          ${aula.professor ? `<span>👨‍🏫 ${aula.professor}</span>` : ''}
+          <span>👁️ ${aula.views || 0}</span>
+        </div>
+      </div>
+      <div class="aula-card-footer">
+        <button class="btn btn-icon" onclick="event.stopPropagation(); toggleFavorite('${aula.id}')" title="Favoritar">
+          ${aula.favorite ? '⭐' : '☆'}
+        </button>
+        <button class="btn btn-icon" onclick="event.stopPropagation(); openEditModal('${aula.id}')" title="Editar">
+          ✏️
+        </button>
+        <button class="btn btn-icon" onclick="event.stopPropagation(); deleteAula('${aula.id}')" title="Excluir">
+          🗑️
+        </button>
+        <button class="btn btn-primary" onclick="event.stopPropagation(); openAula('${aula.id}')">
+          Abrir →
+        </button>
+      </div>
+    </div>
+  `;
+}
 
-  // Remove active de todos os volumes
-  document.querySelectorAll('.nested-volume').forEach(vol => {
-    vol.classList.remove('active');
-  });
+// ==================== STATS ====================
+function updateStats() {
+  document.getElementById('totalAulas').textContent = aulas.length;
+  document.getElementById('totalFavoritas').textContent = aulas.filter(a => a.favorite).length;
+  
+  const categories = new Set(aulas.map(a => a.category));
+  document.getElementById('totalCategorias').textContent = categories.size;
+  
+  const totalViews = aulas.reduce((sum, a) => sum + (a.views || 0), 0);
+  document.getElementById('totalViews').textContent = totalViews;
+}
 
-  // Adiciona active no volume clicado
-  document.querySelector(`.${volumeType}-outer`).classList.add('active');
+// ==================== FILTER & SORT ====================
+function filterAulas() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const category = document.getElementById('categoryFilter').value;
+  const sort = document.getElementById('sortFilter').value;
+  
+  let filtered = [...aulas];
+  
+  // Filter by search
+  if (search) {
+    filtered = filtered.filter(a => 
+      a.title.toLowerCase().includes(search) ||
+      (a.description && a.description.toLowerCase().includes(search)) ||
+      (a.professor && a.professor.toLowerCase().includes(search))
+    );
+  }
+  
+  // Filter by category
+  if (category) {
+    filtered = filtered.filter(a => a.category === category);
+  }
+  
+  // Sort
+  switch (sort) {
+    case 'recent':
+      filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      break;
+    case 'oldest':
+      filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      break;
+    case 'name-asc':
+      filtered.sort((a, b) => a.title.localeCompare(b.title));
+      break;
+    case 'name-desc':
+      filtered.sort((a, b) => b.title.localeCompare(a.title));
+      break;
+    case 'favorites':
+      filtered.sort((a, b) => (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0));
+      break;
+  }
+  
+  renderAulas(filtered);
+}
 
-  // Atualiza o conteúdo com animação
-  infoDisplay.classList.add('active');
-  infoDisplay.style.borderColor = data.color;
+function toggleView() {
+  isListView = !isListView;
+  const container = document.getElementById('aulasContainer');
+  const icon = document.getElementById('viewIcon');
+  
+  if (isListView) {
+    container.classList.add('list-view');
+    icon.textContent = '📋';
+  } else {
+    container.classList.remove('list-view');
+    icon.textContent = '📋';
+  }
+}
 
-  // Anima a troca de conteúdo
-  icon.style.animation = 'none';
-  title.style.animation = 'none';
-  description.style.animation = 'none';
+// ==================== CRUD ====================
+function openAula(id) {
+  const aula = aulas.find(a => a.id === id);
+  if (!aula) return;
+  
+  // Increment views
+  aula.views = (aula.views || 0) + 1;
+  saveToStorage();
+  updateStats();
+  
+  // Open file
+  if (aula.filePath) {
+    window.open(aula.filePath, '_blank');
+  }
+}
 
+function saveAula(event) {
+  event.preventDefault();
+  
+  const newAula = {
+    id: 'aula-' + Date.now(),
+    title: document.getElementById('aulaTitle').value,
+    category: document.getElementById('aulaCategory').value,
+    date: document.getElementById('aulaDate').value,
+    professor: document.getElementById('aulaProfessor').value,
+    description: document.getElementById('aulaDescription').value,
+    filePath: document.getElementById('aulaFilePath').value,
+    fileType: document.getElementById('aulaFileType').value,
+    favorite: document.getElementById('aulaFavorite').checked,
+    views: 0,
+    createdAt: new Date().toISOString()
+  };
+  
+  aulas.unshift(newAula);
+  saveToStorage();
+  renderAulas();
+  updateStats();
+  closeUploadModal();
+  showToast('Aula adicionada com sucesso!', 'success');
+  
+  // Reset form
+  document.getElementById('uploadForm').reset();
+}
+
+function updateAula(event) {
+  event.preventDefault();
+  
+  const id = document.getElementById('editId').value;
+  const index = aulas.findIndex(a => a.id === id);
+  
+  if (index === -1) return;
+  
+  aulas[index] = {
+    ...aulas[index],
+    title: document.getElementById('editTitle').value,
+    category: document.getElementById('editCategory').value,
+    date: document.getElementById('editDate').value,
+    professor: document.getElementById('editProfessor').value,
+    description: document.getElementById('editDescription').value,
+    filePath: document.getElementById('editFilePath').value,
+    favorite: document.getElementById('editFavorite').checked
+  };
+  
+  saveToStorage();
+  renderAulas();
+  updateStats();
+  closeEditModal();
+  showToast('Aula atualizada com sucesso!', 'success');
+}
+
+function deleteAula(id) {
+  if (!confirm('Tem certeza que deseja excluir esta aula?')) return;
+  
+  aulas = aulas.filter(a => a.id !== id);
+  saveToStorage();
+  renderAulas();
+  updateStats();
+  showToast('Aula excluída!', 'info');
+}
+
+function toggleFavorite(id) {
+  const aula = aulas.find(a => a.id === id);
+  if (!aula) return;
+  
+  aula.favorite = !aula.favorite;
+  saveToStorage();
+  renderAulas();
+  updateStats();
+}
+
+// ==================== MODALS ====================
+function openUploadModal() {
+  document.getElementById('uploadModal').classList.add('active');
+}
+
+function closeUploadModal() {
+  document.getElementById('uploadModal').classList.remove('active');
+}
+
+function openEditModal(id) {
+  const aula = aulas.find(a => a.id === id);
+  if (!aula) return;
+  
+  document.getElementById('editId').value = aula.id;
+  document.getElementById('editTitle').value = aula.title;
+  document.getElementById('editCategory').value = aula.category;
+  document.getElementById('editDate').value = aula.date || '';
+  document.getElementById('editProfessor').value = aula.professor || '';
+  document.getElementById('editDescription').value = aula.description || '';
+  document.getElementById('editFilePath').value = aula.filePath || '';
+  document.getElementById('editFavorite').checked = aula.favorite;
+  
+  document.getElementById('editModal').classList.add('active');
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').classList.remove('active');
+}
+
+function closeViewModal() {
+  document.getElementById('viewModal').classList.remove('active');
+}
+
+// ==================== TOAST ====================
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `
+    <span>${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+    <span>${message}</span>
+  `;
+  container.appendChild(toast);
+  
   setTimeout(() => {
-    icon.textContent = data.icon;
-    title.textContent = data.title;
-    title.style.background = `linear-gradient(135deg, ${data.color}, var(--secondary))`;
-    title.style.webkitBackgroundClip = 'text';
-    title.style.backgroundClip = 'text';
-    description.textContent = data.description;
-
-    icon.style.animation = 'bounceIn 0.6s ease-out';
-    title.style.animation = 'slideInTitle 0.5s ease-out';
-    description.style.animation = 'fadeInText 0.7s ease-out';
-  }, 50);
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
 }
 
-// Animação de entrada dos cards
-document.addEventListener('DOMContentLoaded', function() {
-  const cards = document.querySelectorAll('.card, .volume-card, .margin-card');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '0';
-        entry.target.style.transform = 'translateY(30px)';
-        setTimeout(() => {
-          entry.target.style.transition = 'all 0.6s ease-out';
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }, 100);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  cards.forEach(card => observer.observe(card));
-
-  // Efeito parallax suave no scroll
-  window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.presentation-header');
-    parallaxElements.forEach(el => {
-      el.style.transform = `translateY(${scrolled * 0.2}px)`;
-    });
-  });
-
-  // Destaque ao passar o mouse nos volume cards
-  const volumeCards = document.querySelectorAll('.volume-card');
-  volumeCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-      this.style.zIndex = '10';
-    });
-    card.addEventListener('mouseleave', function() {
-      this.style.zIndex = '1';
-    });
+// ==================== CLOSE MODALS ON OUTSIDE CLICK ====================
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.classList.remove('active');
+    }
   });
 });
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
