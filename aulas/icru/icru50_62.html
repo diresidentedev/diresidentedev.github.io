@@ -1627,7 +1627,7 @@ Especificação de Volumes e Doses em Radioterapia
           background: rgba(255,255,255,0.05);
           padding: 10px;
       ">
-        <img src="./logo_instituicao.png" 
+        <img src="../../img/logo_instituicao.png" 
              alt="Logo da instituição" 
              style="max-width: 100%; max-height: 100%; object-fit: contain;">
       </div>
@@ -2216,7 +2216,7 @@ function showVolumeInfo(volume) {
   ">
 
     <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_prostata_axial.JPG" 
+      <img src="../../img/imagem_prostata_axial.JPG" 
            alt="Plano axial - próstata" 
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 430px; height: auto; 
@@ -2230,7 +2230,7 @@ function showVolumeInfo(volume) {
     </div>
 
     <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_prostata_coronal.JPG" 
+      <img src="../../img/imagem_prostata_coronal.JPG" 
            alt="Plano coronal - próstata" 
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 430px; height: auto; 
@@ -2244,7 +2244,7 @@ function showVolumeInfo(volume) {
     </div>
 
     <div style="flex: 1 1 400px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_prostata_sagital.JPG" 
+      <img src="../../img/imagem_prostata_sagital.JPG" 
            alt="Plano sagital - próstata" 
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 430px; height: auto; 
@@ -2308,25 +2308,25 @@ PTV = CTV + IM + SM
 
 <!-- Movimento do CTV em Pulmão -->
 <div class="section">
-<h2 class="section-title">🫁 Movimento do CTV em Câncer de Pulmão</h2>
+<h2 class="section-title">🫁 Movimento do GTV em Câncer de Pulmão</h2>
 
 <div class="card">
 <h3>Análise dos Movimentos Respiratórios</h3>
 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-Em pacientes com câncer de pulmão, o movimento do CTV devido à respiração é uma consideração crítica para o planejamento do PTV.
+Em pacientes com câncer de pulmão, o movimento do GTV devido à respiração é uma consideração crítica para o planejamento do PTV.
 </p>
 
 <!-- Imagem do Pulmão -->
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./imagem_movimentos_pulmao.png" 
-         alt="Movimento do CTV em pacientes com câncer de pulmão"
+    <img src="../../img/imagem_movimentos_pulmao.png" 
+         alt="Movimento do GTV em pacientes com câncer de pulmão"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
     
     <div style="margin-top: 1.5rem;">
       <div style="display: inline-block; background: var(--glass); backdrop-filter: blur(20px); padding: 1rem 2rem; border-radius: 16px; border: 1px solid var(--glass-border);">
-        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">🫁 Movimento do CTV em Câncer de Pulmão</span>
+        <span style="color: var(--primary-light); font-weight: 600; font-size: 1.1rem;">🫁 Movimento do GTV em Câncer de Pulmão</span>
       </div>
     </div>
   </div>
@@ -2334,7 +2334,7 @@ Em pacientes com câncer de pulmão, o movimento do CTV devido à respiração �
 
 <div class="highlight-box" style="margin-top: 1.5rem; border-color: var(--primary);">
 <p style="font-size: 1.1rem;">
-<strong>💡 IMPACTO NO PTV:</strong> O movimento respiratório pode deslocar o CTV em até 2-3 cm, necessitando margens adequadas no PTV para garantir cobertura completa durante todo o ciclo respiratório.
+<strong>💡 IMPACTO NO PTV:</strong> O movimento respiratório pode deslocar o GTV em até 2-3 cm, necessitando margens adequadas no PTV para garantir cobertura completa durante todo o ciclo respiratório.
 </p>
 </div>
 
@@ -2390,7 +2390,7 @@ PRV = OAR + IM + SM
 
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./imagem_orgaos_risco.jpg" 
+    <img src="../../img/imagem_orgaos_risco.jpg" 
          alt="Órgãos de risco no planejamento pélvico"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
@@ -2443,7 +2443,7 @@ PRV = Órgão de Risco + IM + SM
 <!-- Imagem PRV - ICRU 62 -->
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./Fig.PRV.conceito.png"
+    <img src="../../img/Fig.PRV.conceito.png"
          alt="ICRU 62 - Conceito do PRV"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 800px; border-radius: 16px; border: 2px solid var(--prv-color); box-shadow: 0 0 30px rgba(255, 105, 180, 0.3); object-fit: contain;">
@@ -2572,7 +2572,7 @@ O grau de heterogeneidade deve ser mantido entre <strong>-5%</strong> e <strong>
 <h3>🔥 Pontos Quentes (Hot Spots)</h3>
 <div class="highlight-box">
 <p style="font-size: 1.1rem;">
-Representa um volume <strong>fora do PTV</strong> que recebe uma dose maior do que 100% da dose prescrita para o PTV.
+Representa um volume <strong>FORA DO PTV</strong> que recebe uma DOSE MAIOR do que 100% da dose prescrita para o PTV.
 </p>
 <p style="margin-top: 1rem; color: var(--warning);">
 ⚠️ <strong>Critério:</strong> O ponto quente só é significativo se seu diâmetro mínimo excede <strong>15mm</strong>
@@ -2586,8 +2586,8 @@ Representa um volume <strong>fora do PTV</strong> que recebe uma dose maior do q
 <!--Imagem Hot Spots-->
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./imagem_distribuicao_dose.png"
-         alt="Exemplo de distribuição de dose com pontos quentes"
+    <img src="../../img/imagem_distribuicao_dose.png"
+         alt="Exemplo de distribuição de dose com pontos quentes (Qunado solicitado uma dose maior em uma região do PTV, os médicos colocam como Hot Spots)"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
     
@@ -2634,7 +2634,7 @@ O sistema atual de recomendações baseia-se na seleção de um ponto dentro do 
 <!--Imagem Ponto de ref. ICRU-->
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./imagem_ponto_icru.png"
+    <img src="../../img/imagem_ponto_icru.png"
          alt="Posicionamento ideal do ponto de referência ICRU"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
@@ -2719,7 +2719,7 @@ O nível de completude e precisão do relatório de dose depende da situação d
 <!-- Imagem PTV simples e complexas -->
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./imagem_configuracoes_ptv.png"
+    <img src="../../img/imagem_configuracoes_ptv.png"
          alt="Exemplos de configurações de PTV simples e complexas"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 1000px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
@@ -2777,7 +2777,7 @@ O ponto de referência ICRU deve ser localizado no centro do PTV e no eixo centr
   ">
 
     <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_feixes_ortogonais.png" 
+      <img src="../../img/imagem_feixes_ortogonais.png" 
            alt="Dois feixes ortogonais de 8 MV - Variação 102%-95%"
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 300px; height: auto; 
@@ -2792,7 +2792,7 @@ O ponto de referência ICRU deve ser localizado no centro do PTV e no eixo centr
     </div>
 
     <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_tres_feixes.png" 
+      <img src="../../img/imagem_tres_feixes.png" 
            alt="Três feixes convergentes de 8 MV - Variação 108%-90%"
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 300px; height: auto; 
@@ -2807,7 +2807,7 @@ O ponto de referência ICRU deve ser localizado no centro do PTV e no eixo centr
     </div>
 
     <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./imagem_tecnica_caixa.png" 
+      <img src="../../img/imagem_tecnica_caixa.png" 
            alt="Técnica em caixa com 4 feixes de 8 MV - Variação 103%-95%"
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 300px; height: auto; 
@@ -2910,7 +2910,7 @@ Conforme <strong>ICRU 50 - Seção 2.4.1</strong>, a distribuição de dose no P
 
 <div class="image-container" style="border: none; background: transparent; padding: 2rem 0;">
   <div style="display: flex; flex-direction: column; align-items: center;">
-    <img src="./Fig.2.6.dose.mama.png"
+    <img src="../../img/Fig.2.6.dose.mama.png"
          alt="ICRU 50 - Figura 2.6: Distribuição de dose tangencial em carcinoma mamário mostrando relação CTV-PTV"
          onclick="openImageModal(this.src, this.alt)"
          style="width: 90%; max-width: 800px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 25px rgba(0,0,0,0.6); object-fit: contain;">
@@ -3227,7 +3227,7 @@ Planos transversais paralelos perpendiculares ao eixo longitudinal do corpo em i
     </div>
 
     <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./Fig.2.5.bc.png"
+      <img src="../../img/Fig.2.5.bc.png"
            alt="ICRU 50 - Fig.2.5.b-c: 3 feixes e técnica em caixa - Comparação TV/IV"
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 350px; height: auto; 
@@ -3241,7 +3241,7 @@ Planos transversais paralelos perpendiculares ao eixo longitudinal do corpo em i
     </div>
 
     <div style="flex: 1 1 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="./Fig.2.5.d.png"
+      <img src="../../img/Fig.2.5.d.png"
            alt="ICRU 50 - Fig.2.5.d: Terapia com feixe móvel (arco grande) - TV: 1.1x PTV, IV: 11.0x PTV"
            onclick="openImageModal(this.src, this.alt)"
            style="width: 100%; max-width: 350px; height: auto; 
