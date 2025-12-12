@@ -1765,7 +1765,7 @@
           <!-- FOTO DO APRESENTADOR -->
           <div class="author-card">
             <div class="author-photo">
-              <img src="images/foto_apresentador.jpg" alt="Foto do apresentador">
+              <img src="../../images/foto_apresentador.jpg" alt="Foto do apresentador">
             </div>
             <p>
               <span>Apresentado por:</span><br>
@@ -1776,7 +1776,7 @@
           <!-- LOGO DA INSTITUIÇÃO -->
           <div class="author-card">
             <div class="author-photo">
-              <img src="images/logo_instituicao.png" alt="Logo da instituição">
+              <img src="../../images/logo_instituicao.png" alt="Logo da instituição">
             </div>
             <p>
               <span>Instituição:</span><br>
@@ -2096,70 +2096,6 @@
   </section>
 
     <!-- FERRAMENTAS INTERATIVAS -->
-<section id="ferramentas">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">🛠️ Ferramentas Interativas</h2>
-            <p class="section-subtitle">Calculadoras e seletores para prática clínica</p>
-        </div>
-
-        <!-- Seletor de Energia -->
-        <div class="tool-section">
-            <div style="text-align: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--secondary);">
-                <h1 style="font-size: 2.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;">
-                    ⚡ Seletor de Energia
-                </h1>
-                <p style="font-size: 1.2rem; color: var(--light);">Ferramenta Interativa para Seleção de Energia de Elétrons</p>
-            </div>
-            
-            <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">📏 Dados do PTV</h2>
-            
-            <div class="input-group">
-                <label for="proximal">Profundidade Proximal do PTV (cm)</label>
-                <input type="number" id="proximal" placeholder="Ex: 0.5" step="0.1" min="0" max="10">
-            </div>
-            
-            <div class="input-group">
-                <label for="distal">Profundidade Distal do PTV (cm)</label>
-                <input type="number" id="distal" placeholder="Ex: 3.5" step="0.1" min="0" max="10">
-            </div>
-            
-            <div class="info-box">
-                <strong>💡 Dica:</strong> Meça as profundidades no CT de planejamento. A profundidade proximal é a mais superficial e a distal é a mais profunda do PTV.
-            </div>
-            
-            <div style="margin-top: 2rem; text-align: center;">
-                <button class="btn btn-primary" onclick="calcularEnergia()">🎯 Calcular Energia Ideal</button>
-                <button class="btn btn-reset" onclick="resetarCalculadora()">🔄 Limpar</button>
-            </div>
-        </div>
-
-        <!-- Resultados da Calculadora -->
-        <div class="results" id="results">
-            <div class="result-card" id="summaryCard">
-                <div class="result-title">📊 Análise do PTV</div>
-                <div id="ptvSummary"></div>
-            </div>
-            
-            <div class="result-card" id="recommendationCard">
-                <div class="result-title">✅ Recomendação ICRU 71</div>
-                <div id="recommendation"></div>
-            </div>
-            
-            <div class="result-card">
-                <div class="result-title">📋 Tabela Comparativa de Energias</div>
-                <table class="energy-table" id="energyTable">
-                    <!-- A tabela será gerada pelo JavaScript -->
-                </table>
-            </div>
-            
-            <div class="result-card">
-                <div class="result-title">📐 Cálculos Utilizados</div>
-                <div id="calculations"></div>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 <!-- CARACTERÍSTICAS FÍSICAS DOS FEIXES DE ELÉTRONS -->
@@ -2252,7 +2188,7 @@
             </div>
 
             <div class="interactive-figure" style="text-align:center; background: rgba(255,255,255,0.03); border-radius: 15px; padding: 2rem; margin: 2rem auto; border: 2px solid rgba(255,255,255,0.1); max-width: 800px;">
-                <img id="figura-pdd" src="images/curva-pdd-electron.png" alt="Curvas PDD para diferentes energias de elétrons" class="figure-image" style="width: 100%; max-width: 700px; margin: 0 auto; border: 2px solid var(--secondary); border-radius: 10px; transition: transform 0.3s ease; cursor: zoom-in;">
+                <img id="figura-pdd" src="../../images/curva-pdd-electron.png" alt="Curvas PDD para diferentes energias de elétrons" class="figure-image" style="width: 100%; max-width: 700px; margin: 0 auto; border: 2px solid var(--secondary); border-radius: 10px; transition: transform 0.3s ease; cursor: zoom-in;">
                 <button onclick="document.getElementById('figura-pdd').classList.toggle('zoomed'); this.textContent = document.getElementById('figura-pdd').classList.contains('zoomed') ? '🔍 Reduzir' : '🔍 Ampliar'" class="figure-btn" style="margin-top:1rem; padding: 0.8rem 1.5rem; border:none; border-radius:8px; background: var(--secondary); color:#fff; font-weight:600; cursor:pointer;">🔍 Ampliar</button>
 
                 <div class="figure-caption" style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 10px; border-left: 4px solid var(--accent); text-align:center;">
@@ -2444,7 +2380,7 @@
             </div>
 
             <div class="interactive-figure" style="text-align:center; background: rgba(255,255,255,0.03); border-radius: 15px; padding: 2rem; margin: 2rem auto; border: 2px solid rgba(255,255,255,0.1); max-width: 800px;">
-                <img id="figura-bolus" src="images/bolus.png" 
+                <img id="figura-bolus" src="../../images/bolus.png" 
                      alt="Comparação com e sem bolus" 
                      class="figure-image"
                      style="width: 100%; max-width: 700px; margin: 0 auto; border: 2px solid var(--secondary); border-radius: 10px; cursor: zoom-in; transition: transform 0.3s ease;">
