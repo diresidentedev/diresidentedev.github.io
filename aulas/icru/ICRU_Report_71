@@ -1,0 +1,4747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICRU 71 - Prescrição, Registro e Relato de Terapia com Feixe de Elétrons</title>
+    <style>
+        /* === VARIÁVEIS E ESTILOS GLOBAIS === */
+        :root {
+            --primary: #ff6b6b;
+            --primary-dark: #c92a2a;
+            --secondary: #4ecdc4;
+            --accent: #ffe66d;
+            --accent-dark: #ffd93d;
+            --purple: #a8dadc;
+            --dark: #1d3557;
+            --dark-deep: #0d1b2a;
+            --light: #f1faee;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --success: #51cf66;
+            --warning: #ffa94d;
+            --danger: #ff6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-deep);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* === COMPONENTES DE NAVEGAÇÃO === */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: var(--gradient-5);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        .back-to-top::before {
+            content: '↑';
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .main-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 27, 42, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 900;
+            border-bottom: 2px solid rgba(78, 205, 196, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-menu a:hover {
+            background: var(--gradient-2);
+            transform: translateY(-2px);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--secondary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* === LAYOUT PRINCIPAL === */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: var(--gradient-5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* === COMPONENTES DE CONTEÚDO === */
+        .content-box {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            margin: 2rem 0;
+            animation: fadeInUp 0.8s ease-out;
+            transition: all 0.4s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 60px rgba(78, 205, 196, 0.3);
+        }
+
+        .highlight-text {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .text-large {
+            font-size: 1.3rem;
+            line-height: 2;
+            color: var(--light);
+        }
+
+        /* === GRID E CARDS === */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--gradient-4);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: -1;
+        }
+
+        .card:hover::before {
+            opacity: 0.1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 50px rgba(78, 205, 196, 0.4);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* === COMPONENTES ESPECIAIS === */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 230, 109, 0.15), rgba(255, 107, 107, 0.15));
+            border: 3px solid var(--accent);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.4;
+        }
+
+        .highlight-box h3 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(78, 205, 196, 0.2));
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 3px solid var(--primary);
+            margin: 2rem 0;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            box-shadow: 0 10px 40px rgba(255, 107, 107, 0.3);
+        }
+
+        .list-styled {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .list-styled li {
+            padding: 1.2rem 1.5rem;
+            margin: 0.8rem 0;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 1.15rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .list-styled li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: var(--gradient-2);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .list-styled li:hover::before {
+            width: 100%;
+        }
+
+        .list-styled li:hover {
+            transform: translateX(20px) scale(1.02);
+            border-left-color: var(--secondary);
+            color: white;
+        }
+
+        /* === HERO SECTION === */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.3), transparent);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(78, 205, 196, 0.3), transparent);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 6rem;
+            font-weight: 900;
+            background: var(--gradient-5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            letter-spacing: -3px;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 3rem;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.5rem;
+            color: var(--light);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-cta {
+            margin-top: 3rem;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            margin: 0 1rem;
+            background: var(--gradient-2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: var(--gradient-3);
+        }
+
+        /* === TABELAS === */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+
+        th {
+            background: var(--gradient-2);
+            color: white;
+            font-weight: 700;
+        }
+
+        tr:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .comparison-table th {
+            background: var(--gradient-3) !important;
+        }
+
+        /* === ACCORDION === */
+        .accordion {
+            margin: 2rem 0;
+        }
+
+        .accordion-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin: 1rem 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(78, 205, 196, 0.2));
+        }
+
+        .accordion-header.active {
+            background: var(--gradient-2);
+            color: white;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .accordion-content.active {
+            max-height: 5000px;
+            padding: 1.5rem;
+        }
+
+        .accordion-content p {
+            margin: 1rem 0;
+            line-height: 1.8;
+        }
+
+        /* === COMPONENTES ADICIONAIS === */
+        .icon-box {
+            font-size: 4rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-primary {
+            background: var(--gradient-2);
+            color: white;
+        }
+
+        .badge-secondary {
+            background: var(--gradient-3);
+            color: white;
+        }
+
+        .badge-accent {
+            background: var(--gradient-5);
+            color: white;
+        }
+
+        .stats-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* === ANIMAÇÕES === */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) scale(1.1);
+            }
+        }
+
+        /* === RESPONSIVIDADE === */
+        @media (max-width: 968px) {
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.8rem;
+            }
+            
+            .grid-2, .grid-3, .split-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-deep);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 2px solid var(--secondary);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+        }
+
+        /* === FERRAMENTAS INTERATIVAS === */
+        .tool-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            margin-left: 1rem;
+        }
+
+        .results {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .results.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .result-card.success {
+            border-left-color: var(--success);
+            background: linear-gradient(135deg, rgba(81, 207, 102, 0.1), rgba(78, 205, 196, 0.1));
+        }
+
+        .result-card.warning {
+            border-left-color: var(--warning);
+            background: linear-gradient(135deg, rgba(255, 169, 77, 0.1), rgba(255, 107, 107, 0.1));
+        }
+
+        .result-card.danger {
+            border-left-color: var(--danger);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.1));
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .energy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .energy-table th {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem;
+            font-weight: 700;
+        }
+
+        .energy-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .energy-table tr:hover {
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .energy-table .selected {
+            background: rgba(81, 207, 102, 0.2);
+            font-weight: 700;
+        }
+
+        .energy-table .rejected {
+            background: rgba(255, 107, 107, 0.1);
+            opacity: 0.6;
+        }
+
+        .status-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-icon.ok { background: var(--success); }
+        .status-icon.warning { background: var(--warning); }
+        .status-icon.error { background: var(--danger); }
+
+        .info-box {
+            background: rgba(255, 230, 109, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* === CASOS CLÍNICOS === */
+        .case-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .case-btn {
+            padding: 0.7rem 1.2rem;
+            border: 2px solid var(--secondary);
+            background: transparent;
+            color: var(--light);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .case-btn:hover, .case-btn.active {
+            background: var(--secondary);
+            color: var(--dark-deep);
+            transform: translateY(-2px);
+        }
+
+        .case-container {
+            display: none;
+        }
+
+        .case-container.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .case-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1.3rem;
+            margin-bottom: 1.3rem;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .case-title {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .case-number {
+            background: var(--secondary);
+            color: var(--dark-deep);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .alert-clinical {
+            background: rgba(255, 230, 109, 0.15);
+            border-left-color: var(--accent);
+        }
+
+        .alert-warning {
+            background: rgba(255, 107, 107, 0.15);
+            border-left-color: var(--primary);
+        }
+
+        .alert-success {
+            background: rgba(81, 207, 102, 0.15);
+            border-left-color: #51cf66;
+        }
+
+        .relato-box {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid var(--secondary);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .image-placeholder {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            text-align: center;
+            border: 2px dashed var(--secondary);
+            margin: 1rem 0;
+        }
+
+        /* === ERROS COMUNS === */
+        .error-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .error-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 3px solid;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .error-card:hover::before {
+            left: 100%;
+        }
+
+        .error-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(255, 107, 107, 0.4);
+        }
+
+        .error-fatal {
+            border-color: var(--danger);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 107, 107, 0.05));
+        }
+
+        .error-critico {
+            border-color: var(--warning);
+            background: linear-gradient(135deg, rgba(255, 169, 77, 0.15), rgba(255, 169, 77, 0.05));
+        }
+
+        .error-moderado {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(255, 230, 109, 0.15), rgba(255, 230, 109, 0.05));
+        }
+
+        .error-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            animation: shake 3s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .error-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        .badge-fatal {
+            background: var(--danger);
+            color: white;
+        }
+
+        .badge-critico {
+            background: var(--warning);
+            color: white;
+        }
+
+        .badge-moderado {
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        .error-content {
+            margin: 1.5rem 0;
+        }
+
+        .error-section {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .error-section h4 {
+            color: var(--danger);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .error-section.solucao h4 {
+            color: var(--success);
+        }
+
+        .error-exemplo {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--danger);
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .error-solucao {
+            background: rgba(81, 207, 102, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+            margin: 1rem 0;
+        }
+
+        .consequencia-box {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.1));
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 2px dashed var(--danger);
+        }
+
+        .consequencia-box h4 {
+            color: var(--danger);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .impact-meter {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .impact-bar {
+            flex: 1;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .impact-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--warning), var(--danger));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+            transition: all 0.3s;
+        }
+
+        .checklist li:hover {
+            transform: translateX(10px);
+            background: rgba(78, 205, 196, 0.2);
+        }
+
+        .interactive-quiz {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.15), rgba(78, 205, 196, 0.05));
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            border: 3px solid var(--secondary);
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--secondary);
+            transform: translateX(10px);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(81, 207, 102, 0.2);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--danger);
+            background: rgba(255, 107, 107, 0.2);
+        }
+
+        .quiz-feedback {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+            animation: slideDown 0.5s;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 169, 77, 0.1));
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .prevention-box {
+            background: linear-gradient(135deg, rgba(81, 207, 102, 0.15), rgba(78, 205, 196, 0.15));
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            border: 3px solid var(--success);
+        }
+
+        .prevention-box h3 {
+            color: var(--success);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* === HETEROGENEIDADES === */
+        .icru-quote {
+            background: rgba(255, 230, 109, 0.15);
+            border-left: 5px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            font-style: italic;
+        }
+
+        .icru-quote strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 3px solid;
+            position: relative;
+        }
+
+        .comparison-box.wrong {
+            border-color: var(--danger);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 107, 107, 0.05));
+        }
+
+        .comparison-box.correct {
+            border-color: var(--success);
+            background: linear-gradient(135deg, rgba(81, 207, 102, 0.1), rgba(81, 207, 102, 0.05));
+        }
+
+        .comparison-label {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .label-wrong {
+            background: var(--danger);
+            color: white;
+        }
+
+        .label-correct {
+            background: var(--success);
+            color: white;
+        }
+
+        .density-info {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .effect-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .effect-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--danger);
+        }
+
+        .effect-list.solution li {
+            background: rgba(81, 207, 102, 0.1);
+            border-left-color: var(--success);
+        }
+
+        .interactive-toggle {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .toggle-btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--secondary);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--light);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .toggle-btn.active {
+            background: var(--accent);
+            color: var(--dark);
+            border-color: var(--accent);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+        }
+
+        .data-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .data-table tr:hover {
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .highlight-row {
+            background: rgba(255, 230, 109, 0.2) !important;
+            font-weight: 700;
+        }
+
+        .warning-box {
+            background: rgba(255, 169, 77, 0.15);
+            border: 3px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .warning-box h4 {
+            color: var(--warning);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .algorithm-box {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.15), rgba(78, 205, 196, 0.05));
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border: 2px solid var(--secondary);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin: 0.3rem;
+        }
+
+        .level-1 {
+            background: var(--warning);
+            color: white;
+        }
+
+        .level-2 {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .level-3 {
+            background: var(--success);
+            color: white;
+        }
+
+        .case-study {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 5px solid var(--accent);
+        }
+
+        .case-study h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .visual-diagram {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        /* === FOOTER === */
+        .site-footer {
+            background: rgba(13, 27, 42, 0.9);
+            padding: 3rem 0 1rem;
+            border-top: 2px solid var(--secondary);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .result-card {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    border-left: 5px solid var(--primary);
+}
+
+/* Estilos para Figuras Interativas */
+.interactive-figure {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.figure-container {
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+}
+
+.figure-image {
+    width: 100%;
+    height: auto;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+}
+
+.figure-image.zoomed {
+    transform: scale(1.8);
+    cursor: zoom-out;
+    z-index: 100;
+    position: relative;
+}
+
+.figure-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.figure-btn {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background: var(--secondary);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+}
+
+.figure-btn:hover {
+    background: var(--secondary-dark);
+}
+
+.figure-caption {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-style: italic;
+    color: #666;
+}
+
+.figure-source {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+/* === CABEÇALHO ICRU71 PADRONIZADO === */
+.hero-section {
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.05), rgba(0,0,0,0.4));
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.hero-section .hero-title {
+  font-size: 2.6rem; /* mesmo padrão dos títulos principais */
+  font-weight: 700;
+  color: var(--primary); /* cor de destaque padrão */
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.hero-section .hero-subtitle {
+  font-size: 1.25rem; /* mesmo subtítulo das seções */
+  font-weight: 500;
+  color: var(--secondary); /* cor secundária, não branco */
+  margin-bottom: 2rem;
+}
+
+/* === SEÇÃO DE AUTORES === */
+.author-section {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.author-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.author-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 200px;
+}
+
+.author-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.author-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-card p {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.author-card span {
+  color: var(--gray-light);
+}
+
+/* === ANIMAÇÃO DE ENTRADA === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === RESPONSIVIDADE === */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 3rem 1rem;
+  }
+
+  .hero-section .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-section .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .author-photo {
+    width: 130px;
+    height: 130px;
+  }
+
+  /* Seletor de Energia */
+.results {
+    display: none;
+    margin-top: 2rem;
+}
+
+.results.show {
+    display: block !important;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+}
+
+
+
+    </style>
+</head>
+<!-- ===== CABEÇALHO PRINCIPAL ICRU 71 ===== -->
+<section class="hero-section fadeInUp">
+  <div class="container">
+    <div class="presentation-header">
+      <h1 class="section-title">⚡ ICRU Report 71 ⚡ </h1>
+      <p class="section-subtitle">
+        Prescrição, Registro e Relato em Terapia com Feixe de Elétrons
+      </p>
+
+      <!-- BLOCO DO APRESENTADOR E INSTITUIÇÃO -->
+      <div class="author-section">
+        <div class="author-container">
+          <!-- FOTO DO APRESENTADOR -->
+          <div class="author-card">
+            <div class="author-photo">
+              <img src="images/foto_apresentador.jpg" alt="Foto do apresentador">
+            </div>
+            <p>
+              <span>Apresentado por:</span><br>
+              <strong>Diolando R. L. Silva</strong>
+            </p>
+          </div>
+
+          <!-- LOGO DA INSTITUIÇÃO -->
+          <div class="author-card">
+            <div class="author-photo">
+              <img src="images/logo_instituicao.png" alt="Logo da instituição">
+            </div>
+            <p>
+              <span>Instituição:</span><br>
+              <strong>Rede MaterDei de Saúde</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- CONTEXTO -->
+  <section id="contexto">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">📋 Contexto e Relevância</h2>
+        <p class="section-subtitle">Por que o ICRU 71 é essencial</p>
+      </div>
+
+      <div class="content-box">
+        <p class="text-large">
+          O ICRU Report 71 (2004) padroniza conceitos e métodos para
+          prescrição, registro e relato de tratamentos com feixes de elétrons.
+          Essa uniformização garante comunicação segura e comparável
+          entre centros de radioterapia em todo o mundo.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>🌍 Harmonização Global</h3>
+          <p>Facilita comparações internacionais e ensaios clínicos multicêntricos.</p>
+        </div>
+        <div class="card">
+          <h3>🔒 Segurança do Paciente</h3>
+          <p>Reduz erros ao definir volumes, doses e parâmetros de forma inequívoca.</p>
+        </div>
+        <div class="card">
+          <h3>📊 Comparação de Resultados</h3>
+          <p>Permite avaliar desfechos clínicos entre diferentes instituições.</p>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h3>Por que elétrons?</h3>
+        <p class="text-large">
+          Elétrons representam cerca de
+          <span class="highlight-text">10–15% de todos os tratamentos</span>,
+          ideais para lesões superficiais devido à rápida queda de dose em profundidade.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RBE -->
+  <section id="rbe">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">⚗️ Eficácia Biológica Relativa (RBE)</h2>
+        <p class="section-subtitle">ICRU 71 – Fundamentos Biológicos</p>
+      </div>
+
+      <div class="icru-quote">
+        <p><strong>ICRU 71:</strong><br>
+          <em>"Para elétrons na faixa de 5–35 MeV, nenhuma diferença significativa de RBE foi observada 
+          em comparação com fótons de alta energia."</em>
+        </p>
+      </div>
+
+      <div class="content-box">
+        <ul class="list-styled">
+          <li>✅ <strong>RBE = 1.0</strong> entre elétrons (5–35 MeV) e fótons.</li>
+          <li>✅ <strong>Nenhum fator de ponderação</strong> é necessário.</li>
+          <li>✅ <strong>Mesmo fracionamento</strong> e critérios de dose.</li>
+        </ul>
+      </div>
+
+      <div class="highlight-box">
+        <h3>💡 Implicação Prática</h3>
+        <p class="text-large" style="text-align:center;">
+          <strong>Prescreva a mesma dose utilizada com fótons!</strong>
+        </p>
+      </div>
+
+      <div class="warning-box">
+        <h4>⚠️ Exceção – Energias muito altas</h4>
+        <p>
+          Para feixes acima de 40 MeV, alguns estudos relatam RBE entre 1.06–1.17.
+          Entretanto, essas energias não são utilizadas na prática clínica.
+        </p>
+      </div>
+
+      <div class="alert alert-success">
+        <strong>Conclusão ICRU 71:</strong>
+        Nenhum fator de correção para RBE é necessário na faixa de energia clínica (5–35 MeV).
+      </div>
+    </div>
+  </section>
+
+
+       
+
+    <!-- CONCEITOS DE VOLUMES -->
+  <section id="volumes">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">📐 Conceitos de Volumes</h2>
+        <p class="section-subtitle">Definições essenciais para prescrição e planejamento</p>
+      </div>
+
+      <div class="accordion">
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🎯 GTV – Gross Tumor Volume</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>
+              Volume do tumor visível ou palpável clinicamente, identificado por imagem ou exame físico.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🔬 CTV – Clinical Target Volume</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>
+              Inclui o GTV e áreas com possibilidade de doença microscópica.
+              Define o volume biológico do tratamento e deve ser delineado considerando margens anatômicas.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>📍 PTV – Planning Target Volume</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>
+              Adiciona margens ao CTV para compensar incertezas de movimento, set-up e variação de feixe.
+              Garante que a dose prescrita cubra o alvo em todas as condições de tratamento.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>💚 OAR e PRV – Órgãos de Risco</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>
+              OAR: estruturas normais sensíveis à radiação.  
+              PRV: OAR acrescido de uma margem de segurança para compensar variações de posicionamento.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>📊 Interpretação de DVH</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>
+              O DVH (Dose Volume Histogram) resume graficamente a distribuição de dose em volumes definidos.  
+              Curvas ideais mostram queda abrupta após o volume prescrito, indicando homogeneidade.  
+              Caudas longas ou subidas suaves sugerem heterogeneidade ou subdosagem.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="highlight-box" style="margin-top:2rem;">
+        <h3>🎨 Cores Padrão para Contornos ICRU</h3>
+        <ul class="list-styled">
+          <li>GTV – Vermelho escuro</li>
+          <li>CTV – Vermelho claro</li>
+          <li>PTV – Azul claro</li>
+          <li>OAR – Verde escuro</li>
+          <li>PRV – Verde claro</li>
+        </ul>
+      </div>
+
+      <div class="highlight-box" style="margin-top:2rem;">
+        <h3>📋 Síntese Elétrons vs Fótons</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Parâmetro</th>
+              <th>Elétrons</th>
+              <th>Fótons</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Distribuição de dose</td>
+              <td>Rápida queda após o PTV</td>
+              <td>Penetração profunda</td>
+            </tr>
+            <tr>
+              <td>Indicação principal</td>
+              <td>Lesões superficiais</td>
+              <td>Tumores profundos</td>
+            </tr>
+            <tr>
+              <td>Energia típica</td>
+              <td>6–20 MeV</td>
+              <td>4–18 MV</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <!-- PRESCRIÇÃO -->
+  <section id="prescricao">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">⚙️ Prescrição e Seleção de Energia</h2>
+        <p class="section-subtitle">Critérios para escolha adequada do feixe e determinação da dose</p>
+      </div>
+
+      <div class="content-box">
+        <p>
+          A prescrição deve assegurar que a dose prescrita cubra o PTV de forma homogênea, com a isodose de referência
+          passando pela borda distal do volume-alvo. Para feixes de elétrons, a energia deve ser escolhida
+          de modo que a profundidade correspondente a R<sub>90</sub> coincida com a borda distal do PTV.
+        </p>
+        <div class="table-responsive">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Profundidade (cm)</th>
+                <th>Energia Recomendada (MeV)</th>
+                <th>Aplicação Clínica</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0–1.5</td>
+                <td>6 MeV</td>
+                <td>Lesões cutâneas e cicatrizes superficiais</td>
+              </tr>
+              <tr>
+                <td>1.5–3</td>
+                <td>9 MeV</td>
+                <td>Linfonodos superficiais ou áreas pós-cirúrgicas</td>
+              </tr>
+              <tr>
+                <td>3–4</td>
+                <td>12 MeV</td>
+                <td>Parede torácica rasa</td>
+              </tr>
+              <tr>
+                <td>4–6</td>
+                <td>15–18 MeV</td>
+                <td>Parede torácica moderada</td>
+              </tr>
+              <tr>
+                <td>6–8</td>
+                <td>20–25 MeV</td>
+                <td>Tumores profundos ou campos de sobreposição</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>Regra prática:</strong> utilize a menor energia que ainda garanta cobertura adequada do PTV.
+          Evite energias excessivas para minimizar dose em tecidos profundos.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <h3>📈 Parâmetros Importantes</h3>
+        <ul class="list-styled">
+          <li><strong>R<sub>100</sub></strong>: profundidade de máxima dose (pico da curva PDD).</li>
+          <li><strong>R<sub>90</sub></strong>: profundidade correspondente a 90% da dose máxima — usada para prescrição.</li>
+          <li><strong>R<sub>50</sub></strong>: profundidade em que a dose cai a 50% — usada para avaliar penetração.</li>
+          <li><strong>Rp</strong>: profundidade de parada prática do feixe, indicando o alcance máximo dos elétrons.</li>
+        </ul>
+      </div>
+
+      <div class="highlight-box">
+        <h3>🩻 Aspectos Práticos</h3>
+        <ul class="list-styled">
+          <li>Utilizar <strong>bolus</strong> para ajustar a dose na superfície quando necessário.</li>
+          <li>Evitar campos adjacentes com diferença de energia sem sobreposição adequada.</li>
+          <li>Verificar uniformidade de dose em regiões de junção de campos.</li>
+        </ul>
+      </div>
+
+      <div class="warning-box">
+        <h4>⚠️ Cuidados na Prescrição</h4>
+        <ul class="list-styled">
+          <li>Revisar margens de CTV e PTV para evitar subdosagem.</li>
+          <li>Considerar heterogeneidades quando feixes atravessam interfaces ar/tecido ou osso/tecido.</li>
+          <li>Documentar claramente ponto de prescrição, energia, campo e uso de bolus no relatório clínico.</li>
+        </ul>
+      </div>
+
+      <div class="alert alert-success">
+        <strong>Resumo Prático:</strong>  
+        Prescrição, dose e fracionamento seguem os mesmos princípios dos fótons, mas com atenção redobrada
+        à escolha de energia e homogeneidade superficial.
+      </div>
+    </div>
+  </section>
+
+    <!-- FERRAMENTAS INTERATIVAS -->
+<section id="ferramentas">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">🛠️ Ferramentas Interativas</h2>
+            <p class="section-subtitle">Calculadoras e seletores para prática clínica</p>
+        </div>
+
+        <!-- Seletor de Energia -->
+        <div class="tool-section">
+            <div style="text-align: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--secondary);">
+                <h1 style="font-size: 2.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;">
+                    ⚡ Seletor de Energia
+                </h1>
+                <p style="font-size: 1.2rem; color: var(--light);">Ferramenta Interativa para Seleção de Energia de Elétrons</p>
+            </div>
+            
+            <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">📏 Dados do PTV</h2>
+            
+            <div class="input-group">
+                <label for="proximal">Profundidade Proximal do PTV (cm)</label>
+                <input type="number" id="proximal" placeholder="Ex: 0.5" step="0.1" min="0" max="10">
+            </div>
+            
+            <div class="input-group">
+                <label for="distal">Profundidade Distal do PTV (cm)</label>
+                <input type="number" id="distal" placeholder="Ex: 3.5" step="0.1" min="0" max="10">
+            </div>
+            
+            <div class="info-box">
+                <strong>💡 Dica:</strong> Meça as profundidades no CT de planejamento. A profundidade proximal é a mais superficial e a distal é a mais profunda do PTV.
+            </div>
+            
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="btn btn-primary" onclick="calcularEnergia()">🎯 Calcular Energia Ideal</button>
+                <button class="btn btn-reset" onclick="resetarCalculadora()">🔄 Limpar</button>
+            </div>
+        </div>
+
+        <!-- Resultados da Calculadora -->
+        <div class="results" id="results">
+            <div class="result-card" id="summaryCard">
+                <div class="result-title">📊 Análise do PTV</div>
+                <div id="ptvSummary"></div>
+            </div>
+            
+            <div class="result-card" id="recommendationCard">
+                <div class="result-title">✅ Recomendação ICRU 71</div>
+                <div id="recommendation"></div>
+            </div>
+            
+            <div class="result-card">
+                <div class="result-title">📋 Tabela Comparativa de Energias</div>
+                <table class="energy-table" id="energyTable">
+                    <!-- A tabela será gerada pelo JavaScript -->
+                </table>
+            </div>
+            
+            <div class="result-card">
+                <div class="result-title">📐 Cálculos Utilizados</div>
+                <div id="calculations"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- CARACTERÍSTICAS FÍSICAS DOS FEIXES DE ELÉTRONS -->
+<section id="fisica">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">⚛️ Características Físicas de Feixes de Elétrons</h2>
+            <p class="section-subtitle">Propriedades dosimétricas fundamentais</p>
+        </div>
+
+        <!-- Parâmetros Essenciais -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary); font-size: 1.8rem; margin-bottom: 1.5rem;">Parâmetros Essenciais</h3>
+            <ul class="list-styled">
+                <li><strong>Rp (Practical Range):</strong> Profundidade onde a tangente do ponto de inflexão encontra o background de raios-X. Relação: Rp ≈ E/2 (em cm para E em MeV).</li>
+                <li><strong>Relação Energia Média - Meia Profundidade:</strong> Ē₀ = 2.33 × R₅₀ (MeV/cm), onde Ē₀ é a energia média na superfície e R₅₀ a profundidade de meia dose (5–30 MeV).</li>
+                <li><strong>Rt (Therapeutic Range):</strong> Profundidade clínica relevante (R95–R85), definindo a profundidade útil de tratamento.</li>
+                <li><strong>Energia no paciente:</strong> Tipicamente entre 5–35 MeV após perdas na janela, câmara, ar e acessórios.</li>
+                <li><strong>Dose de superfície e gradiente:</strong> Dose de superfície menor que a dos fótons, decaindo rapidamente e oferecendo excelente proteção a tecidos profundos.</li>
+            </ul>
+        </div>
+
+        <!-- Qualidade do Feixe -->
+        <div class="content-box">
+            <h3>💡 Qualidade do Feixe e Contaminação</h3>
+            <p>Os principais indicadores da qualidade física de um feixe de elétrons são o gradiente de dose e a contaminação por raios-X:</p>
+            <ul class="list-styled">
+                <li><strong>Gradiente de Dose (G):</strong> G = Rp / (Rp - Rq), com valores típicos de 2.5 (aceleradores comuns) até 3.3 (design otimizado). Valores abaixo de 2.3 indicam qualidade pobre do feixe.</li>
+                <li><strong>Contaminação por Raios-X:</strong> Proveniente de bremsstrahlung nas folhas de espalhamento e ar. Tipicamente 1–6% de Dm para E ≤ 25 MeV e até 6% para 50 MeV, relevante em TSI.</li>
+            </ul>
+        </div>
+
+        <!-- Heterogeneidades -->
+        <div class="highlight-box">
+            <h3>Efeito de Heterogeneidades</h3>
+            <p class="text-large">Diferente dos fótons, os elétrons são <span class="highlight-text">muito sensíveis a heterogeneidades</span> (osso, pulmão, ar). Correções algorítmicas são essenciais para cálculos de dose precisos, especialmente em parede torácica e regiões com cavidades.</p>
+        </div>
+
+        <!-- Tabela Comparativa -->
+        <div class="table-responsive">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Energia (MeV)</th>
+                        <th>Rp (cm)</th>
+                        <th>R85 (cm)</th>
+                        <th>Profundidade Típica</th>
+                        <th>Indicação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>6</td><td>~3</td><td>~2</td><td>Superficial</td><td>Pele, parede torácica rasa</td></tr>
+                    <tr><td>9</td><td>~4.5</td><td>~3</td><td>Superficial-moderada</td><td>Linfonodos cervicais, parótida</td></tr>
+                    <tr><td>12</td><td>~6</td><td>~4</td><td>Moderada</td><td>Parede torácica, cadeia mamária interna</td></tr>
+                    <tr><td>15–20</td><td>~8–10</td><td>~6–7</td><td>Moderada-profunda</td><td>Tumores profundos, boost</td></tr>
+                    <tr><td>≥25</td><td>≥12</td><td>≥8</td><td>Profunda</td><td>Uso raro, poucos centros</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Indicadores -->
+        <div class="stats-box">
+            <div class="stat-item">
+                <div class="stat-number">5–35</div>
+                <div class="stat-label">Faixa de Energia (MeV)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1–8</div>
+                <div class="stat-label">Profundidade Útil (cm)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">≈1.0</div>
+                <div class="stat-label">RBE Diferença vs Fótons</div>
+            </div>
+        </div>
+
+        <!-- Curvas PDD -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary); font-size: 1.8rem; margin-bottom: 1.5rem;">📈 Curvas de Porcentagem de Dose em Profundidade (PDD)</h3>
+
+            <div class="alert alert-clinical" style="margin-bottom: 2rem;">
+                <h4 style="color: var(--accent); margin-bottom: 1rem;">🎯 Interpretação Clínica:</h4>
+                <p>As <strong>Curvas de Porcentagem de Dose em Profundidade (PDD)</strong> mostram como a energia afeta a penetração no tecido. Energias maiores aumentam o dmax e R50, mas elevam a dose de superfície.</p>
+                <ul class="list-styled" style="font-size: 0.9rem;">
+                    <li><strong>dmax:</strong> Aumenta com a energia.</li>
+                    <li><strong>R50:</strong> Indicador direto da energia do feixe.</li>
+                    <li><strong>Queda da Dose:</strong> Mais abrupta em energias menores.</li>
+                    <li><strong>Aplicação:</strong> Selecionar energia que cubra o PTV com homogeneidade e segurança para OARs.</li>
+                </ul>
+            </div>
+
+            <div class="interactive-figure" style="text-align:center; background: rgba(255,255,255,0.03); border-radius: 15px; padding: 2rem; margin: 2rem auto; border: 2px solid rgba(255,255,255,0.1); max-width: 800px;">
+                <img id="figura-pdd" src="images/curva-pdd-electron.png" alt="Curvas PDD para diferentes energias de elétrons" class="figure-image" style="width: 100%; max-width: 700px; margin: 0 auto; border: 2px solid var(--secondary); border-radius: 10px; transition: transform 0.3s ease; cursor: zoom-in;">
+                <button onclick="document.getElementById('figura-pdd').classList.toggle('zoomed'); this.textContent = document.getElementById('figura-pdd').classList.contains('zoomed') ? '🔍 Reduzir' : '🔍 Ampliar'" class="figure-btn" style="margin-top:1rem; padding: 0.8rem 1.5rem; border:none; border-radius:8px; background: var(--secondary); color:#fff; font-weight:600; cursor:pointer;">🔍 Ampliar</button>
+
+                <div class="figure-caption" style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 10px; border-left: 4px solid var(--accent); text-align:center;">
+                    <strong style="color: var(--accent);">Figura 1:</strong> Curvas de dose em profundidade (6–20 MeV) mostrando relação entre dmax, R50 e Rp.
+                </div>
+                <div class="figure-source" style="font-size: 0.9rem; color: var(--secondary); text-align: center; margin-top: 0.5rem; font-style: italic;">
+                    Fonte: TG-70 Report, Tabela VI
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumo Final -->
+        <div class="prevention-box" style="margin-top: 2rem;">
+            <h4 style="color: var(--success); margin-bottom: 1rem;">🎓 Principais Aprendizados:</h4>
+            <div class="grid-2">
+                <div>
+                    <ul class="checklist">
+                        <li>Energia determina a profundidade de tratamento.</li>
+                        <li>R50 e R90 são parâmetros-chave para escolha do feixe.</li>
+                        <li>Queda rápida protege tecidos profundos.</li>
+                        <li>Dose superficial depende da energia e do uso de bolus.</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="checklist">
+                        <li>Corrigir heterogeneidades é essencial em regiões torácicas.</li>
+                        <li>Rp define a proteção de órgãos críticos.</li>
+                        <li>Valores tabulados são referência — sempre confirmar com medição.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+   <!-- SEÇÃO SOBRE BOLUS -->
+<section id="bolus">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title"> Uso de Bolus em Elétrons</h2>
+            
+        </div>
+
+        <!-- Citação ICRU -->
+        <div class="icru-quote">
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                <strong>ICRU 71, Seção 5.2.6:</strong><br>
+                <em>"A bolus (usually tissue-equivalent material) is placed directly into contact with the irradiated tissues 
+                in order to provide build-up, attenuation, or sometimes additional scattering of the electron beam."</em>
+            </p>
+        </div>
+
+        <!-- Funções do Bolus -->
+        <div class="grid-3">
+            <div class="card">
+                <h3>🎯 Aumentar Dose Cutânea</h3>
+                <p><strong>Principalmente para baixas energias (6–9 MeV)</strong></p>
+                <ul>
+                    <li>PTV inclui pele ou tecido subcutâneo</li>
+                    <li>Compensa “skin sparing” dos elétrons</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>📐 Compensar Irregularidades</h3>
+                <p><strong>Superfícies curvas ou irregulares</strong></p>
+                <ul>
+                    <li>Parede torácica, face, pescoço</li>
+                    <li>Cria superfície plana para o feixe</li>
+                    <li>Melhora homogeneidade do PTV</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>⚡ Adaptar Penetração</h3>
+                <p><strong>Bolus modulado ou em cunha</strong></p>
+                <ul>
+                    <li>PTVs com profundidade variável</li>
+                    <li>Otimiza o alcance terapêutico</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Informações Obrigatórias -->
+        <div class="warning-box">
+            <h4>📝 Informações Obrigatórias (ICRU 71)</h4>
+            <ul class="list-styled">
+                <li><strong>Forma</strong> e <strong>espessura</strong> do bolus</li>
+                <li><strong>Composição</strong> e <strong>densidade</strong> do material</li>
+                <li><strong>Posição relativa</strong> em relação à pele</li>
+                <li><strong>SSD medido até:</strong> superfície do bolus ou da pele (declarar claramente)</li>
+            </ul>
+        </div>
+
+        <!-- Recomendações ICRU -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary);">✅ Recomendações ICRU 71 para Relato com Bolus</h3>
+            <div class="comparison-container">
+                <div class="comparison-box correct">
+                    <div class="comparison-label label-correct">CORRETO</div>
+                    <ul>
+                        <li>Ponto de referência <strong>no tecido</strong></li>
+                        <li>SSD medido até <strong>a pele</strong></li>
+                        <li>DVH inclui apenas volumes de tecido</li>
+                        <li>Forma, espessura e composição <strong>declaradas</strong></li>
+                    </ul>
+                </div>
+                <div class="comparison-box wrong">
+                    <div class="comparison-label label-wrong">ERRADO</div>
+                    <ul>
+                        <li>Ponto de referência no <strong>bolus</strong></li>
+                        <li>SSD medido até o <strong>bolus</strong></li>
+                        <li>DVH incluindo volume do bolus</li>
+                        <li>Parâmetros do bolus não reportados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Efeitos no Feixe -->
+        <div class="highlight-box">
+            <h3>⚡ Efeitos no Feixe de Elétrons (ICRU 71)</h3>
+            <div class="alert alert-warning">
+                <strong>O bolus altera significativamente a distribuição de dose e o alcance terapêutico do feixe.</strong>
+            </div>
+            <ul class="list-styled">
+                <li><strong>Energia efetiva:</strong> reduzida pela espessura do bolus</li>
+                <li><strong>Alcance terapêutico:</strong> diminuído proporcionalmente</li>
+                <li><strong>Dose superficial:</strong> aumentada</li>
+                <li><strong>Penumbra:</strong> pode aumentar dependendo do material</li>
+            </ul>
+        </div>
+
+        <!-- Dose de Pico -->
+        <div class="content-box">
+            <h3 style="color: var(--accent);">🎯 Dose de Pico com Bolus</h3>
+            <p><strong>A dose de pico absorvida em água deve sempre ser reportada</strong>, pois está diretamente relacionada ao número de unidades de monitor e mantém comparabilidade entre tratamentos.</p>
+            <div class="alert alert-clinical">
+                <strong>📊 Relato obrigatório:</strong> dose de pico em água (com bolus).
+            </div>
+        </div>
+
+        <!-- Caso Prático -->
+        <div class="case-study">
+            <h3>🏥 Caso Prático: Bolus em Parede Torácica</h3>
+            <div class="split-layout">
+                <div>
+                    <h4>📋 Situação Clínica:</h4>
+                    <ul class="list-styled">
+                        <li><strong>PTV:</strong> 0–2.5 cm (inclui pele)</li>
+                        <li><strong>Energia:</strong> 9 MeV sem bolus</li>
+                        <li><strong>Problema:</strong> Dose superficial ~80% (insuficiente)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🛡️ Solução com Bolus:</h4>
+                    <ul class="list-styled">
+                        <li><strong>Bolus:</strong> 0.5 cm (PMMA)</li>
+                        <li><strong>Energia:</strong> 9 MeV (mantida)</li>
+                        <li><strong>Resultado:</strong> Dose superficial ~95%</li>
+                    </ul>
+                </div>
+            </div>
+
+           
+
+            <div class="relato-box" style="margin-top: 1rem;">
+                <strong>RELATO ICRU 71 - COM BOLUS</strong><br>
+                • Material: PMMA (poli-metil-metacrilato)<br>
+                • Espessura: 0.5 cm<br>
+                • Densidade: 1.18 g/cm³<br>
+                • SSD até: pele (100 cm)<br>
+                • Ponto ICRU: no tecido (2.0 cm)<br>
+                • Dose de pico: [valor] Gy
+            </div>
+        </div>
+
+
+        <!-- Figura: Efeito do Bolus -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary); font-size: 1.8rem; margin-bottom: 1.5rem;">
+                🛡️ Efeito do Bolus na Distribuição de Dose
+            </h3>
+
+            <div class="alert alert-clinical" style="margin-bottom: 2rem;">
+                <h4 style="color: var(--accent); margin-bottom: 1rem;">🎯 Interpretação:</h4>
+                <p>O bolus atua como “pele artificial”, melhorando a homogeneidade da dose e aumentando a cobertura do volume alvo, ao custo de redução do alcance terapêutico.</p>
+            </div>
+
+            <div class="interactive-figure" style="text-align:center; background: rgba(255,255,255,0.03); border-radius: 15px; padding: 2rem; margin: 2rem auto; border: 2px solid rgba(255,255,255,0.1); max-width: 800px;">
+                <img id="figura-bolus" src="images/bolus.png" 
+                     alt="Comparação com e sem bolus" 
+                     class="figure-image"
+                     style="width: 100%; max-width: 700px; margin: 0 auto; border: 2px solid var(--secondary); border-radius: 10px; cursor: zoom-in; transition: transform 0.3s ease;">
+                <button onclick="document.getElementById('figura-bolus').classList.toggle('zoomed'); this.textContent = document.getElementById('figura-bolus').classList.contains('zoomed') ? '🔍 Reduzir' : '🔍 Ampliar'" 
+                        class="figure-btn" 
+                        style="margin-top:1rem; padding:0.8rem 1.5rem; border:none; border-radius:8px; background: var(--secondary); color:#fff; font-weight:600; cursor:pointer;">
+                    🔍 Ampliar
+                </button>
+
+                <div class="figure-caption" style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 10px; border-left: 4px solid var(--accent); text-align:center;">
+                    <strong style="color: var(--accent);">Figura:</strong> Efeito do bolus na distribuição de dose (TG-70). Demonstra a otimização da cobertura do PTV e redução da dose em tecidos sadios.
+                </div>
+                <div class="figure-source" style="font-size: 0.9rem; color: var(--secondary); text-align: center; margin-top: 0.5rem; font-style: italic;">
+                    Fonte: TG-70 Report, Figura 6
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== SEÇÃO 5.2.4: INCIDÊNCIA OBLÍQUA ===== -->
+<section id="obliquidade">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">📐 Incidência Oblíqua de Feixe de Elétrons</h2>
+            
+        </div>
+
+        <!-- DEFINIÇÃO -->
+        <div class="icru-quote">
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                <strong>ICRU 71, Seção 5.2.4:</strong><br>
+                <em>"When an electron beam is incident obliquely with respect to the surface, 
+                the central-axis depth dose will change [...] resulting in increased surface dose, 
+                decreased penetration, and asymmetric distributions."</em>
+            </p>
+        </div>
+
+        <!-- POR QUE IMPORTA -->
+        <div class="highlight-box">
+            <h3>⚠️ Por que Obliquidade Importa?</h3>
+            <p class="text-large">
+                Elétrons são altamente sensíveis à obliquidade. O espalhamento diferencial cria distribuições 
+                <span class="highlight-text">assimétricas, superficiais e de menor penetração</span>.
+            </p>
+        </div>
+
+        <!-- EFEITOS FÍSICOS -->
+        <div class="grid-3" style="margin: 2rem 0;">
+            <div class="card">
+                <h3>🔥 Dose Superficial</h3>
+                <p><strong>Aumenta significativamente</strong></p>
+                <p style="font-size: 0.9rem;">Principalmente no lado proximal</p>
+            </div>
+            <div class="card">
+                <h3>📈 Dose no Máximo</h3>
+                <p><strong>Desloca-se para regiões mais superficiais</strong></p>
+                <p style="font-size: 0.9rem;">Pico off-axis</p>
+            </div>
+            <div class="card">
+                <h3>📉 Penetração Terapêutica</h3>
+                <p><strong>Diminui</strong></p>
+                <p style="font-size: 0.9rem;">R₉₀ e R₈₅ reduzidos</p>
+            </div>
+        </div>
+
+
+
+        <!-- TABELA QUANTITATIVA -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary);">📊 Dados Quantitativos (9 MeV)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ângulo (°)</th>
+                        <th>dmax (cm)</th>
+                        <th>Dose Pico (%)</th>
+                        <th>R₉₀ (cm)</th>
+                        <th>Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0°</td><td>2.3</td><td>100%</td><td>3.0</td><td>Referência</td></tr>
+                    <tr><td>15°</td><td>1.9</td><td>100%</td><td>2.7</td><td>Pico +0.4 cm superficial</td></tr>
+                    <tr><td>30°</td><td>1.4</td><td>101%</td><td>2.4</td><td>Dose ↑, penetração ↓</td></tr>
+                    <tr><td>45°</td><td>0.9</td><td>102%</td><td>1.8</td><td>Distribuição assimétrica</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size: 0.9rem;">* Profundidades medidas perpendicularmente à superfície</p>
+        </div>
+
+        <!-- CONCEITO FÍSICO -->
+        <div class="formula-box" style="margin: 2rem 0;">
+            <strong>🔹 Conceito: Profundidades d e d’</strong><br><br>
+            <strong>d</strong> = profundidade ao longo do eixo do feixe<br>
+            <strong>d’</strong> = profundidade perpendicular à superfície<br><br>
+            Relação: <strong>d’ = d × cos(θ)</strong><br><br>
+            Exemplo (θ = 30°): Para atingir d’ = 3.5 cm → d = 3.5 / cos(30°) = 4.0 cm<br>
+            <strong>Implicação:</strong> É necessário feixe de energia mais alta sob obliquidade.
+        </div>
+
+        <!-- DISTRIBUIÇÃO ISODOSE -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary);">🎯 Distribuição de Isodoses</h3>
+            <div class="split-layout">
+                <div>
+                    <h4>Feixe 0° (Perpendicular)</h4>
+                    <ul>
+                        <li>Isodoses simétricas e previsíveis</li>
+                        <li>Penumbra uniforme</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Feixe 30° (Oblíquo)</h4>
+                    <ul>
+                        <li>Isodoses assimétricas (“wedge”)</li>
+                        <li>Penumbra distal aumentada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECOMENDAÇÕES ICRU -->
+        <div class="content-box">
+            <h3 style="color: var(--accent);">📝 Recomendações ICRU 71</h3>
+            <div class="alert alert-warning">
+                <strong>Nível 1 (sem correção 3D):</strong> 
+                Evitar ângulos > 20°, especialmente em superfícies irregulares. 
+                Preferir fótons se obliquidade > 30°.
+            </div>
+            <div class="highlight-box">
+                <strong>Nível 2/3 (com algoritmo 3D):</strong>
+                <ul class="list-styled">
+                    <li>Relatar dose de pico em água (como perpendicular)</li>
+                    <li>Incluir dose real com obliquidade separadamente</li>
+                    <li>Ponto ICRU pode estar off-axis, mas deve ser no centro do PTV</li>
+                    <li>Relatar d’ (profundidade perpendicular)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SELEÇÃO DO PONTO -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary);">🎯 Ponto de Referência ICRU</h3>
+            <div class="comparison-container">
+                <div class="comparison-box wrong">
+                    <div class="comparison-label label-wrong">ERRADO</div>
+                    <ul>
+                        <li>Ponto no máximo off-axis</li>
+                        <li>Difícil de reproduzir</li>
+                    </ul>
+                </div>
+                <div class="comparison-box correct">
+                    <div class="comparison-label label-correct">CORRETO</div>
+                    <ul>
+                        <li>Ponto no centro do PTV</li>
+                        <li>Próximo ao eixo do feixe</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CASO PRÁTICO -->
+        <div class="case-study">
+            <h3>🏥 Caso Prático: Parede Torácica Oblíqua</h3>
+            <div class="split-layout">
+                <div>
+                    <ul class="list-styled">
+                        <li><strong>Local:</strong> Parede torácica lateral</li>
+                        <li><strong>Ângulo:</strong> 35°</li>
+                        <li><strong>PTV:</strong> 0.5–3.0 cm (⊥)</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-styled">
+                        <li><strong>Opções:</strong> Bolus compensador ou fótons</li>
+                        <li><strong>Energia:</strong> 12–15 MeV</li>
+                        <li><strong>Resultado:</strong> Melhora homogeneidade</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="relato-box" style="margin-top: 1rem;">
+<pre style="white-space: pre-line;">
+ANÁLISE:
+PTV: 0.5–3.0 cm (⊥)
+θ = 35° → profundidade eixo = 3.0 / cos(35°) = 3.66 cm
+R₉₀ (12 MeV) = 4.0 cm → adequado
+→ Dose superficial ↑↑ e distribuição assimétrica
+→ Decisão: 15 MeV + bolus compensador
+</pre>
+            </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="prevention-box">
+            <h3>✅ Checklist Prático</h3>
+            <ul class="checklist">
+                <li>☑ Medir ângulo de obliquidade</li>
+                <li>☑ ≤15°: aceitável (nível 1)</li>
+                <li>☑ 15–30°: considerar fótons ou bolus</li>
+                <li>☑ >30°: preferir fótons</li>
+                <li>☑ Reportar ângulo e nível de cálculo</li>
+                <li>☑ Ponto ICRU no centro do PTV</li>
+                <li>☑ Dose de pico perpendicular sempre reportada</li>
+            </ul>
+        </div>
+
+
+        <!-- RESUMO -->
+        <div class="highlight-box" style="margin-top:2rem;">
+            <h3>📋 Resumo ICRU 71 - Obliquidade</h3>
+            <ul>
+                <li>R₉₀ reduz ~10–20% a cada 30°</li>
+                <li>Dose superficial aumenta 10–30%</li>
+                <li>Distribuição torna-se assimétrica e imprevisível</li>
+                <li>Use algoritmos 3D com correção</li>
+                <li>Alternativas: bolus, campos múltiplos, fótons</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- ===== FIM SEÇÃO 5.2.4 ===== -->
+
+<!-- ===== SEÇÃO 5.2.5: HETEROGENEIDADES ===== -->
+<section id="heterogeneidades">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">🧩 Heterogeneidades</h2>
+            <p class="section-subtitle">Sensibilidade Crítica em Feixes de Elétrons</p>
+        </div>
+
+        <!-- POR QUE ELÉTRONS SÃO MAIS SENSÍVEIS -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary);">🔬 Por Que Elétrons São Mais Sensíveis a Heterogeneidades?</h3>
+            <p>
+                Elétrons perdem energia por <strong>colisões inelásticas com elétrons do meio</strong>, tornando-se altamente dependentes da 
+                <strong>densidade eletrônica</strong>. Assim, variações de densidade afetam drasticamente a dose depositada.
+            </p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>⚛️ Fótons</h4>
+                    <ul class="list-styled">
+                        <li>Interagem via efeito fotoelétrico e Compton</li>
+                        <li><strong>Dependência moderada</strong> com densidade</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>⚡ Elétrons</h4>
+                    <ul class="list-styled">
+                        <li>Colisões múltiplas com elétrons do meio</li>
+                        <li><strong>Alta dependência</strong> da densidade e composição</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+            <div class="alert alert-warning" style="margin-top: 1.5rem;">
+                <strong>📊 Achado Clínico:</strong><br>
+                Cavidade de ar → <strong>Hot spot 103%</strong> | Assimetria lateral 15% | Gradiente abrupto (10%/mm)<br>
+                <strong>Cold spot distal:</strong> 85% da dose nominal.
+            </div>
+
+            <div class="grid-2" style="margin-top: 1rem;">
+                <div>
+                    <h4 style="color: var(--danger);">⚠️ Efeitos Físicos</h4>
+                    <ul class="list-styled">
+                        <li>Perda de espalhamento lateral</li>
+                        <li>Alteração do equilíbrio eletrônico</li>
+                        <li>Distorção das isodoses</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--accent);">🎯 Regiões Críticas</h4>
+                    <ul class="list-styled">
+                        <li>Interfaces ar/tecido</li>
+                        <li>Bordas laterais da cavidade</li>
+                        <li>Região distal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- REPORTING - NÍVEL 1 -->
+        <div class="content-box">
+            <h3 style="color: var(--accent);">📝 Reporting - Nível 1 (ICRU 71)</h3>
+            <div class="icru-quote">
+                <p>
+                    <em>"Quando heterogeneidades grandes estão presentes e apenas avaliação Nível 1 é possível, 
+                    <strong>o uso de feixes de elétrons deve ser reconsiderado</strong>."</em>
+                </p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Reporting Obrigatório</h4>
+                <ul class="list-styled">
+                    <li>Dose Máxima Absorvida na água (em fantom homogêneo)</li>
+                    <li>Localização e dose no ponto ICRU</li>
+                    <li>Dose máxima e mínima no PTV</li>
+                    <li>Reconhecimento explícito das limitações</li>
+                    <li>Justificativa clínica para uso de elétrons</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- REPORTING - NÍVEIS 2 E 3 -->
+        <div class="content-box">
+            <h3 style="color: var(--accent);">📝 Reporting - Níveis 2 e 3 (ICRU 71)</h3>
+            <div class="highlight-box">
+                <h4>✅ Procedimento ICRU</h4>
+                <ol class="list-styled">
+                    <li>Calcular em <strong>fantom homogêneo</strong> (dose de pico em água)</li>
+                    <li>Calcular <strong>com heterogeneidades</strong> (distribuição real)</li>
+                    <li>Selecionar <strong>ponto ICRU</strong> distante das interfaces</li>
+                    <li>Reportar <strong>doses antes e depois</strong> das correções</li>
+                </ol>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>💡 Racional:</strong><br>
+                <strong>Dose sem correção:</strong> permite comparação entre centros.<br>
+                <strong>Dose com correção:</strong> reflete a dose real entregue ao paciente.
+            </div>
+        </div>
+
+        <!-- ALGORITMOS -->
+        <div class="content-box">
+            <h3 style="color: var(--secondary);">🖥️ Algoritmos de Correção</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>📊 Pencil Beam Algorithm</h4>
+                    <ul class="list-styled">
+                        <li>Divide feixe em múltiplos "pencils"</li>
+                        <li>Corrige densidade em cada um</li>
+                        <li>Comum em TPS clínicos</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>🔬 Monte Carlo</h4>
+                    <ul class="list-styled">
+                        <li>Simula interações individuais</li>
+                        <li>Mais preciso, porém mais lento</li>
+                        <li>Gold standard para heterogeneidades</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECOMENDAÇÕES FINAIS -->
+        <div class="highlight-box">
+            <h3 style="color: var(--accent);">🎯 Recomendações Práticas ICRU</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>❌ Erros Comuns</h4>
+                    <ul>
+                        <li>Ignorar heterogeneidades críticas</li>
+                        <li>Usar Nível 1 em casos complexos</li>
+                        <li>Reportar apenas dose sem correção</li>
+                        <li>Ponto ICRU próximo a interfaces</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>✅ Conduta Correta</h4>
+                    <ul>
+                        <li>Calcular em fantom homogêneo e real</li>
+                        <li>Reportar ambas as doses</li>
+                        <li>Usar algoritmos com correção 3D</li>
+                        <li>Reconsiderar elétrons se heterogeneidade crítica</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-clinical" style="margin-top: 1rem;">
+                <strong>💡 Mensagem-Chave:</strong><br>
+                <span class="highlight-text">“Elétrons são mais sensíveis a heterogeneidades que fótons.”</span><br><br>
+                Diferenças de até <strong>10–15%</strong> podem ocorrer. Sempre aplicar correção e reportar 
+                antes/depois para máxima transparência.
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</section>
+
+<!-- JavaScript para Accordion -->
+<script>
+function toggleAccordion(header) {
+    const item = header.parentElement;
+    const content = header.nextElementSibling;
+    const icon = header.querySelector('.accordion-icon');
+    
+    // Close all other accordions
+    document.querySelectorAll('.accordion-item').forEach(otherItem => {
+        if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            otherItem.querySelector('.accordion-content').style.maxHeight = null;
+            otherItem.querySelector('.accordion-icon').textContent = '▼';
+        }
+    });
+    
+    // Toggle current accordion
+    item.classList.toggle('active');
+    if (item.classList.contains('active')) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.textContent = '▲';
+    } else {
+        content.style.maxHeight = null;
+        icon.textContent = '▼';
+    }
+}
+</script>
+<!-- ===== FIM SEÇÃO 5.2.5 ===== -->
+
+    <!-- ============================= -->
+<!-- 📋 PRESCRIÇÃO, REGISTRO E RELATO -->
+<!-- ============================= -->
+<section id="prescricao">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">📝 Prescrição, Registro e Relato</h2>
+      <p class="section-subtitle">Fluxo completo de planejamento e documentação</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>🎯 Prescrição</h3>
+        <p>Responsabilidade do oncologista radioterápico e equipe multidisciplinar.</p>
+        <ul class="list-styled" style="margin-top: 1rem;">
+          <li>Define volumes (GTV, CTV, OAR)</li>
+          <li>Especifica dose e fracionamento</li>
+          <li>Seleciona geometria de feixe</li>
+          <li>Define limites de dose aceitáveis</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>📋 Registro</h3>
+        <p>Documentação padronizada realizada pelos departamentos clínico, físico e técnico.</p>
+        <ul class="list-styled" style="margin-top: 1rem;">
+          <li>Parâmetros do acelerador</li>
+          <li>Dados do paciente e imagens</li>
+          <li>Planejamento de dose e QA</li>
+          <li>Verificações de qualidade e segurança</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-box" style="margin-top: 2rem;">
+      <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 1rem;">
+        🌐 Relato (Reporting)
+      </h3>
+      <p class="text-large">
+        É <span class="highlight-text">MANDATÓRIO harmonizar o relato</span> para troca segura de informações entre centros. O relato deve seguir padrões definidos:
+      </p>
+      <ul class="list-styled" style="margin-top: 1rem;">
+        <li>Mesmas definições de conceitos e termos</li>
+        <li>Critérios padronizados para pontos de referência</li>
+        <li>Mesmos requisitos de dose e volume</li>
+        <li>Facilita ensaios clínicos multicêntricos</li>
+        <li>Reduz risco de confusão e erros</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box">
+      <h3>💡 Abordagens de Prescrição</h3>
+      <p style="margin: 1rem 0;">
+        <strong>Abordagem 1 - Ponto de Referência Central:</strong><br>
+        Dose prescrita no ponto de referência (ICRU), com variação permitida de ±10% (elétrons).
+      </p>
+      <p style="margin: 1rem 0;">
+        <strong>Abordagem 2 - Intervalo de Dose no PTV:</strong><br>
+        Todos os pontos no PTV devem estar dentro dos limites especificados.
+      </p>
+      <p style="margin: 1rem 0;">
+        <strong>Abordagem 3 - Dose Mínima ao PTV:</strong><br>
+        Menos recomendada, pode mascarar heterogeneidades e prejudicar comparações.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= -->
+<!-- 📊 TRÊS NÍVEIS DE RELATO -->
+<!-- ============================= -->
+<section id="niveis" style="margin-top: 4rem;">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">📊 Três Níveis de Relato</h2>
+      <p class="section-subtitle">Adaptados aos recursos e complexidade do tratamento</p>
+    </div>
+
+    <!-- GRID IGUAL À PARTE DE CIMA -->
+    <div class="grid-3" style="gap: 2rem; align-items: stretch;">
+      <!-- NÍVEL 1 -->
+      <div class="card" style="flex: 1;">
+        <h3 style="color: var(--secondary);">🔧 NÍVEL 1 – Básico</h3>
+        <p>
+          Representa os <strong>requisitos mínimos</strong> para realizar tratamento com elétrons de forma segura e eficaz.
+        </p>
+
+        <h4 style="margin-top: 1rem;">Equipamento necessário:</h4>
+        <ul class="list-styled">
+          <li>Medições de profundidade-dose em fantom homogêneo</li>
+          <li>Dosímetro calibrado</li>
+          <li>Conhecimento do comportamento do feixe</li>
+        </ul>
+
+        <h4 style="margin-top: 1rem;">Informações para relato:</h4>
+        <ul class="list-styled">
+          <li>Dose de pico absorvido</li>
+          <li>Localização e dose no Ponto ICRU</li>
+          <li>Dose máxima e mínima no PTV</li>
+          <li>Dose aos órgãos de risco</li>
+        </ul>
+
+        <p style="margin-top: 1rem; color: var(--accent);">
+          ⚠️ Aplicável a centros com recursos limitados ou tratamentos paliativos.
+        </p>
+      </div>
+
+      <!-- NÍVEL 2 -->
+      <div class="card" style="flex: 1;">
+        <h3 style="color: var(--accent);">💻 NÍVEL 2 – Estado da Arte</h3>
+        <p>
+          Permite <strong>intercâmbio completo de informações</strong> entre centros com infraestrutura moderna.
+        </p>
+
+        <h4 style="margin-top: 1rem;">Equipamento e software:</h4>
+        <ul class="list-styled">
+          <li>Imagem moderna (CT/MRI séries)</li>
+          <li>Definição precisa de GTV, CTV, OAR, PTV e PRV</li>
+          <li>Distribuições de dose 3D com correção de heterogeneidade</li>
+          <li>Histogramas de volume-dose (DVH)</li>
+        </ul>
+
+        <h4 style="margin-top: 1rem;">Informações para relato:</h4>
+        <ul class="list-styled">
+          <li>Todas informações do Nível 1</li>
+          <li>Dose máxima e mínima no PTV (obtida de DVH)</li>
+          <li>Distribuições de dose e DVHs para PTV e OARs</li>
+          <li>Proporção PTV95 e PTV90 (% do PTV em 95%/90%)</li>
+        </ul>
+
+        <p style="margin-top: 1rem; color: var(--accent);">
+          ✓ Padrão recomendado para centros modernos com expertise adequada.
+        </p>
+      </div>
+
+      <!-- NÍVEL 3 -->
+      <div class="card" style="flex: 1;">
+        <h3 style="color: var(--primary);">🚀 NÍVEL 3 – Avançado / Especial</h3>
+        <p>
+          Engloba <strong>técnicas complexas e inovadoras</strong>, requerendo alto nível de expertise clínica e física.
+        </p>
+
+        <h4 style="margin-top: 1rem;">Aplicações:</h4>
+        <ul class="list-styled">
+          <li>IMRT e arco terapia com elétrons</li>
+          <li>Técnicas intraoperatórias (IORT)</li>
+          <li>Irradiação corporal total (TSI)</li>
+          <li>Planejamento 3D avançado</li>
+        </ul>
+
+        <h4 style="margin-top: 1rem;">Informações para relato:</h4>
+        <ul class="list-styled">
+          <li>Todas as informações dos Níveis 1 e 2</li>
+          <li>Dados específicos da técnica especial</li>
+          <li>Informações completas de planejamento 3D</li>
+          <li>Descrição detalhada de QA</li>
+        </ul>
+
+        <p style="margin-top: 1rem; color: var(--accent);">
+          ⚡ Requer expertise médica/física avançada e equipamentos de alta complexidade.
+        </p>
+      </div>
+    </div>
+
+    <!-- QUADRO COMPARATIVO -->
+    <div class="highlight-box" style="margin-top: 3rem;">
+      <h3 style="color: var(--secondary); text-align: center;">
+        📊 Comparativo entre os Níveis de Relato
+      </h3>
+      <table class="data-table" style="margin-top: 1.5rem; width: 100%;">
+        <thead>
+          <tr>
+            <th>Nível</th>
+            <th>Complexidade</th>
+            <th>Correção de Heterogeneidade</th>
+            <th>Tipo de Relato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>Básico</td>
+            <td>Não aplicada</td>
+            <td>Dose estimada (pico e ponto ICRU)</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>Intermediário</td>
+            <td>Sim, algoritmo 3D</td>
+            <td>Relato completo com DVH</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>Avançado</td>
+            <td>Correções completas</td>
+            <td>Relato detalhado, incluindo QA</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEÇÃO 4.3.2: CRITÉRIOS RIGOROSOS PARA PONTO ICRU ===== -->
+<section id="ponto-icru" class="fade-in">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">🎯 Critérios para Ponto de Referência ICRU</h2>
+            
+        </div>
+
+        <!-- CITAÇÃO ICRU -->
+        <div class="icru-quote">
+            <p>
+                <strong>ICRU 71, Seção 4.3.2, p.52:</strong><br>
+                <em>"The reference point for reporting shall fulfill four criteria: 
+                (i) it shall be in a region of homogeneous dose, (ii) it shall be 
+                clinically relevant, (iii) it shall be easily defined and located 
+                reproducibly in different scans, and (iv) the absorbed dose at the 
+                reference point shall be determined with high accuracy."</em>
+            </p>
+        </div>
+
+        <!-- OS 4 CRITÉRIOS OBRIGATÓRIOS -->
+        <div class="content-box">
+            <h3 class="subtitle accent">📋 Os 4 Critérios Obrigatórios</h3>
+
+            <div class="grid-2">
+                <!-- CRITÉRIO 1 -->
+                <div class="card" style="border-left: 5px solid var(--accent);">
+                    <h3>1️⃣ Região Homogênea</h3>
+                    <p>O Ponto ICRU deve estar em uma região onde o gradiente de dose é pequeno.</p>
+
+                    <ul class="list-styled">
+                        <li>Pequenas variações de posição ⇒ pequenas variações de dose</li>
+                        <li>Reprodutibilidade entre sistemas e centros</li>
+                        <li>Maior robustez contra incertezas</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>Critério quantitativo:</strong><br>
+                        Gradiente de dose &lt; 10%/cm (≈1% por mm)
+                    </div>
+
+                    <ul class="list-styled danger">
+                        <li>✗ Penumbra (~10-50%/cm)</li>
+                        <li>✗ Borda do PTV</li>
+                        <li>✗ Interfaces tecido-ar ou osso</li>
+                    </ul>
+                </div>
+
+                <!-- CRITÉRIO 2 -->
+                <div class="card" style="border-left: 5px solid var(--clinician);">
+                    <h3>2️⃣ Clinicamente Relevante</h3>
+                    <p>A dose no Ponto deve representar fielmente a dose entregue ao alvo clínico.</p>
+
+                    <ul class="list-styled">
+                        <li>Dentro, preferencialmente no centro, do PTV</li>
+                        <li>Refletir dose típica do tumor</li>
+                        <li>Evitar outliers (sobredose/subdose)</li>
+                    </ul>
+
+                    <div class="info-box success">
+                        ✓ Centro geométrico do PTV<br>
+                        ✓ Profundidade próxima ao pico de dose<br>
+                        ✓ Região que representa a maior parte do tumor
+                    </div>
+
+                    <ul class="list-styled danger">
+                        <li>✗ Fora do PTV</li>
+                        <li>✗ Região subtratada (&lt;R₈₅)</li>
+                        <li>✗ Dose 150%</li>
+                        <li>✗ OAR adjacente</li>
+                    </ul>
+                </div>
+
+                <!-- CRITÉRIO 3 -->
+                <div class="card" style="border-left: 5px solid var(--expert);">
+                    <h3>3️⃣ Facilmente Definível</h3>
+                    <p>Deve ser possível localizar o ponto de forma clara e reprodutível por qualquer profissional.</p>
+
+                    <div class="info-box warning">
+                        <strong>Definição precisa inclui:</strong><br>
+                        1️⃣ Referências anatômicas claras<br>
+                        2️⃣ Profundidade em cm<br>
+                        3️⃣ Método de localização (e.g., intersecção de planos CT)<br>
+                        4️⃣ Coordenadas relativas ao isocentro
+                    </div>
+
+                    <p class="highlight-text">Teste prático:</p>
+                    <p>Outro físico consegue localizar o mesmo ponto em CT futuro? Se sim, está bem definido.</p>
+                </div>
+
+                <!-- CRITÉRIO 4 -->
+                <div class="card" style="border-left: 5px solid var(--beginner);">
+                    <h3>4️⃣ Dose Determinada com Acurácia</h3>
+                    <p>Deve ser possível medir ou calcular a dose com precisão ≥ 3%.</p>
+
+                    <ul class="list-styled">
+                        <li><strong>Nível 1:</strong> Cálculo manual (dados de fantom)</li>
+                        <li><strong>Nível 2/3:</strong> Cálculo TPS com algoritmo validado</li>
+                        <li>Verificação in vivo opcional</li>
+                    </ul>
+
+                    <div class="info-box">
+                        ✓ TPS moderno: ±3% <br>
+                        ✓ Nível 1: ±5% (aceitável)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ALGORITMO PRÁTICO -->
+        <div class="content-box">
+            <h3 class="subtitle secondary">✅ Algoritmo Prático para Seleção do Ponto ICRU</h3>
+            <ol class="list-numbered">
+                <li>Verifique se o PTV é homogêneo — se não, use múltiplos pontos.</li>
+                <li>Localize o centro geométrico do PTV.</li>
+                <li>Calcule o gradiente de dose em 3 direções (ΔDose/Δdistância).</li>
+                <li>Garanta que o ponto esteja próximo ao pico de dose (≈0.5–1 cm se superficial).</li>
+                <li>Defina o ponto com referências anatômicas e coordenadas claras.</li>
+                <li>Documente no relatório do paciente (ex: profundidade, distância de cicatriz, eixo).</li>
+                <li>Valide se outro físico consegue localizar o mesmo ponto.</li>
+            </ol>
+        </div>
+
+        <!-- EXEMPLOS PRÁTICOS -->
+        <div class="grid-2 fade-in">
+            <div class="card success">
+                <h3>✓ Exemplo Correto</h3>
+                <p><strong>Caso:</strong> Parede torácica</p>
+                <p><strong>Ponto ICRU:</strong> Centro geométrico do PTV, profundidade 2.2 cm ao longo eixo clínico, 1 cm lateral à cicatriz.</p>
+
+                <ul class="list-styled">
+                    <li>Clinicamente relevante</li>
+                    <li>Reprodutível e bem definido</li>
+                    <li>Região homogênea</li>
+                    <li>Profundidade clara</li>
+                </ul>
+            </div>
+
+            <div class="card danger">
+                <h3>✗ Exemplo Errado</h3>
+                <p><strong>Caso:</strong> Parede torácica</p>
+                <p><strong>Ponto ICRU:</strong> “Ponto de máxima dose no PTV”</p>
+
+                <ul class="list-styled danger">
+                    <li>Definição vaga</li>
+                    <li>Não reprodutível</li>
+                    <li>Possível gradiente alto</li>
+                    <li>Não representa o PTV médio</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SITUAÇÕES ESPECIAIS -->
+        <div class="content-box fade-in">
+            <h3 class="subtitle accent">⚠️ Situações Especiais: Onde Colocar o Ponto ICRU</h3>
+            <div class="grid-2">
+                <div class="card warning">
+                    <h4>PTV com Bolus</h4>
+                    <ul class="list-styled">
+                        <li>Ponto ICRU deve estar no tecido, não no bolus.</li>
+                        <li>Profundidade total: bolus + tecido.</li>
+                        <li>Reportar ambas as medidas (ex: 2.0 cm tecido + 0.5 cm bolus).</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>PTV com Incidência Oblíqua</h4>
+                    <ul class="list-styled">
+                        <li>Profundidade sempre medida ao longo do eixo clínico, não do feixe.</li>
+                        <li>Ex: 30° → d' = d × cos(30°) → reportar d' (profundidade perpendicular).</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>PTV com Heterogeneidade</h4>
+                    <ul class="list-styled">
+                        <li>Ponto deve estar em região homogênea.</li>
+                        <li>Se necessário, use múltiplos pontos (parede + pulmão, por exemplo).</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Campos Adjacentes com Junção</h4>
+                    <ul class="list-styled">
+                        <li>Evite colocar ponto na junção (gradiente alto).</li>
+                        <li>Defina um ponto ICRU para cada campo separado.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHECKLIST FINAL -->
+        <div class="prevention-box fade-in">
+            <h3>✅ CHECKLIST: Seleção do Ponto ICRU</h3>
+            <ul class="checklist">
+                <li>☑ Gradiente de dose &lt;10%/cm verificado?</li>
+                <li>☑ Ponto dentro e representativo do PTV?</li>
+                <li>☑ Definição anatômica e coordenadas claras?</li>
+                <li>☑ Incerteza ≤ 3% confirmada?</li>
+                <li>☑ Profundidade próxima ao pico de dose?</li>
+                <li>☑ Reprodutibilidade entre observadores?</li>
+                <li>☑ Casos especiais (bolus, oblíquo, heterog.) documentados?</li>
+                <li>☑ Descrição no relatório clínico final?</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- ===== FIM SEÇÃO 4.3.2 ===== -->
+
+
+<!-- ===== SEÇÃO 4.3.3.3: MÉTRICAS PTV 95/90/85 ===== -->
+<section id="ptv-95" class="fade-in">
+  <div class="container">
+    <!-- CABEÇALHO -->
+    <div class="section-header">
+      <h2 class="section-title">📊 Métricas PTV 95/90/85</h2>
+     
+    </div>
+
+    <!-- CITAÇÃO ICRU -->
+    <div class="icru-quote fade-in">
+      <p>
+        <strong>ICRU 71, Seção 4.3.3.3, p.53–54:</strong><br>
+        <em>"In reporting the dose distribution in and around the target, it is important to report how many of the voxels in the PTV receive dose values between 95% and 105% of the prescribed dose."</em>
+      </p>
+    </div>
+
+    <!-- DEFINIÇÕES -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle" style="color: var(--secondary); font-size: 1.8rem;">📐 Definições Precisas</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h3>PTV 95</h3>
+          <p><strong>Definição:</strong> Percentual do PTV recebendo ≥ 95% da dose prescrita.</p>
+          <div class="formula-box">
+            <code>PTV 95 = (Volume com dose ≥ 95%) / (Volume total PTV) × 100%</code>
+          </div>
+          <p><strong>Meta ICRU 71:</strong> PTV 95 ≥ 95%</p>
+          <p class="highlight-text">No mínimo 95% do PTV deve receber 95% da dose!</p>
+        </div>
+
+        <div class="card">
+          <h3>PTV 90 e PTV 85</h3>
+          <p><strong>Definições:</strong></p>
+          <ul class="list-styled">
+            <li>PTV 90 → % do PTV recebendo ≥ 90% da dose prescrita</li>
+            <li>PTV 85 → % do PTV recebendo ≥ 85% da dose prescrita</li>
+          </ul>
+          <p><strong>Uso:</strong></p>
+          <ul class="list-styled">
+            <li>PTV 90: indicador intermediário</li>
+            <li>PTV 85: avalia o pior cenário</li>
+          </ul>
+          <p><strong>Metas recomendadas:</strong></p>
+          <ul class="list-styled">
+            <li>✓ PTV 90 ≥ 98%</li>
+            <li>✓ PTV 85 ≥ 99%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DADOS ICRU -->
+    <div class="content-box fade-in">
+      <h3 style="color: var(--accent); font-size: 1.8rem;">📊 Dados Reais da Série ICRU 71 (107 Pacientes)</h3>
+      <p class="text-large"><strong>ICRU 71:</strong> análise de 107 pacientes tratados com elétrons.</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Métrica</th>
+            <th>Valor</th>
+            <th>Interpretação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>PTV com 100% dose</strong></td>
+            <td>29 pacientes (27%)</td>
+            <td>Ideal (mas raro)</td>
+          </tr>
+          <tr>
+            <td><strong>PTV com 95–100% dose</strong></td>
+            <td>76 pacientes (71%)</td>
+            <td>Aceitável</td>
+          </tr>
+          <tr>
+            <td><strong>PTV com 5–10% vol &lt; 95%</strong></td>
+            <td>14 pacientes</td>
+            <td>Ligeiramente heterogêneo</td>
+          </tr>
+          <tr>
+            <td><strong>PTV com &gt;10% vol &lt; 95%</strong></td>
+            <td>8 pacientes</td>
+            <td>Muito heterogêneo</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-clinical">
+        <strong>🔍 Conclusão ICRU 71:</strong> Todos os planos apresentam heterogeneidade; a questão é: <em>“quanto é aceitável?”</em>
+      </div>
+    </div>
+
+    <!-- INTERPRETAÇÃO CLÍNICA -->
+    <div class="content-box fade-in">
+      <h3 style="color: var(--secondary); font-size: 1.8rem;">🎯 Interpretação Clínica das Métricas PTV</h3>
+      <div class="grid-2">
+        <div class="card success">
+          <h4>PTV 95 ≥ 95%</h4>
+          <p><strong>✓ Excelente:</strong> plano conforme especificações ICRU, cobertura uniforme e segura.</p>
+        </div>
+        <div class="card warning">
+          <h4>PTV 95 = 90–95%</h4>
+          <p><strong>⚠️ Aceitável com cautela:</strong> 5–10% do PTV abaixo de 95%; documentar e justificar.</p>
+        </div>
+        <div class="card danger">
+          <h4>PTV 95 = 85–90%</h4>
+          <p><strong>✗ Inadequado:</strong> subdose em até 15% do PTV. Reconsiderar o plano.</p>
+        </div>
+        <div class="card danger">
+          <h4>PTV 95 &lt; 85%</h4>
+          <p><strong>✗ Inaceitável:</strong> replanejamento obrigatório.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATO (LISTAS SUSPENSAS) -->
+    <div class="content-box fade-in">
+      <h3 style="color: var(--accent); font-size: 1.8rem;">📋 Relato sobre PTV 95/90/85 (ICRU 71)</h3>
+
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Nível 1 — Mínimo</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="list-styled">
+              <li>Proporção do PTV recebendo ≥ 95% da dose prescrita</li>
+              <li>Justificar se o valor for &lt; 95%</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Nível 2 — Recomendado</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="list-styled">
+              <li>Relatar proporções do PTV ≥ 95%, ≥ 90% e ≥ 107% da dose prescrita</li>
+              <li>Indicar dose mínima, máxima e homogeneidade [(Dmax–Dmin)/Dmed × 100%]</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Nível 3 — Completo (Pesquisa)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="list-styled">
+              <li>DVH completo (histograma dose-volume)</li>
+              <li>Estatísticas de dose (média, mediana, desvio padrão)</li>
+              <li>Índices de conformidade e qualidade técnica do plano</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🧾 Exemplo Real — Parede Torácica</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Dose prescrita:</strong> 50 Gy / 25 frações</p>
+            <ul class="list-styled">
+              <li>PTV 95: 97%</li>
+              <li>PTV 90: 99%</li>
+              <li>PTV 85: 99.5%</li>
+              <li>Homogeneidade: 7.2% (meta &lt; 10%)</li>
+            </ul>
+            <p><strong>Conclusão:</strong> Plano aprovado conforme ICRU 71</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="content-box fade-in">
+      <h3 style="color: var(--accent); font-size: 1.8rem;">✅ Ações Baseadas em PTV 95</h3>
+      <div class="grid-2">
+        <div class="card success">
+          <h4>PTV 95 ≥ 97%</h4>
+          <p>Plano aprovado sem restrições.</p>
+          <ul class="list-styled"><li>Documentar e tratar.</li></ul>
+        </div>
+        <div class="card good">
+          <h4>PTV 95 = 95–97%</h4>
+          <p>Aprovado, mas revisar homogeneidade e Dmáx &lt; 107%.</p>
+        </div>
+        <div class="card warning">
+          <h4>PTV 95 = 90–95%</h4>
+          <p>Requer revisão e justificativa formal.</p>
+        </div>
+        <div class="card danger">
+          <h4>PTV 95 &lt; 90%</h4>
+          <p>Plano inaceitável — replanejar completamente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ===== SEÇÃO 5.3: COMBINAÇÕES ELÉTRON-FÓTON ===== -->
+<section id="combinacoes-ef" class="fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">⚡ Combinações Elétron–Fóton</h2>
+      <p class="section-subtitle"> Técnicas Híbridas</p>
+    </div>
+
+    <!-- CITAÇÃO ICRU -->
+    <div class="icru-quote">
+      <p>
+        <strong>ICRU 71, Seção 5.3, p.64:</strong><br>
+        <em>"A combination of electron and photon beams may be used to achieve better dose distributions. 
+        The combination may be in sequential fractions or by weighting different contributions of each beam type."</em>
+      </p>
+    </div>
+
+    <!-- POR QUÊ COMBINAR -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle" style="color: var(--secondary);">🎯 Por Que Combinar Elétron + Fóton?</h3>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>✅ Vantagens Elétron</h3>
+          <ul class="list-styled">
+            <li>Proteção dos tecidos profundos</li>
+            <li>Dose superficial controlada</li>
+            <li>Gradiente rápido</li>
+            <li>Campos colimáveis com precisão</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>✅ Vantagens Fóton</h3>
+          <ul class="list-styled">
+            <li>Penetração em qualquer profundidade</li>
+            <li>Boa homogeneidade de dose</li>
+            <li>Menor sensibilidade à heterogeneidade</li>
+            <li>Setup mais simples</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h3>💡 Estratégia Combinada</h3>
+        <p>
+          <strong>Fóton de baixa energia:</strong> trata regiões profundas e médias<br>
+          <strong>Elétron:</strong> reforço superficial e contornos especiais<br>
+          <strong>Resultado:</strong> Distribuição de dose superior à de feixes isolados.
+        </p>
+      </div>
+    </div>
+
+    <!-- ESQUEMAS DE COMBINAÇÃO -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle" style="color: var(--secondary);">📊 Dois Esquemas de Combinação</h3>
+
+      <div class="accordion">
+        <!-- Sequencial -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>📅 Esquema 1 — Sequencial (por Fração)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Como funciona:</strong> cada fração recebe ambos os feixes no mesmo dia.</p>
+            <div class="example-box">
+              <strong>Exemplo:</strong><br>
+              Fração 1: 1.0 Gy fóton + 1.0 Gy elétron = 2.0 Gy total<br>
+              Repetido por 25 frações → 50 Gy total
+            </div>
+            <p><strong>Vantagens:</strong></p>
+            <ul class="list-styled">
+              <li>Benefícios de ambos em cada fração</li>
+              <li>Dose total entregue no tempo esperado</li>
+              <li>Melhor homogeneidade temporal</li>
+            </ul>
+            <p><strong>Desvantagens:</strong></p>
+            <ul class="list-styled">
+              <li>Tempo de tratamento dobrado</li>
+              <li>Setup mais crítico</li>
+              <li>Logística mais complexa</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Split-Course -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🔄 Esquema 2 — Por Bloco (Split-Course)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Como funciona:</strong> primeiro utiliza-se fóton por várias frações e depois elétron como boost.</p>
+            <div class="example-box">
+              <strong>Exemplo:</strong><br>
+              15 frações de fóton (1.8 Gy) = 27 Gy (60%)<br>
+              + 10 frações de elétron (2.3 Gy) = 23 Gy (40%)<br>
+              = 50 Gy total em 25 frações
+            </div>
+            <p><strong>Vantagens:</strong></p>
+            <ul class="list-styled">
+              <li>Tempo diário normal</li>
+              <li>Setup mais simples</li>
+              <li>Permite boost superficial no final</li>
+            </ul>
+            <p><strong>Desvantagens:</strong></p>
+            <ul class="list-styled">
+              <li>Menor homogeneidade durante o curso</li>
+              <li>Fase inicial com dose profunda maior</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATO OBRIGATÓRIO -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle" style="color: var(--accent);">📋 Relato Obrigatório (ICRU 71, p.64–65)</h3>
+
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>📄 Informações Obrigatórias da Combinação E–F</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="list-styled">
+              <li><strong>1. Especificação de cada feixe:</strong> energia, campo, SSD/SAD, dose pico, total e nº de frações</li>
+              <li><strong>2. Sequência:</strong> tipo (sequencial ou split), ordem e total de frações</li>
+              <li><strong>3. Dose total:</strong> fração por feixe, % fóton vs % elétron</li>
+              <li><strong>4. Ponto(s) ICRU:</strong> localização, dose fóton, elétron e soma total</li>
+              <li><strong>5. Cobertura PTV:</strong> PTV 95, Dmin, Dmax e homogeneidade</li>
+              <li><strong>6. OARs:</strong> dose fóton, elétron e total por órgão</li>
+              <li><strong>7. DVH combinado:</strong> DVH total para PTV e OARs</li>
+              <li><strong>8. Justificativa:</strong> motivo clínico para uso combinado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERROS COMUNS -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle" style="color: var(--danger);">⚠️ Erros Comuns em Combinações E–F</h3>
+
+      <div class="grid-2">
+        <div class="card danger">
+          <h3>❌ DVH Incorreto</h3>
+          <p><strong>Erro:</strong> calcular apenas DVH de um feixe.</p>
+          <p><strong>Correção:</strong> sempre somar DVH fóton + elétron (voxel a voxel).</p>
+        </div>
+        <div class="card danger">
+          <h3>❌ OAR sem Soma</h3>
+          <p><strong>Erro:</strong> reportar apenas fóton.</p>
+          <p><strong>Correção:</strong> somar doses dos dois feixes antes de relatar.</p>
+        </div>
+        <div class="card danger">
+          <h3>❌ Setup Incorreto</h3>
+          <p><strong>Erro:</strong> campos mal alinhados (diferente isocenter).</p>
+          <p><strong>Correção:</strong> usar mesmo ponto de referência e verificação a laser.</p>
+        </div>
+        <div class="card danger">
+          <h3>❌ Dose Duplicada</h3>
+          <p><strong>Erro:</strong> prescrever “50 Gy E–F” mas aplicar 50 Gy de cada.</p>
+          <p><strong>Correção:</strong> especificar claramente a soma total (ex: 25 + 25 Gy = 50 Gy).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUMO -->
+    <div class="highlight-box fade-in">
+      <h3>🎯 Resumo: Combinações E–F segundo ICRU 71</h3>
+      <ul class="list-styled">
+        <li>Objetivo: aproveitar vantagens de cada feixe</li>
+        <li>Dois esquemas: Sequencial e Split-Course</li>
+        <li>Divisão de dose: flexível (50/50, 60/40 etc.)</li>
+        <li>Ponto ICRU único preferencial</li>
+        <li>DVH = fóton + elétron</li>
+        <li>Relato deve conter todos os parâmetros acima</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- ===== FIM SEÇÃO 5.3 ===== -->
+
+<!-- ===== SEÇÃO 6.1: IORT (Intra-operative Radiation Therapy) ===== -->
+<section id="iort" class="fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">🧵 IORT — Radioterapia Intraoperatória</h2>
+      <p class="section-subtitle"> Protocolo Especializado</p>
+    </div>
+
+    <!-- CITAÇÃO ICRU -->
+    <div class="icru-quote">
+      <p><strong>ICRU 71, Seção 6.1, p.69:</strong><br>
+        <em>“Intra-operative electron therapy é a administração de uma dose relativamente alta em fração única para uma área anatômica bem definida, exposta cirurgicamente. O feixe de elétrons é aplicado através de um aplicador especial montado no acelerador linear.”</em>
+      </p>
+    </div>
+
+    <!-- CONCEITO FUNDAMENTAL -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">📋 O que é IORT?</h3>
+      <ul class="list-styled">
+        <li><strong>Entrega de dose:</strong> Grande fração única (típico 10–20 Gy)</li>
+        <li><strong>Momento:</strong> Durante cirurgia, na sala cirúrgica ou após ressecção</li>
+        <li><strong>Alvo:</strong> Leito cirúrgico ou área de risco bem definida</li>
+        <li><strong>Feixe:</strong> Elétrons (raramente fótons)</li>
+        <li><strong>Equipamento:</strong> Aplicador especial acoplado ao acelerador</li>
+        <li><strong>Vantagem:</strong> Evita radiação a estruturas críticas durante o ato cirúrgico</li>
+      </ul>
+    </div>
+
+    <!-- INDICAÇÕES E VANTAGENS -->
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <h3>🎯 Indicações Comuns</h3>
+        <ul class="list-styled">
+          <li>Câncer de mama (leito costal)</li>
+          <li>Câncer de cólon</li>
+          <li>Câncer de pâncreas</li>
+          <li>Sarcomas de parede torácica</li>
+          <li>Recidivas ressecáveis</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>⚖️ Vantagens e Desvantagens</h3>
+        <div class="accordion">
+          <div class="accordion-item open">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <span>Vantagens</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <ul class="list-styled">
+                <li>✓ Poupa órgãos normais profundos</li>
+                <li>✓ Dose alta em fração única (boost)</li>
+                <li>✓ Controle visual do campo</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <span>Desvantagens</span>
+              <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+              <ul class="list-styled">
+                <li>✗ Planejamento limitado</li>
+                <li>✗ Fracionamento não possível</li>
+                <li>✗ QA em tempo real desafiador</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REQUISITOS TÉCNICOS -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">⚙️ Requisitos Técnicos IORT</h3>
+
+      <div class="accordion">
+
+        <!-- Sistema de Aplicador (aberto por padrão) -->
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🔧 Sistema de Aplicador</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Dois tipos principais:</strong></p>
+            <h4>1. Sistema Docking (Acoplamento Direto)</h4>
+            <ul class="list-styled">
+              <li>Aplicador acoplado diretamente à guia do feixe</li>
+              <li>SSD fixo (típico 100 cm)</li>
+              <li>Alta estabilidade mecânica</li>
+              <li>Exemplo: Zeiss OPTIBEAM, Varian MOBILE IORT</li>
+            </ul>
+            <h4>2. Sistema Não-Docking</h4>
+            <ul class="list-styled">
+              <li>Aplicador separado, posicionado manualmente</li>
+              <li>SSD variável (adaptado ao sítio)</li>
+              <li>Maior flexibilidade anatômica</li>
+              <li>Menor precisão mecânica</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Seleção de Energia -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>⚡ Seleção de Energia IORT</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Energias típicas:</strong> 6 – 22 MeV</p>
+            <table class="data-table center">
+              <thead>
+                <tr>
+                  <th>Energia Nominal</th>
+                  <th>Energia na Superfície</th>
+                  <th>Profundidade Típica</th>
+                  <th>Indicação IORT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>6 MeV</td><td>4–5 MeV</td><td>1–2 cm</td><td>Parede superficial</td></tr>
+                <tr><td>9–12 MeV</td><td>7–10 MeV</td><td>2–4 cm</td><td>Leito cólon, parede torácica</td></tr>
+                <tr><td>15–18 MeV</td><td>12–15 MeV</td><td>4–6 cm</td><td>Pâncreas, intestino</td></tr>
+              </tbody>
+            </table>
+            <p class="alert alert-warning"><strong>⚠️ Nota:</strong> Perdas de energia no aplicador (3–5 MeV) devem ser consideradas!</p>
+          </div>
+        </div>
+
+        <!-- Ângulo de Bisel -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>📐 Ângulo de Bisel (Bevel)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p><strong>Definição:</strong> Ângulo entre eixo do feixe e superfície do aplicador.</p>
+            <ul class="list-styled">
+              <li>0° (perpendicular)</li>
+              <li>30°, 45°, 60° (superfícies inclinadas)</li>
+            </ul>
+            <div class="alert alert-warning">
+              <strong>⚠️ ICRU 71 recomenda:</strong>
+              <ul class="list-styled">
+                <li>Definir claramente o “clinical axis”</li>
+                <li>Medir profundidade ao longo do clinical axis</li>
+                <li>Verificar dose superficial aumentada</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clinical Axis -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🎯 Clinical Axis — Conceito Crítico</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <div class="formula-box">
+              <strong>Definição:</strong> Eixo perpendicular à superfície do tecido, passando pelo ponto de intersecção do feixe.<br><br>
+              <strong>Importância:</strong> Profundidades dosimétricas devem ser medidas ao longo do clinical axis.
+            </div>
+            <div class="diagram center-text">
+              <pre>
+Feixe perpendicular → clinical axis = eixo do feixe  
+Feixe 45° → clinical axis ⟂ superfície  
+Profundidade real: d' = d × cos(θ)
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===== SEÇÃO 6.1 (Parte 2): Ponto ICRU e Prescrição de Dose em IORT ===== -->
+<section id="iort-dose" class="fade-in">
+  <div class="container">
+
+    <!-- PONTO ICRU -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">🎯 Ponto de Referência ICRU para IORT</h3>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>📍 Feixe Perpendicular (θ = 0°)</h4>
+          <ul class="list-styled">
+            <li>Ponto ICRU no pico de dose (ao longo do eixo do feixe)</li>
+            <li>Profundidade típica: 1–2 cm</li>
+            <li>Localização: centro do campo do aplicador</li>
+            <li>Simples de definir e medir</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h4>📍 Feixe Oblíquo (θ ≠ 0°)</h4>
+          <ul class="list-styled">
+            <li>Ponto ICRU = máximo ao longo do <em>clinical axis</em></li>
+            <li>⚠️ Não é o máximo ao longo do eixo do feixe!</li>
+            <li>Profundidade medida ao longo do <em>clinical axis</em></li>
+            <li>Requer cuidado adicional na definição e medição</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h4>✅ Procedimento ICRU 71 para Seleção do Ponto IORT</h4>
+        <ol class="list-styled">
+          <li><strong>Passo 1:</strong> Medir dose vs profundidade ao longo do <em>clinical axis</em> em água</li>
+          <li><strong>Passo 2:</strong> Identificar o ponto de dose máxima (<em>D<sub>máx</sub></em>)</li>
+          <li><strong>Passo 3:</strong> Se máximo na superfície → usar superfície + 0,5 cm</li>
+          <li><strong>Passo 4:</strong> Se máximo profundo → usar ponto máximo (≈1,5–2,5 cm)</li>
+          <li><strong>Passo 5:</strong> Verificar gradiente de dose suave (sem picos abruptos)</li>
+          <li><strong>Passo 6:</strong> Documentar claramente no relatório</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PRESCRIÇÃO DE DOSE -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">📊 Prescrição de Dose em IORT</h3>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>💉 Doses Típicas IORT</h4>
+          <ul class="list-styled">
+            <li><strong>Boost:</strong> 10–15 Gy</li>
+            <li><strong>Definitiva (raro):</strong> 20–25 Gy</li>
+            <li><strong>Paliativa:</strong> 8–10 Gy</li>
+          </ul>
+          <div class="alert alert-warning">
+            ⚠️ <strong>Atenção:</strong> Dose única alta pode gerar toxicidade significativa.  
+            Deve ser sempre justificada clinicamente.
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>📦 Definição de Volume em IORT</h4>
+          <ul class="list-styled">
+            <li><strong>Volume tratado:</strong> Leito cirúrgico exposto</li>
+            <li>Não há GTV/CTV/PTV formais (dose única)</li>
+            <li>Planejamento limitado → cobertura homogênea é o objetivo</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-clinical">
+        <strong>📋 Abordagem ICRU 71:</strong><br><br>
+        <strong>Dose prescrita:</strong> no ponto de referência ICRU (pico)<br>
+        <strong>Meta:</strong> ≥ 90% do leito deve receber a dose prescrita<br>
+        <strong>Máximo aceitável:</strong> nenhuma área > 130% da dose
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SEÇÃO 6.2: TSI - Total Skin Irradiation ===== -->
+<section id="tsi" class="fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">🧴 TSI – Irradiação Total de Pele (Total Skin Irradiation)</h2>
+      <p class="section-subtitle"> Técnicas de Elétrons para Corpo Inteiro</p>
+    </div>
+
+    <!-- DEFINIÇÃO -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">📘 Conceito e Objetivo</h3>
+      <p class="text-large">
+        A <strong>Irradiação Total de Pele (TSI)</strong> utiliza feixes de elétrons de energia baixa a moderada 
+        para tratar toda a superfície cutânea, com o objetivo de erradicar doenças como o 
+        <em>Mycosis fungoides</em> e outros linfomas cutâneos.
+      </p>
+      <ul class="list-styled">
+        <li>⚙️ Técnica especializada com geometria ampla e campos múltiplos</li>
+        <li>🎯 Dose distribuída uniformemente sobre toda a pele (±10%)</li>
+        <li>👤 Paciente posicionado em pé ou deitado conforme técnica</li>
+        <li>📏 Profundidade de tratamento: até 0,5 cm (camada dérmica)</li>
+      </ul>
+    </div>
+
+    <!-- TÉCNICAS DE APLICAÇÃO -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">⚙️ Técnicas Principais</h3>
+      <div class="accordion">
+
+        <!-- Técnica Stanford -->
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🏛️ Técnica de Stanford (Clássica)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>
+              Desenvolvida na Universidade de Stanford, é o padrão-ouro para TSI. Utiliza feixes de elétrons
+              de baixa energia em grandes distâncias-fonte (SSD ≈ 350–400 cm) para cobertura homogênea.
+            </p>
+            <ul class="list-styled">
+              <li><strong>Energia nominal:</strong> 6 MeV (reduzida para 3–4 MeV na pele)</li>
+              <li><strong>Campos:</strong> 6 campos duplos (3 pares de feixes opostos)</li>
+              <li><strong>Posições do paciente:</strong> 6 (frontal, dorsal, laterais, 2 intermediárias)</li>
+              <li><strong>Dose por sessão:</strong> 1–2 Gy</li>
+              <li><strong>Dose total típica:</strong> 30–36 Gy (6–9 semanas)</li>
+            </ul>
+            <div class="alert alert-info">
+              💡 <strong>Nota:</strong> O uso de "spoilers" de acrílico (1 cm) ajuda na uniformidade e 
+              reduz a energia superficial excessiva.
+            </div>
+          </div>
+        </div>
+
+        <!-- Técnica Rotacional -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🔄 Técnica Rotacional (Rotating-Patient TSI)</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>
+              Variante moderna na qual o paciente gira lentamente diante do feixe de elétrons,
+              permitindo distribuição contínua e homogênea.
+            </p>
+            <ul class="list-styled">
+              <li>Reduz heterogeneidades nas junções de campo</li>
+              <li>Melhor conforto e reprodutibilidade</li>
+              <li>Requer sistema motorizado de rotação (1–2 rpm)</li>
+              <li>Permite uso de energia única (geralmente 6 MeV)</li>
+            </ul>
+            <div class="alert alert-warning">
+              ⚠️ <strong>Atenção:</strong> Deve-se verificar uniformidade em todo o corpo 
+              com filme dosimétrico ou sistema de TLDs.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- REQUISITOS TÉCNICOS -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">🔬 Requisitos Técnicos Essenciais</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>🎯 Parâmetros de Feixe</h4>
+          <ul class="list-styled">
+            <li>Energia nominal: 4–9 MeV</li>
+            <li>SSD: 300–400 cm</li>
+            <li>Campo: 200 × 80 cm (mínimo)</li>
+            <li>Taxa de dose reduzida (para evitar superaquecimento)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h4>🧩 Homogeneidade e Cobertura</h4>
+          <ul class="list-styled">
+            <li>Uniformidade de ±10% em toda a superfície corporal</li>
+            <li>Medida em pontos anatômicos-chave (ombros, joelhos, tornozelos)</li>
+            <li>Compensação com bolus em áreas côncavas (mamas, períneo)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRESCRIÇÃO E DOSE -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">📊 Prescrição e Dose Total</h3>
+      <ul class="list-styled">
+        <li><strong>Dose total típica:</strong> 30–36 Gy (frações de 1–2 Gy)</li>
+        <li><strong>Pontos de referência:</strong> Pele média em tronco e extremidades</li>
+        <li><strong>Correção por perda superficial:</strong> até 20% de atenuação em áreas de dobra</li>
+        <li><strong>Regiões especiais:</strong> couro cabeludo, planta dos pés, axilas e períneo → reforço local (boost)</li>
+      </ul>
+      <div class="alert alert-clinical">
+        <strong>ICRU 71 recomenda:</strong> Relatar uniformidade, energia efetiva e dose média em pelo menos 10 regiões anatômicas.
+      </div>
+    </div>
+
+  </div>
+</section>
+            
+   <!-- ===== SEÇÃO 6.3: QA - Controle de Qualidade ===== -->
+<section id="qa" class="fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">⚙️ QA – Controle de Qualidade em Radioterapia com Elétrons</h2>
+      <p class="section-subtitle">Garantia de qualidade para IORT e TSI conforme ICRU 71</p>
+    </div>
+
+    <!-- INTRODUÇÃO -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">📘 Importância do QA</h3>
+      <p class="text-large">
+        O programa de <strong>Controle de Qualidade (QA)</strong> assegura que todos os parâmetros de dose, geometria 
+        e segurança estejam dentro dos limites estabelecidos pelos relatórios <strong>ICRU 71</strong> e <strong>AAPM TG-40/51/71</strong>.  
+        Cada etapa — desde o planejamento até a entrega — deve ser testada, documentada e reavaliada periodicamente.
+      </p>
+    </div>
+
+    <!-- ACCORDION DE NÍVEIS DE QA -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">🧩 Níveis de QA</h3>
+
+      <div class="accordion">
+
+        <!-- Nível 1 -->
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🔹 QA Nível 1 – Aceitação e Comissionamento</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="list-styled">
+              <li>Verificação de parâmetros físicos do acelerador em modo elétron</li>
+              <li>Curvas de percent depth dose (PDD) para todas as energias</li>
+              <li>Planicidade e simetria de campo dentro de ±3%</li>
+              <li>Calibração absoluta da dose (AAPM TG-51)</li>
+              <li>Teste de reprodutibilidade de dose diária</li>
+              <li>Documentação de referência e tabelas de dados clínicos</li>
+            </ul>
+            <div class="alert alert-info">
+              💡 Inclui validação da <strong>taxa de dose</strong> e <strong>posicionamento mecânico</strong> dos aplicadores IORT.
+            </div>
+          </div>
+        </div>
+
+        <!-- Nível 2 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🔸 QA Nível 2 – Verificação Periódica</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="list-styled">
+              <li>Verificação semanal da taxa de dose e simetria</li>
+              <li>Checagem mensal de profundidade de máxima dose (R<sub>100</sub>) e R<sub>50</sub></li>
+              <li>Revisão de calibração de câmaras de ionização</li>
+              <li>Validação de algoritmos de dose em TPS (AAPM TG-53)</li>
+              <li>Controle de sistemas de imagem e alinhamento (simulador, CT, CBCT)</li>
+            </ul>
+            <div class="alert alert-warning">
+              ⚠️ <strong>ICRU 71:</strong> diferenças >3% na dose ou >2 mm na profundidade devem ser investigadas imediatamente.
+            </div>
+          </div>
+        </div>
+
+        <!-- Nível 3 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>🔻 QA Nível 3 – Casos Avançados e Verificação Clínica</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <ul class="list-styled">
+              <li>Testes com campos irregulares e múltiplos feixes</li>
+              <li>Simulação 3D do paciente (phantom antropomórfico)</li>
+              <li>Dosimetria in vivo com TLD ou MOSFET</li>
+              <li>Comparação cálculo vs medida (critério 3% / 3 mm)</li>
+              <li>Validação de obliquidade e heterogeneidades (AAPM TG-70)</li>
+              <li>Revisão clínica multiprofissional após cada tratamento</li>
+            </ul>
+            <div class="alert alert-success">
+              ✅ <strong>Meta:</strong> Conformidade de dose em ≥95% do PTV com erro ≤5%.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PARÂMETROS DE TOLERÂNCIA -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">📊 Parâmetros e Tolerâncias (ICRU 71)</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Parâmetro</th>
+              <th>Tolerância</th>
+              <th>Frequência</th>
+              <th>Método</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Dose rate</td><td>±3%</td><td>Semanal</td><td>Câmara de referência</td></tr>
+            <tr><td>Energia média (R<sub>50</sub>)</td><td>±5%</td><td>Mensal</td><td>Curva PDD em água</td></tr>
+            <tr><td>Simetria</td><td>±2%</td><td>Semanal</td><td>Detector 2D / filme</td></tr>
+            <tr><td>Planicidade</td><td>±3%</td><td>Semanal</td><td>Perfil transversal</td></tr>
+            <tr><td>Profundidade máxima</td><td>±2 mm</td><td>Mensal</td><td>Scanner de água</td></tr>
+            <tr><td>Calibração TPS</td><td>±3% / ±3 mm</td><td>Semestral</td><td>Casos teste clínicos</td></tr>
+            <tr><td>Dosimetria in vivo</td><td>±5%</td><td>Por paciente</td><td>TLD / MOSFET</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ALERTAS E RECOMENDAÇÕES -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">💡 Boas Práticas e Recomendações</h3>
+      <ul class="list-styled">
+        <li>Registrar todas as medições de dose e parâmetros geométricos</li>
+        <li>Usar phantoms padronizados e sistemas automatizados de varredura</li>
+        <li>Documentar comparações cálculo/medida e ajustes aplicados</li>
+        <li>Validar TPS antes da liberação clínica de qualquer protocolo</li>
+        <li>Treinar equipe técnica em particularidades de feixes de elétrons</li>
+        <li>Realizar auditorias anuais conforme AAPM TG-142</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+    <!-- ===== SEÇÃO 6.4: REFERÊNCIAS ESSENCIAIS ===== -->
+<section id="referencias" class="fade-in">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">📚 Referências Essenciais</h2>
+      <p class="section-subtitle">Fontes oficiais e literatura fundamental</p>
+    </div>
+
+    <!-- ICRU -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">📘 Relatórios ICRU</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h3>📖 ICRU Report 71 (2004)</h3>
+          <p>Prescribing, Recording, and Reporting Electron Beam Therapy.</p>
+          <p><strong>Base fundamental</strong> para todas as práticas de radioterapia com elétrons, incluindo IORT e TSI.</p>
+        </div>
+
+        <div class="card">
+          <h3>📖 ICRU Reports 50 e 62</h3>
+          <p>Definição dos volumes GTV, CTV, PTV e recomendações de dose.</p>
+          <p>Aplicáveis a elétrons e fótons, referência obrigatória para prescrição clínica.</p>
+        </div>
+
+        <div class="card">
+          <h3>📖 ICRU Report 35 (1984)</h3>
+          <p>Radiation Dosimetry: Electron Beams with Energies 1–50 MeV.</p>
+          <p>Contém dados físicos detalhados para calibração e QA de feixes eletrônicos.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AAPM -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">🇺🇸 Protocolos AAPM (American Association of Physicists in Medicine)</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h3>📑 TG-25 (1991)</h3>
+          <p><strong>Clinical Electron Beam Dosimetry</strong> – guia prático para calibração e medição clínica.</p>
+        </div>
+
+        <div class="card">
+          <h3>📑 TG-51 (2014)</h3>
+          <p><strong>Reference Dosimetry Protocol</strong> – calibração de feixes de elétrons e fótons de alta energia.</p>
+        </div>
+
+        <div class="card">
+          <h3>📑 TG-71 (2014)</h3>
+          <p><strong>Total Skin Irradiation</strong> – técnicas, QA e parâmetros clínicos para TSI.</p>
+        </div>
+
+        <div class="card">
+          <h3>📑 TG-142 (2009)</h3>
+          <p><strong>QA of Medical Accelerators</strong> – auditorias e verificações de rotina de aceleradores clínicos.</p>
+        </div>
+
+        <div class="card">
+          <h3>📑 AAPM Report 48 (1995)</h3>
+          <p><strong>Intraoperative Electron Beam Therapy</strong> – recomendações técnicas específicas para IORT.</p>
+        </div>
+
+        <div class="card">
+          <h3>📑 AAPM Report 62 (1998)</h3>
+          <p><strong>Quality Assurance for Treatment Planning</strong> – validação e controle de qualidade de TPS.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- IAEA -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">🌍 Protocolos Internacionais (IAEA e NACP)</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h3>🌐 IAEA TRS-277 (1987)</h3>
+          <p>Absorbed Dose Determination in Photon and Electron Beams.</p>
+          <p>Protocolo internacional de dosimetria, base para comparações entre países.</p>
+        </div>
+
+        <div class="card">
+          <h3>🌐 IAEA TRS-381 (1997)</h3>
+          <p>The Use of Plane Parallel Ionization Chambers in High Energy Electron Beams.</p>
+          <p>Referência para calibração de câmaras plano-paralelas.</p>
+        </div>
+
+        <div class="card">
+          <h3>🇳🇴 NACP (1980)</h3>
+          <p>Procedures in External Radiation Therapy with Electron and Photon Beams.</p>
+          <p>Normas da associação nórdica de física clínica — precursoras do TG-25.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVROS -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">📚 Livros Fundamentais</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h3>📘 Khan, F.M. (2014)</h3>
+          <p><em>The Physics of Radiation Therapy</em> – Lippincott Williams & Wilkins.</p>
+          <p>Obra clássica, capítulos dedicados à física e dosimetria de elétrons.</p>
+        </div>
+
+        <div class="card">
+          <h3>📘 Hendry & Potten (2002)</h3>
+          <p><em>Radiation Oncology: Biophysical Principles and Clinical Applications</em>.</p>
+          <p>Integração entre princípios biológicos e aplicações clínicas.</p>
+        </div>
+
+        <div class="card">
+          <h3>📘 Brahme & Svensson (1996)</h3>
+          <p><em>Treatment Planning and Dose Calculation for Electron Beams</em> – <br>Seminars in Radiation Oncology.</p>
+          <p>Discussão detalhada de planejamento 3D e correções de heterogeneidade.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECURSOS ONLINE -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">🔗 Recursos Online Recomendados</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h3>🌐 ESTRO</h3>
+          <p><a href="https://www.estro.org" target="_blank">www.estro.org</a></p>
+          <p>Diretrizes europeias e consensos clínicos para radioterapia.</p>
+        </div>
+
+        <div class="card">
+          <h3>🌐 ASTRO</h3>
+          <p><a href="https://www.astro.org" target="_blank">www.astro.org</a></p>
+          <p>Protocolos clínicos e diretrizes de tratamento por sítio.</p>
+        </div>
+
+        <div class="card">
+          <h3>🌐 IAEA Portal</h3>
+          <p><a href="https://www.iaea.org/services/relevant-linkages/radiation-safety" target="_blank">www.iaea.org</a></p>
+          <p>Normativas internacionais e recursos de segurança radiológica.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSÃO -->
+    <div class="content-box fade-in">
+      <h3 class="section-subtitle">✨ Conclusão</h3>
+      <p class="text-large">
+        O <strong>ICRU Report 71</strong> define padrões essenciais para prescrição e relato de tratamentos com elétrons, 
+        complementados pelos protocolos <strong>AAPM</strong> e <strong>IAEA</strong>.  
+        Aplicar essas diretrizes assegura <strong>segurança, reprodutibilidade e qualidade clínica</strong>.
+      </p>
+      <p class="text-center highlight-text" style="margin-top:1.5rem; font-style: italic;">
+        “Qualidade em radioterapia começa com precisão em medição e exatidão em relato.”
+      </p>
+    </div>
+  </div>
+</section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ICRU 71</h3>
+                    <p>Prescrição, Registro e Relato de Terapia com Feixe de Elétrons</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <ul>
+                        <li><a href="#ferramentas">Ferramentas Interativas</a></li>
+                        <li><a href="#casos-clinicos">Casos Clínicos</a></li>
+                        <li><a href="#erros-comuns">Checklists</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Referências</h3>
+                    <p>ICRU Report 71 (2004)<br>
+                    Journal of ICRU Vol 4 No 1</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Material Educativo - ICRU 71. Para fins educacionais.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // === FUNÇÕES PRINCIPAIS ===
+        
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('progressBar').style.width = scrollPercentage + '%';
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Accordion Functionality
+        function toggleAccordion(element) {
+            const header = element;
+            const content = header.nextElementSibling;
+            
+            // Close all other accordions
+            document.querySelectorAll('.accordion-content.active').forEach(activeContent => {
+                if (activeContent !== content) {
+                    activeContent.classList.remove('active');
+                    activeContent.previousElementSibling.classList.remove('active');
+                }
+            });
+            
+            // Toggle current
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        // Smooth Scroll for Anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Casos Clínicos Navigation
+        function showCase(n) {
+            const cases = document.querySelectorAll('.case-container');
+            const btns = document.querySelectorAll('.case-btn');
+            cases.forEach(c => c.classList.remove('active'));
+            btns.forEach(b => b.classList.remove('active'));
+            document.getElementById('case' + n).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // === SELETOR DE ENERGIA - CÓDIGO COMPLETO E FUNCIONAL ===
+const energias = [
+    { energia: 4, rp: 2.0, r90: 1.3, r85: 1.0, disponibilidade: 'Menos comum' },
+    { energia: 6, rp: 3.0, r90: 2.0, r85: 1.5, disponibilidade: 'Padrão' },
+    { energia: 9, rp: 4.5, r90: 3.0, r85: 2.5, disponibilidade: 'Padrão' },
+    { energia: 12, rp: 6.0, r90: 4.0, r85: 3.5, disponibilidade: 'Padrão' },
+    { energia: 15, rp: 7.5, r90: 5.0, r85: 4.5, disponibilidade: 'Padrão' },
+    { energia: 18, rp: 9.0, r90: 6.0, r85: 5.5, disponibilidade: 'Comum' },
+    { energia: 20, rp: 10.0, r90: 7.0, r85: 6.0, disponibilidade: 'Comum' },
+    { energia: 25, rp: 12.5, r90: 9.0, r85: 8.0, disponibilidade: 'Raro' }
+];
+
+function calcularEnergia() {
+    console.log('=== CALCULAR ENERGIA INICIADO ===');
+    
+    const proximal = parseFloat(document.getElementById('proximal').value);
+    const distal = parseFloat(document.getElementById('distal').value);
+    
+    console.log('Proximal:', proximal, 'Distal:', distal);
+    
+    if (isNaN(proximal) || isNaN(distal)) {
+        alert('Por favor, preencha ambas as profundidades!');
+        return;
+    }
+    
+    if (proximal >= distal) {
+        alert('A profundidade distal deve ser maior que a proximal!');
+        return;
+    }
+    
+    const media = (proximal + distal) / 2;
+    const espessura = distal - proximal;
+    
+    console.log('Média:', media, 'Espessura:', espessura);
+    
+    // Análise de energias
+    let energiasAdequadas = [];
+    let energiaIdeal = null;
+    
+    energias.forEach(e => {
+        const coberturaR90 = e.r90 >= distal;
+        const margem = e.r90 - distal;
+        
+        console.log(`Energia ${e.energia} MeV: R90=${e.r90}, Cobertura=${coberturaR90}, Margem=${margem}`);
+        
+        if (coberturaR90) {
+            const status = {
+                energia: e.energia,
+                rp: e.rp,
+                r90: e.r90,
+                r85: e.r85,
+                coberturaR90: coberturaR90,
+                margem: margem,
+                pico: e.rp
+            };
+            
+            energiasAdequadas.push(status);
+            if (!energiaIdeal || e.energia < energiaIdeal.energia) {
+                energiaIdeal = status;
+            }
+        }
+    });
+    
+    console.log('Energias adequadas:', energiasAdequadas);
+    console.log('Energia ideal:', energiaIdeal);
+    
+    // Mostrar resultados
+    const resultsDiv = document.getElementById('results');
+    if (!resultsDiv) {
+        console.error('Elemento #results não encontrado!');
+        return;
+    }
+    
+    resultsDiv.classList.add('show');
+    console.log('Results div mostrada');
+    
+    // Sumário PTV
+    const ptvSummary = document.getElementById('ptvSummary');
+    if (ptvSummary) {
+        ptvSummary.innerHTML = `
+            <p><strong>Profundidade Proximal:</strong> ${proximal.toFixed(1)} cm</p>
+            <p><strong>Profundidade Distal:</strong> ${distal.toFixed(1)} cm</p>
+            <p><strong>Profundidade Média:</strong> ${media.toFixed(1)} cm</p>
+            <p><strong>Espessura do PTV:</strong> ${espessura.toFixed(1)} cm</p>
+        `;
+    }
+    
+    // Recomendação
+    const recommendationCard = document.getElementById('recommendationCard');
+    const recommendationDiv = document.getElementById('recommendation');
+    
+    if (energiaIdeal && recommendationCard && recommendationDiv) {
+        recommendationCard.className = 'result-card success';
+        
+        recommendationDiv.innerHTML = `
+            <h3 style="color: var(--success); font-size: 2rem; margin-bottom: 1rem;">
+                ${energiaIdeal.energia} MeV
+            </h3>
+            <p><strong>Justificativa:</strong></p>
+            <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                <li style="margin: 0.5rem 0;">✓ R₉₀ = ${energiaIdeal.r90.toFixed(1)} cm > ${distal.toFixed(1)} cm (distal PTV)</li>
+                <li style="margin: 0.5rem 0;">✓ Margem de segurança: ${energiaIdeal.margem.toFixed(1)} cm</li>
+                <li style="margin: 0.5rem 0;">✓ Rp = ${energiaIdeal.pico.toFixed(1)} cm (proteção estruturas profundas)</li>
+                <li style="margin: 0.5rem 0;">✓ Menor energia adequada (menor dose profunda)</li>
+            </ul>
+            
+            <div style="background: rgba(78, 205, 196, 0.1); border: 2px dashed var(--secondary); padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: monospace;">
+                <strong>CRITÉRIO ICRU 71:</strong><br>
+                R₉₀ ≥ Profundidade Distal PTV<br><br>
+                <strong>Resultado:</strong> ${energiaIdeal.r90.toFixed(1)} ≥ ${distal.toFixed(1)} ✓
+            </div>
+        `;
+    } else if (recommendationCard && recommendationDiv) {
+        recommendationCard.className = 'result-card danger';
+        
+        recommendationDiv.innerHTML = `
+            <h3 style="color: var(--danger); font-size: 1.8rem; margin-bottom: 1rem;">
+                ⚠️ Nenhuma Energia Adequada
+            </h3>
+            <p><strong>Problema:</strong> PTV muito profundo (${distal.toFixed(1)} cm) para energias disponíveis.</p>
+            <p style="margin-top: 1rem;"><strong>Recomendações:</strong></p>
+            <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                <li style="margin: 0.5rem 0;">→ Considerar fótons</li>
+                <li style="margin: 0.5rem 0;">→ Considerar combinação fóton + elétron</li>
+                <li style="margin: 0.5rem 0;">→ Reavaliar delineação do PTV</li>
+            </ul>
+        `;
+    }
+    
+    // Tabela de energias
+    const energyTable = document.getElementById('energyTable');
+    if (energyTable) {
+        let tableHTML = `
+            <thead>
+                <tr>
+                    <th>Energia (MeV)</th>
+                    <th>Rp (cm)</th>
+                    <th>R₉₀ (cm)</th>
+                    <th>R₈₅ (cm)</th>
+                    <th>Status</th>
+                    <th>Margem (cm)</th>
+                </tr>
+            </thead>
+            <tbody>
+        `;
+        
+        energias.forEach(e => {
+            const coberturaR90 = e.r90 >= distal;
+            const margem = e.r90 - distal;
+            const isIdeal = energiaIdeal && e.energia === energiaIdeal.energia;
+            
+            let statusHTML = '';
+            let rowClass = '';
+            
+            if (isIdeal) {
+                statusHTML = '<span class="status-icon ok"></span> IDEAL';
+                rowClass = 'selected';
+            } else if (coberturaR90) {
+                statusHTML = '<span class="status-icon ok"></span> Adequado';
+            } else {
+                statusHTML = '<span class="status-icon error"></span> Inadequado';
+                rowClass = 'rejected';
+            }
+            
+            tableHTML += `
+                <tr class="${rowClass}">
+                    <td><strong>${e.energia} MeV</strong></td>
+                    <td>${e.rp.toFixed(1)}</td>
+                    <td>${e.r90.toFixed(1)}</td>
+                    <td>${e.r85.toFixed(1)}</td>
+                    <td>${statusHTML}</td>
+                    <td>${margem.toFixed(1)}</td>
+                </tr>
+            `;
+        });
+        
+        tableHTML += '</tbody>';
+        energyTable.innerHTML = tableHTML;
+    }
+    
+    // Cálculos
+    const calculationsDiv = document.getElementById('calculations');
+    if (calculationsDiv) {
+        calculationsDiv.innerHTML = `
+            <div style="background: rgba(78, 205, 196, 0.1); border: 2px dashed var(--secondary); padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: monospace; font-size: 0.9rem;">
+                <strong>1. Profundidade Média PTV:</strong><br>
+                d_média = (proximal + distal) / 2<br>
+                d_média = (${proximal.toFixed(1)} + ${distal.toFixed(1)}) / 2<br>
+                d_média = ${media.toFixed(1)} cm<br><br>
+
+                <strong>2. Critério ICRU 71 de Seleção:</strong><br>
+                Escolher energia cuja R₉₀ ≥ profundidade distal PTV<br><br>
+
+                <strong>3. Verificação Rp:</strong><br>
+                Rp deve estar FORA do PTV distal<br>
+                Rp > ${distal.toFixed(1)} cm<br><br>
+
+                <strong>4. Regra de Ouro:</strong><br>
+                Se múltiplas energias adequadas → Escolher MENOR energia<br>
+                (Minimiza dose a estruturas profundas)
+            </div>
+            
+            <div class="info-box">
+                <strong>📚 Definições:</strong><br>
+                • <strong>Rp (Practical Range):</strong> Profundidade onde dose cai para background de raios-X<br>
+                • <strong>R₉₀:</strong> Profundidade da isodose 90% (terapêutica)<br>
+                • <strong>R₈₅:</strong> Profundidade da isodose 85%<br>
+                • <strong>Margem:</strong> Diferença entre R₉₀ e profundidade distal PTV
+            </div>
+        `;
+    }
+    
+    // Scroll para resultados
+    setTimeout(() => {
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+    
+    console.log('=== CALCULAR ENERGIA FINALIZADO ===');
+}
+
+function resetarCalculadora() {
+    document.getElementById('proximal').value = '';
+    document.getElementById('distal').value = '';
+    
+    const resultsDiv = document.getElementById('results');
+    if (resultsDiv) {
+        resultsDiv.classList.remove('show');
+    }
+}
+
+// Verificação de carregamento
+console.log('✅ Seletor de energia carregado com sucesso!');
+console.log('🔧 calcularEnergia:', typeof calcularEnergia);
+console.log('🔄 resetarCalculadora:', typeof resetarCalculadora);
+
+        // Quiz Interativo
+        let quizAnswered = false;
+
+        function checkAnswer(option, isCorrect) {
+            if (quizAnswered) return;
+            
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('quizFeedback');
+            
+            options[option - 1].classList.add(isCorrect ? 'correct' : 'wrong');
+            
+            if (!isCorrect) {
+                options[2].classList.add('correct');
+            }
+            
+            quizAnswered = true;
+            
+            // Lógica de feedback do quiz
+            // [Implementação completa do quiz]
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animações de entrada
+            const cards = document.querySelectorAll('.error-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = 'fadeIn 0.5s ease-out';
+                }, index * 100);
+            });
+        });
+
+
+        // Funções para Figuras Interativas
+function initFigureZoom(figureId) {
+    const figure = document.getElementById(figureId);
+    const zoomBtn = document.getElementById(`zoom-${figureId}`);
+    const resetBtn = document.getElementById(`reset-${figureId}`);
+    
+    if (figure && zoomBtn) {
+        zoomBtn.addEventListener('click', () => {
+            figure.classList.toggle('zoomed');
+            zoomBtn.textContent = figure.classList.contains('zoomed') ? '🔍 Reduzir' : '🔍 Ampliar';
+        });
+    }
+    
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            figure.classList.remove('zoomed');
+            zoomBtn.textContent = '🔍 Ampliar';
+        });
+    }
+    
+    // Zoom no clique da imagem
+    figure.addEventListener('click', () => {
+        figure.classList.toggle('zoomed');
+        zoomBtn.textContent = figure.classList.contains('zoomed') ? '🔍 Reduzir' : '🔍 Ampliar';
+    });
+}
+
+// Inicializar todas as figuras ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar figuras por ID
+    initFigureZoom('figura-pdd');
+    initFigureZoom('figura-bolus');
+    initFigureZoom('figura-heterogeneidade');
+    initFigureZoom('figura-parede-toracica');
+    initFigureZoom('figura-obliquidade');
+});
+     
+    </script>
+</body>
+</html>
